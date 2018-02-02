@@ -1,5 +1,5 @@
-import {Tournament} from "../src/models/Tournament";
-import {getMatchesFromTeams, getTournament, orderTeams} from "../src/utils/TournamentUtils";
+import {Tournament} from "../shared/src/models/Tournament";
+import {getMatchesFromTeams, getTournament, orderTeams} from "../shared/src/utils/TournamentUtils";
 import {
     setGroupMatchScores, setGroupMatchScore2FullyEqualTeams, setGroupMatchScore3EqualTeams,
     setGroupMatchScore2on2EqualTeamsWithDifferenceBetween
