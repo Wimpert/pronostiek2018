@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jasmine",
     "build": "webpack",
-    "build-start": "webpack --watch & nodemon ./dist/app.js",
+    "watch": "webpack --watch",
+    "build-start": "webpack --watch & nodemon ../app.js",
     "build-test": "webpack --watch test-webpack.config.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w"
