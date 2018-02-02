@@ -18,7 +18,12 @@ var sourceConfig = {
     output: {
         filename: 'app.js',
         path: path.resolve(__dirname, 'dist')
-    }
+    },
+    node: {
+        fs: "empty",
+        net: 'empty'
+    },
+    target: 'node'
 };
 
 var testConfig = {

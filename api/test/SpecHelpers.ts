@@ -1,4 +1,4 @@
-import {Tournament} from "../shared/src/models/Tournament";
+import {Tournament} from "../src/models/Tournament";
 
 export function setGroupMatchScores(tournament: Tournament) :void {
     var groupA =  tournament.groups[0];
