@@ -1,7 +1,7 @@
 import * as express from "express";
 
 
-console.log("Hello Wim");
+console.log("Hello client");
 
 const app  =  express();
 
