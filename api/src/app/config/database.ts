@@ -2,8 +2,8 @@
 module.exports = {
     'connection': {
         'host': 'localhost',
-        'user': 'root',
-        //'password' : 'janu18'
+        'user': 'de_jackies',
+        'password' : 'spelvreugde_666'
         //'password': 'qk<wnWapG65w'
     },
     'database': 'pronostiek',
