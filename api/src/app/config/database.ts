@@ -3,7 +3,7 @@ module.exports = {
     'connection': {
         'host': 'localhost',
         'user': 'de_jackies',
-        'password' : 'spelvreugde_666'
+        'password' : 'spelvreugde666'
         //'password': 'qk<wnWapG65w'
     },
     'database': 'pronostiek',
