@@ -1,7 +1,7 @@
-import {Tournament} from "../models/Tournament";
-import {Team} from "../models/Team";
-import {Group} from "../models/Group";
-import {Match} from "../models/Match";
+import {Tournament} from "../models/tournament/Tournament";
+import {Team} from "../models/tournament/Team";
+import {Group} from "../models/tournament/Group";
+import {Match} from "../models/tournament/Match";
 import {HOME_TEAM_WINS, OUT_TEAM_WINS} from "../models/Constants";
 
 export function getTournament() : Tournament {

@@ -1,5 +1,5 @@
 import {Team} from "./Team";
-import { HOME_TEAM_WINS, MATCH_IS_DRAW, OUT_TEAM_WINS} from "./Constants";
+import { HOME_TEAM_WINS, MATCH_IS_DRAW, OUT_TEAM_WINS} from "../Constants";
 
 export class Match{
     homeTeam : Team;

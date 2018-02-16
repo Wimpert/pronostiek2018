@@ -1,7 +1,7 @@
 const path = require('path');
 
 var sourceConfig = {
-    entry: './src/index.ts',
+    entry: './src/app/index.ts',
     devtool: 'inline-source-map',
     module: {
         rules: [

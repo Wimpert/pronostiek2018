@@ -1,0 +1,11 @@
+CREATE TABLE `pronostiek`.`user` (
+  `id` VARCHAR(500) NOT NULL,
+  `username` VARCHAR(500) NULL,
+  `email` VARCHAR(500) NULL,
+  `password` VARCHAR(500) NULL,
+  `firstName` VARCHAR(500) NULL,
+  `lastName` VARCHAR(500) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+

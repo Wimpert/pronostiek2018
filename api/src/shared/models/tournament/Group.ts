@@ -1,7 +1,6 @@
 import {Team} from "./Team";
 import {Match} from "./Match";
-import {HOME_TEAM_WINS, OUT_TEAM_WINS} from "./Constants";
-import {compareTeams, getSubGroup} from "../utils/TournamentUtils";
+import {HOME_TEAM_WINS, OUT_TEAM_WINS} from "../Constants";
 
 export  class Group {
 
