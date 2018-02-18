@@ -10,9 +10,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { PronostiekComponent } from './pronostiek/pronostiek.component';
 import { SignupComponent } from './signup/signup.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ContentComponent } from './content/content.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import {AuthService} from "./auth.service";
 
 const appRoutes: Routes = [
 
@@ -34,7 +34,6 @@ const appRoutes: Routes = [
     ProfileComponent,
     PronostiekComponent,
     SignupComponent,
-    ContentComponent,
     HeaderComponent,
     SidebarComponent
   ],
@@ -48,7 +47,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatCheckboxModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
