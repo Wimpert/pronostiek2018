@@ -12,9 +12,7 @@ export class AuthService {
   }
 
   toggleLogin()  {
-    console.log("tggling");
-    var value = Math.random() > 0.5;
-    console.log(value);
+    let value = Math.random() > 0.5;
     this.userIsLoggedIn$.next(value);
   }
 

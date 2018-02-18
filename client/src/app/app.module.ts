@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDialogModule} from '@angular/material';
 
 
-import { AppComponent } from './app.component';
+import {AppComponent, SignUpDialogComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { SigninComponent } from './signin/signin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PronostiekComponent } from './pronostiek/pronostiek.component';
-import { SignupComponent } from './signup/signup.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -18,11 +17,6 @@ const appRoutes: Routes = [
 
   { path: 'pronostiek', component: PronostiekComponent },
   { path: 'profile/:id',      component: ProfileComponent },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    data: { title: 'SignUp' }
-  },
   { path: '**', component: PronostiekComponent }
 ];
 
@@ -33,10 +27,11 @@ const appRoutes: Routes = [
     SigninComponent,
     ProfileComponent,
     PronostiekComponent,
-    SignupComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    SignUpDialogComponent
   ],
+  entryComponents: [SignUpDialogComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -45,7 +40,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

@@ -17,7 +17,14 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.component.css":
+/***/ "../../../../../src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<button color=\"primary\" mat-raised-button (click)=\"fakeLogin()\">Doe Mee</button>\n<button color=\"primary\" mat-raised-button (click)=\"openDialog()\">Open</button>\n<span>\n<div *ngIf=\"!(authService.userIsLoggedIn$ | async)\" style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n  <img width=\"300\" alt=\"Angular Logo\"  src=\"../assets/images/logo_jackies.jpg\">\n</div>\n<div *ngIf=\"(authService.userIsLoggedIn$ | async)\">\n  <app-header></app-header>\n  <app-sidebar></app-sidebar>\n  <router-outlet></router-outlet>\n</div>\n</span>\n\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -35,20 +42,15 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<button color=\"primary\" mat-raised-button (click)=\"fakeLogin()\">Doe Mee</button>\n<div *ngIf=\"!(authService.userIsLoggedIn$ | async)\" style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n\n  <img width=\"300\" alt=\"Angular Logo\"\n       src=\"../assets/images/logo_jackies.jpg\"\n  >\n</div>\n<div *ngIf=\"authService.userIsLoggedIn$ | async\">\n  <app-header></app-header>\n  <app-sidebar></app-sidebar>\n  <router-outlet></router-outlet>\n</div>\n\n"
-
-/***/ }),
-
 /***/ "../../../../../src/app/app.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SignUpDialogComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,25 +60,65 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(authService) {
+    function AppComponent(authService, signUpDialog) {
         this.authService = authService;
+        this.signUpDialog = signUpDialog;
         this.title = 'Pronostiek';
     }
     AppComponent.prototype.fakeLogin = function () {
         this.authService.toggleLogin();
     };
+    AppComponent.prototype.openDialog = function () {
+        var _this = this;
+        var dialogRef = this.signUpDialog.open(SignUpDialogComponent, {
+            width: '80%',
+            height: '80%',
+            maxWidth: '500px',
+            maxHeight: '500px',
+            data: { user: this.user }
+        });
+        dialogRef.afterClosed().subscribe(function (result) {
+            console.log('The dialog was closed');
+            _this.user = result;
+        });
+    };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
             template: __webpack_require__("../../../../../src/app/app.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/app.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["d" /* MatDialog */]])
     ], AppComponent);
     return AppComponent;
+}());
+
+var SignUpDialogComponent = /** @class */ (function () {
+    function SignUpDialogComponent(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        console.log(data);
+    }
+    SignUpDialogComponent.prototype.onNoClick = function () {
+        console.log("here");
+        this.dialogRef.close();
+    };
+    SignUpDialogComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'sign-up-dialog',
+            template: __webpack_require__("../../../../../src/app/signup/sign-up-dialog.html"),
+        }),
+        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MAT_DIALOG_DATA */])),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["f" /* MatDialogRef */], Object])
+    ], SignUpDialogComponent);
+    return SignUpDialogComponent;
 }());
 
 
@@ -96,11 +138,10 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__signin_signin_component__ = __webpack_require__("../../../../../src/app/signin/signin.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__profile_profile_component__ = __webpack_require__("../../../../../src/app/profile/profile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pronostiek_pronostiek_component__ = __webpack_require__("../../../../../src/app/pronostiek/pronostiek.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__signup_signup_component__ = __webpack_require__("../../../../../src/app/signup/signup.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__header_header_component__ = __webpack_require__("../../../../../src/app/header/header.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__sidebar_sidebar_component__ = __webpack_require__("../../../../../src/app/sidebar/sidebar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__header_header_component__ = __webpack_require__("../../../../../src/app/header/header.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__sidebar_sidebar_component__ = __webpack_require__("../../../../../src/app/sidebar/sidebar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -119,15 +160,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var appRoutes = [
     { path: 'pronostiek', component: __WEBPACK_IMPORTED_MODULE_7__pronostiek_pronostiek_component__["a" /* PronostiekComponent */] },
     { path: 'profile/:id', component: __WEBPACK_IMPORTED_MODULE_6__profile_profile_component__["a" /* ProfileComponent */] },
-    {
-        path: 'signup',
-        component: __WEBPACK_IMPORTED_MODULE_8__signup_signup_component__["a" /* SignupComponent */],
-        data: { title: 'SignUp' }
-    },
     { path: '**', component: __WEBPACK_IMPORTED_MODULE_7__pronostiek_pronostiek_component__["a" /* PronostiekComponent */] }
 ];
 var AppModule = /** @class */ (function () {
@@ -140,19 +175,21 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_5__signin_signin_component__["a" /* SigninComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__profile_profile_component__["a" /* ProfileComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__pronostiek_pronostiek_component__["a" /* PronostiekComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__signup_signup_component__["a" /* SignupComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__header_header_component__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__sidebar_sidebar_component__["a" /* SidebarComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__header_header_component__["a" /* HeaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__sidebar_sidebar_component__["a" /* SidebarComponent */],
+                __WEBPACK_IMPORTED_MODULE_3__app_component__["b" /* SignUpDialogComponent */]
             ],
+            entryComponents: [__WEBPACK_IMPORTED_MODULE_3__app_component__["b" /* SignUpDialogComponent */]],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_9__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
+                __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: true } // <-- debugging purposes only
                 ),
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["b" /* MatCheckboxModule */]
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["b" /* MatButtonModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatCheckboxModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["e" /* MatDialogModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_12__auth_service__["a" /* AuthService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_11__auth_service__["a" /* AuthService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -187,9 +224,7 @@ var AuthService = /** @class */ (function () {
         this.userIsLoggedIn$.next(false);
     }
     AuthService.prototype.toggleLogin = function () {
-        console.log("tggling");
         var value = Math.random() > 0.5;
-        console.log(value);
         this.userIsLoggedIn$.next(value);
     };
     AuthService = __decorate([
@@ -203,7 +238,14 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/header/header.component.css":
+/***/ "../../../../../src/app/header/header.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  header works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/header/header.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -218,13 +260,6 @@ exports.push([module.i, "", ""]);
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/header/header.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  header works!\n</p>\n"
 
 /***/ }),
 
@@ -253,7 +288,7 @@ var HeaderComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-header',
             template: __webpack_require__("../../../../../src/app/header/header.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/header/header.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/header/header.component.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], HeaderComponent);
@@ -264,7 +299,14 @@ var HeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/profile/profile.component.css":
+/***/ "../../../../../src/app/profile/profile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  profile works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/profile/profile.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -279,13 +321,6 @@ exports.push([module.i, "", ""]);
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/profile/profile.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  profile works!\n</p>\n"
 
 /***/ }),
 
@@ -314,7 +349,7 @@ var ProfileComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-profile',
             template: __webpack_require__("../../../../../src/app/profile/profile.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/profile/profile.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/profile/profile.component.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], ProfileComponent);
@@ -325,7 +360,14 @@ var ProfileComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/pronostiek/pronostiek.component.css":
+/***/ "../../../../../src/app/pronostiek/pronostiek.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  pronostiek works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/pronostiek/pronostiek.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -340,13 +382,6 @@ exports.push([module.i, "", ""]);
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/pronostiek/pronostiek.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  pronostiek works!\n</p>\n"
 
 /***/ }),
 
@@ -375,7 +410,7 @@ var PronostiekComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-pronostiek',
             template: __webpack_require__("../../../../../src/app/pronostiek/pronostiek.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/pronostiek/pronostiek.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/pronostiek/pronostiek.component.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], PronostiekComponent);
@@ -386,7 +421,14 @@ var PronostiekComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/sidebar/sidebar.component.css":
+/***/ "../../../../../src/app/sidebar/sidebar.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  sidebar works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/sidebar/sidebar.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -401,13 +443,6 @@ exports.push([module.i, "", ""]);
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/sidebar/sidebar.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  sidebar works!\n</p>\n"
 
 /***/ }),
 
@@ -436,7 +471,7 @@ var SidebarComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-sidebar',
             template: __webpack_require__("../../../../../src/app/sidebar/sidebar.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/sidebar/sidebar.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/sidebar/sidebar.component.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], SidebarComponent);
@@ -447,7 +482,14 @@ var SidebarComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/signin/signin.component.css":
+/***/ "../../../../../src/app/signin/signin.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  signin works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/signin/signin.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -462,13 +504,6 @@ exports.push([module.i, "", ""]);
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/signin/signin.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  signin works!\n</p>\n"
 
 /***/ }),
 
@@ -497,7 +532,7 @@ var SigninComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-signin',
             template: __webpack_require__("../../../../../src/app/signin/signin.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/signin/signin.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/signin/signin.component.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], SigninComponent);
@@ -508,64 +543,10 @@ var SigninComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/signup/signup.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/signup/signup.component.html":
+/***/ "../../../../../src/app/signup/sign-up-dialog.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  signup works!\n</p>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/signup/signup.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var SignupComponent = /** @class */ (function () {
-    function SignupComponent() {
-    }
-    SignupComponent.prototype.ngOnInit = function () {
-    };
-    SignupComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'app-signup',
-            template: __webpack_require__("../../../../../src/app/signup/signup.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/signup/signup.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], SignupComponent);
-    return SignupComponent;
-}());
-
-
+module.exports = "<h5> signup </h5>\n<app-profile></app-profile>\n"
 
 /***/ }),
 
