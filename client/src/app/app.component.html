@@ -3,10 +3,12 @@
 <button color="primary" mat-raised-button (click)="openDialog()">Open</button>
 <span>
 <div *ngIf="!(authService.userIsLoggedIn$ | async)" style="text-align:center">
+  <!--
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo"  src="../assets/images/logo_jackies.jpg">
+ <img width="300" alt="Angular Logo"  src="../assets/images/logo_jackies.jpg">
+ -->
 </div>
 <div *ngIf="(authService.userIsLoggedIn$ | async)">
   <app-header></app-header>

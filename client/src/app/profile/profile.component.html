@@ -1,3 +1,29 @@
-<p>
-  profile works!
-</p>
+<form  novalidate [formGroup]="profileFormGroup">
+  <div></div>
+  <mat-form-field >
+    <input matInput placeholder="Voornaam:" formControlName="firstNameFormControl">
+  </mat-form-field>
+  <mat-form-field >
+    <input matInput placeholder="Achternaam:" formControlName="lastNameFormControl">
+  </mat-form-field>
+  <mat-form-field >
+    <input matInput placeholder="Username:" formControlName="userNameFormControl">
+  </mat-form-field>
+  <mat-form-field >
+    <input matInput placeholder="email:" formControlName="emailFormControl">
+  </mat-form-field>
+  <mat-form-field >
+    <input matInput placeholder="password:" formControlName="passwordFormControl" type="password">
+  </mat-form-field>
+  <mat-form-field >
+    <input matInput placeholder="confirm:" formControlName="confirmPasswordFormControl" type="password">
+  </mat-form-field>
+  <!--
+<p>{{profileFormGroup.value | json}}</p>
+  <p>{{profileFormGroup.status}}</p>
+  <p>{{profileFormGroup.dirty}}</p>
+  <p>{{profileFormGroup.t}}</p>
+ -->
+
+
+</form>

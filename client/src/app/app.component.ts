@@ -15,7 +15,10 @@ export class AppComponent {
   user : User
 
 
-  constructor(private authService : AuthService, private signUpDialog : MatDialog){}
+  constructor(private authService : AuthService, private signUpDialog : MatDialog){
+    this.user = new User();
+    this.user.username = "wimpert";
+  }
 
   fakeLogin() {
     this.authService.toggleLogin();
@@ -23,10 +26,10 @@ export class AppComponent {
 
  openDialog(): void {
     let dialogRef = this.signUpDialog.open(SignUpDialogComponent, {
-      width: '80%',
-      height: '80%',
-      maxWidth: '500px',
-      maxHeight: '500px',
+      width: 'auto',
+      height: '500px',
+      maxWidth: '80%',
+      maxHeight: '80%',
       data: { user: this.user}
     });
 
@@ -40,15 +43,17 @@ export class AppComponent {
 @Component({
   selector: 'sign-up-dialog',
   templateUrl: 'signup/sign-up-dialog.html',
+  styleUrls: ['signup/signup.component.scss']
 })
 export class SignUpDialogComponent {
 
+  user : User ;
+
   constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data);
+    this.user = data.user;
   }
 
   onNoClick(): void {
-    console.log("here");
     this.dialogRef.close();
   }
 

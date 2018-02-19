@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatButtonModule, MatCheckboxModule, MatDialogModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatDialogModule, MatInputModule} from '@angular/material';
 
 
 import {AppComponent, SignUpDialogComponent} from './app.component';
@@ -12,6 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {AuthService} from "./auth.service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 const appRoutes: Routes = [
 
@@ -35,13 +36,16 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     ),
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule
+
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
