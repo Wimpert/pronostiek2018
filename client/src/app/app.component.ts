@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {AuthService} from "./auth.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {User} from "../../../api/src/shared/models/User";
+import {SignUpDialogComponent} from "./signup/signup.component";
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,7 @@ export class AppComponent {
  openDialog(): void {
     let dialogRef = this.signUpDialog.open(SignUpDialogComponent, {
       width: 'auto',
-      height: '500px',
+      height: 'auto',
       maxWidth: '80%',
       maxHeight: '80%',
       data: { user: this.user}
@@ -40,23 +41,6 @@ export class AppComponent {
   }
 }
 
-@Component({
-  selector: 'sign-up-dialog',
-  templateUrl: 'signup/sign-up-dialog.html',
-  styleUrls: ['signup/signup.component.scss']
-})
-export class SignUpDialogComponent {
 
-  user : User ;
-
-  constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.user = data.user;
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}
 
 

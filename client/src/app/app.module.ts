@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {MatButtonModule, MatCheckboxModule, MatDialogModule, MatInputModule} from '@angular/material';
 
 
-import {AppComponent, SignUpDialogComponent} from './app.component';
+import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { SigninComponent } from './signin/signin.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {AuthService} from "./auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import {SignUpDialogComponent} from "./signup/signup.component";
 
 const appRoutes: Routes = [
 
