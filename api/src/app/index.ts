@@ -12,7 +12,7 @@ const passport = require('passport'), LocalStrategy = require('passport-local').
 
 const app  =  express();
 
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 
 require('./config/passport')(passport); // pass passport for configuration
