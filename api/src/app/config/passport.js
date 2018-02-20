@@ -13,8 +13,6 @@ connection.query('USE ' + dbconfig.database);
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
-    console.log("from here");
-
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================

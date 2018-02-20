@@ -14,6 +14,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {AuthService} from "./auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
+import {HttpClientModule} from "@angular/common/http";
+import {ProfileService} from "./services/profile.service";
 
 const appRoutes: Routes = [
 
@@ -45,10 +47,11 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatDialogModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
 
   ],
-  providers: [AuthService],
+  providers: [AuthService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

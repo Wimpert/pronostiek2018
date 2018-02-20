@@ -1,22 +1,25 @@
 <form  novalidate [formGroup]="profileFormGroup">
   <div></div>
   <mat-form-field >
-    <input matInput placeholder="Voornaam:" formControlName="firstNameFormControl">
+    <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="Achternaam:" formControlName="lastNameFormControl">
+    <input matInput placeholder="Achternaam*" formControlName="lastNameFormControl">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="Username:" formControlName="userNameFormControl">
+    <input matInput placeholder="Username*" formControlName="userNameFormControl">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="email:" formControlName="emailFormControl" type="email">
+    <input matInput placeholder="email*" formControlName="emailFormControl" type="email">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="password:" formControlName="passwordFormControl" type="password">
+    <input matInput placeholder="password*" formControlName="passwordFormControl" type="password">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="confirm:" formControlName="confirmPasswordFormControl" type="password">
+    <input matInput placeholder="Confirm password*" formControlName="confirmPasswordFormControl" type="password">
+  <!--<mat-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>-->
   </mat-form-field>
   <!--
 <p>{{profileFormGroup.value | json}}</p>

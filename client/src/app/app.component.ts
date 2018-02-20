@@ -16,7 +16,7 @@ export class AppComponent {
   user : User
 
 
-  constructor(private authService : AuthService, private signUpDialog : MatDialog){
+  constructor(public  authService : AuthService, private signUpDialog : MatDialog){
     this.user = new User();
     this.user.username = "wimpert";
   }

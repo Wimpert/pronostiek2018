@@ -9,7 +9,6 @@ module.exports = function(app, passport) {
         failureFlash : false // allow flash messages
     }),
         function(req, res) {
-            console.log("hello");
             if (req.body.remember) {
                 req.session.cookie.maxAge = 1000 * 60 * 3;
             } else {
@@ -25,7 +24,6 @@ module.exports = function(app, passport) {
         failureRedirect : '/api/signup', // redirect back to the signup page if there is an error
         failureFlash : false // allow flash messages
     }));
-
 
 
     app.get('/api', function (req, res) {
