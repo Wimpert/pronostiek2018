@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://pronostiek.dejackies.be:8080/api/"
+  apiUrl: "http://pronostiek.dejackies.be/api/"
 };
