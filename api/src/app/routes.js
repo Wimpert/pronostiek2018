@@ -1,3 +1,4 @@
+var messages = require('../shared/models/messages')
 
 module.exports = function(app, passport) {
 
@@ -27,16 +28,19 @@ module.exports = function(app, passport) {
 
     app.post('/api/signup', function(req, res, next) {
         passport.authenticate('local-signup', function(err, user, info) {
-            console.log(err);
-            console.log(user);
-            console.log(info);
-            res.send("hellow there");
-           /* if (err) { return next(err); }
-            if (!user) { return res.redirect('/login'); }
+           if (err) {
+                return next(err);
+            }
+            if (!user) {
+                if(info){
+                    return res.send(409, info)
+                }
+                return res.redirect('');
+           }
             req.logIn(user, function(err) {
                 if (err) { return next(err); }
-                return res.redirect('/users/' + user.username);
-            });*/
+                return res.send(200, user);
+            });
         })(req, res, next);
     });
 

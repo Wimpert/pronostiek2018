@@ -8,6 +8,7 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
+var messages = require('../../shared/models/messages')
 
 connection.query('USE ' + dbconfig.database);
 // expose this function to our app using module.exports
@@ -52,7 +53,7 @@ module.exports = function(passport) {
                     if (err)
                         return done(err);
                     if (rows.length) {
-                        return done(null, false, "username already in use");
+                        return done(null, false, messages.signUpMessages.userNameInUse);
                     } else {
                         // if there is no user with that username
                         // create the user
