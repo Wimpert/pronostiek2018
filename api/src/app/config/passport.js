@@ -47,27 +47,41 @@ module.exports = function(passport) {
                 passReqToCallback : true // allows us to pass back the entire request to the callback
             },
             function(req, username, password, done) {
+                console.log(req.body);
+
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
-                connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
+                connection.query("SELECT * FROM users WHERE username = ? or email = ?",[username, req.body.email], function(err, rows) {
                     if (err)
                         return done(err);
                     if (rows.length) {
-                        return done(null, false, messages.signUpMessages.userNameInUse);
+                        if(rows[0].username == username){
+                            return done(null, false, messages.signUpMessages.userNameInUse);
+                        } else if(rows[0].email == req.body.email){
+                            return done(null, false, messages.signUpMessages.emailInUse);
+                        } else {
+                            return done(new Error("Oops, not good ! !"));
+                        }
+
                     } else {
                         // if there is no user with that username
                         // create the user
+                        var date = new Date();
                         var newUserMysql = {
                             username: username,
-                            password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                            password: bcrypt.hashSync(password, null, null), // use the generateHash function in our user model
+                            email: req.body.email,
+                            firstname: req.body.firstname,
+                            lastname: req.body.lastname,
+                            creationDate: date,
+                            updateDate: date
                         };
-
-                        var insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
+                        var insertQuery = "INSERT INTO users ( username, password, email, firstname, lastname, creationdate, lastupdate ) values (?,?,?,?,?,?,?)";
                         console.log(newUserMysql);
-                        connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
-                            console.log(err);
+                        connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.creationDate, newUserMysql.updateDate],function(err, rows) {
+                            if(err){return done(err);}
                             newUserMysql.id = rows.insertId;
-
+                            console.log(rows);
                             return done(null, newUserMysql);
                         });
                     }

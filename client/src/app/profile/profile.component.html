@@ -1,19 +1,19 @@
 <form  novalidate [formGroup]="profileFormGroup">
   <div></div>
   <mat-form-field >
-    <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl">
+    <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl" [(ngModel)]="user.firstName">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="Achternaam*" formControlName="lastNameFormControl">
+    <input matInput placeholder="Achternaam*" formControlName="lastNameFormControl" [(ngModel)]="user.lastName">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="Username*" formControlName="userNameFormControl">
+    <input matInput placeholder="Username*" formControlName="userNameFormControl" [(ngModel)]="user.username">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="email*" formControlName="emailFormControl" type="email">
+    <input matInput placeholder="email*" formControlName="emailFormControl" type="email" [(ngModel)]="user.email">
   </mat-form-field>
   <mat-form-field >
-    <input matInput placeholder="password*" formControlName="passwordFormControl" type="password">
+    <input matInput placeholder="password*" formControlName="passwordFormControl" type="password" [(ngModel)]="user.password">
   </mat-form-field>
   <mat-form-field >
     <input matInput placeholder="Confirm password*" formControlName="confirmPasswordFormControl" type="password">

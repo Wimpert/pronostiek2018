@@ -13,12 +13,9 @@ import {SignUpDialogComponent} from "./signup/signup.component";
 export class AppComponent {
 
   title = 'Pronostiek';
-  user : User
 
 
   constructor(public  authService : AuthService, private signUpDialog : MatDialog){
-    this.user = new User();
-    this.user.username = "wimpert";
   }
 
   fakeLogin() {
@@ -30,13 +27,11 @@ export class AppComponent {
       width: 'auto',
       height: 'auto',
       maxWidth: '80%',
-      maxHeight: '80%',
-      data: { user: this.user}
+      maxHeight: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.user = result;
     });
   }
 }

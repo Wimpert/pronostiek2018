@@ -12,7 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {AuthService} from "./auth.service";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ProfileService} from "./services/profile.service";
@@ -48,6 +48,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule
 
   ],

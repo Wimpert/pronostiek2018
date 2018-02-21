@@ -1,7 +1,8 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, ViewChild} from "@angular/core";
 import {User} from "../../../../api/src/shared/models/User";
 import {ProfileService} from "../services/profile.service";
+import {ProfileComponent} from "../profile/profile.component";
 
 @Component({
   selector: 'sign-up-dialog',
@@ -10,12 +11,13 @@ import {ProfileService} from "../services/profile.service";
 })
 export class SignUpDialogComponent {
 
-  user : User ;
+  @ViewChild(ProfileComponent) private profileComponent : ProfileComponent;
+  user: User;
 
   constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private profileService : ProfileService) {
-    this.user = data.user;
+    this.user = new User();
   }
 
   onNoClick(): void {
@@ -27,8 +29,7 @@ export class SignUpDialogComponent {
   }
 
   signUp(): void {
-    console.log(this.profileService);
-    this.profileService.createProfile();
+    this.profileService.createProfile(this.profileComponent.user);
   }
 
 }
