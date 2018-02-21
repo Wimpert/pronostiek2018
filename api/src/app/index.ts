@@ -29,7 +29,7 @@ app.use(express.static('./client/dist'));
 
 // required for passport
 app.use(session({
-    secret: 'vidyapathaisalwaysrunning',
+    secret: 'spelvreugde666',
     resave: true,
     saveUninitialized: true
 } ));

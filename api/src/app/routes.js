@@ -19,11 +19,26 @@ module.exports = function(app, passport) {
     });
 
     // process the signup form
-    app.post('/api/signup', passport.authenticate('local-signup', {
+   /* app.post('/api/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/profile', // redirect to the secure profile section
         failureRedirect : '/api/signup', // redirect back to the signup page if there is an error
         failureFlash : false // allow flash messages
-    }));
+    }));*/
+
+    app.post('/api/signup', function(req, res, next) {
+        passport.authenticate('local-signup', function(err, user, info) {
+            console.log(err);
+            console.log(user);
+            console.log(info);
+            res.send("hellow there");
+           /* if (err) { return next(err); }
+            if (!user) { return res.redirect('/login'); }
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.redirect('/users/' + user.username);
+            });*/
+        })(req, res, next);
+    });
 
 
     app.get('/api', function (req, res) {

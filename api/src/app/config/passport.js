@@ -52,7 +52,7 @@ module.exports = function(passport) {
                     if (err)
                         return done(err);
                     if (rows.length) {
-                        return done(null, false);
+                        return done(null, false, "username already in use");
                     } else {
                         // if there is no user with that username
                         // create the user
