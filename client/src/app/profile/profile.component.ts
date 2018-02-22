@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../../../api/src/shared/models/User";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidation} from "../utils/utils";
@@ -11,6 +11,8 @@ import {PasswordValidation} from "../utils/utils";
 export class ProfileComponent implements OnInit {
 
   @Input() user: User;
+  @Output() canceled = new EventEmitter();
+  @Output() userUpdated = new EventEmitter<User>();
   profileFormGroup: FormGroup;
 
   constructor(private _formBuilder : FormBuilder) {
@@ -31,6 +33,15 @@ export class ProfileComponent implements OnInit {
     }, {
       validator: PasswordValidation.MatchPassword
     });
+  }
+
+  onSubmit() : void {
+    console.log("test");
+
+    this.profileFormGroup.get("emailFormControl").setErrors({emailInUse:true});
+    this.profileFormGroup.get("userNameFormControl").setErrors({userNameInUse:true});
+    console.log(this.profileFormGroup);
+    this.userUpdated.emit(this.user);
   }
 
 }

@@ -1,6 +1,3 @@
-<h3> Maak je profiel aan: </h3>
-<app-profile [user]="this.user"></app-profile>
-<div class="button-row">
-  <button color="primary" mat-raised-button (click)="close()">Annuleren</button>
-  <button  mat-raised-button (click)="signUp()">Ok</button>
-</div>
+<mat-dialog-content>
+<app-profile [user]="this.user" (canceled)="close()"  (userUpdated)="userSaveSuccessfully(user)"></app-profile>
+</mat-dialog-content>

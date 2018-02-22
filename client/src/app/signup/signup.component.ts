@@ -28,8 +28,9 @@ export class SignUpDialogComponent {
     this.dialogRef.close();
   }
 
-  signUp(): void {
-    this.profileService.createProfile(this.profileComponent.user);
+  userSaveSuccessfully(user : User): void {
+    console.log("this is the new user: ");
+    console.log(user);
   }
 
 }

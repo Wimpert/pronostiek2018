@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {User} from "../../../../api/src/shared/models/User";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class ProfileService {
@@ -11,12 +12,8 @@ export class ProfileService {
 
   constructor(private _http: HttpClient) {}
 
-  createProfile(user: User) : void {
-    this._http.post(this._baseUrl+"signup",user).subscribe(
-      (response) => {
-        console.log(response);
-      }
-    )
+  createProfile(user: User) : Observable<any> {
+     return this._http.post(this._baseUrl+"signup",user);
   }
 
 }
