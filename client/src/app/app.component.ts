@@ -32,7 +32,8 @@ export class AppComponent implements  OnInit{
       width: 'auto',
       height: 'auto',
       maxWidth: '80%',
-      maxHeight: '80%'
+      maxHeight: '80%',
+      minWidth: '300px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

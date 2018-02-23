@@ -11,6 +11,7 @@ import {PasswordValidation} from "../utils/utils";
 export class ProfileComponent implements OnInit {
 
   @Input() user: User;
+  confirmPassword : String;
   @Output() canceled = new EventEmitter();
   @Output() userUpdated = new EventEmitter<User>();
   profileFormGroup: FormGroup;
@@ -19,7 +20,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm()
+    this.createForm();
+    //copy the value:
+    this.confirmPassword = this.user !== undefined ? this.user.password : undefined;
   }
 
   private createForm() : void {
@@ -38,8 +41,8 @@ export class ProfileComponent implements OnInit {
   onSubmit() : void {
     console.log("test");
 
-    this.profileFormGroup.get("emailFormControl").setErrors({emailInUse:true});
-    this.profileFormGroup.get("userNameFormControl").setErrors({userNameInUse:true});
+    /*this.profileFormGroup.get("emailFormControl").setErrors({emailInUse:true});
+    this.profileFormGroup.get("userNameFormControl").setErrors({userNameInUse:true});*/
     console.log(this.profileFormGroup);
     this.userUpdated.emit(this.user);
   }

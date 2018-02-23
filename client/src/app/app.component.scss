@@ -1,20 +1,19 @@
 ::ng-deep.input-row{
   display: flex;
   flex-direction: row;
-}
-
-::ng-deep.input-row input{
-  flex-shrink: 1;
+  max-height: 80px;
 }
 
 ::ng-deep.input-row mat-form-field{
   width: 100%;
   padding-left: 2px;
   padding-right: 2px;
+  flex-shrink: 1;
 }
 
 
 ::ng-deep.button-row{
+  margin-top: 10px;
   display: flex;
   justify-content: flex-end;
 }

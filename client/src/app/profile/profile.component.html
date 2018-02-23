@@ -4,8 +4,8 @@
       <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl" [(ngModel)]="user.firstname">
       <mat-error>required</mat-error>
     </mat-form-field>
-
-    <mat-form-field>
+  </div>
+  <div class="input-row"> <mat-form-field>
       <input matInput placeholder="Achternaam*" formControlName="lastNameFormControl" [(ngModel)]="user.lastname">
       <mat-error >required</mat-error>
     </mat-form-field>
@@ -13,14 +13,21 @@
   <div class="input-row">
   <mat-form-field >
     <input matInput placeholder="Username*" formControlName="userNameFormControl" [(ngModel)]="user.username">
-    <mat-error required>required</mat-error>
+    <mat-error *ngIf="profileFormGroup.get('userNameFormControl').errors &&
+                        profileFormGroup.get('userNameFormControl').errors.required">required</mat-error>
+    <mat-error *ngIf="profileFormGroup.get('userNameFormControl').errors &&
+                        profileFormGroup.get('userNameFormControl').errors.userNameInUse">
+      username is in use
+    </mat-error>
   </mat-form-field>
   </div>
   <div class="input-row">
     <mat-form-field >
-      <input matInput placeholder="email*" formControlName="emailFormControl" type="email" [(ngModel)]="user.email">
+      <input matInput placeholder="email*"  formControlName="emailFormControl" type="email" [(ngModel)]="user.email">
       <mat-error *ngIf="profileFormGroup.get('emailFormControl').errors &&
                         profileFormGroup.get('emailFormControl').errors.required">required</mat-error>
+      <mat-error *ngIf="profileFormGroup.get('emailFormControl').errors &&
+                        profileFormGroup.get('emailFormControl').errors.email">invalid email</mat-error>
       <mat-error *ngIf="profileFormGroup.get('emailFormControl').errors &&
                         profileFormGroup.get('emailFormControl').errors.emailInUse">
         Email in use
@@ -36,7 +43,12 @@
   <div class="input-row">
   <mat-form-field >
     <input matInput placeholder="Confirm password*" formControlName="confirmPasswordFormControl" type="password">
-    <mat-error>There is an error</mat-error>
+    <mat-error *ngIf="profileFormGroup.get('confirmPasswordFormControl').errors &&
+                        profileFormGroup.get('confirmPasswordFormControl').errors.required">required</mat-error>
+    <mat-error *ngIf="profileFormGroup.get('confirmPasswordFormControl').errors &&
+                        profileFormGroup.get('confirmPasswordFormControl').errors.MatchPassword">
+      Password do not match!
+    </mat-error>
   </mat-form-field>
   </div>
   <div class="button-row">
