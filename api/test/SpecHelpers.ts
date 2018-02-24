@@ -1,4 +1,5 @@
-import {Tournament} from "../src/shared/models/tournament/Tournament";
+import {Tournament} from "../src/shared/models/pronostiek/Tournament";
+
 
 export function setGroupMatchScores(tournament: Tournament) :void {
     var groupA =  tournament.groups[0];

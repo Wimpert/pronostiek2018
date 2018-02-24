@@ -1,12 +1,13 @@
-import {Tournament} from "../models/tournament/Tournament";
-import {Team} from "../models/tournament/Team";
-import {Group} from "../models/tournament/Group";
-import {Match} from "../models/tournament/Match";
+import {Pronostiek} from "../models/pronostiek/Pronostiek";
+import {Team} from "../models/pronostiek/Team";
+import {Group} from "../models/pronostiek/Group";
+import {Match} from "../models/pronostiek/Match";
 import {HOME_TEAM_WINS, OUT_TEAM_WINS} from "../models/Constants";
+import {Tournament} from "../models/pronostiek/Tournament";
 
 export function getTournament() : Tournament {
 
-    console.log("***** Tournament generation Starting ****");
+    console.log("***** Pronostiek generation Starting ****");
 
     let tournament : Tournament = new Tournament();
 

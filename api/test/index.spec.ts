@@ -1,9 +1,11 @@
-import {Tournament} from "../src/shared/models/tournament/Tournament";
+
 import {getMatchesFromTeams, getTournament, orderTeams} from "../src/shared/utils/TournamentUtils";
 import {
     setGroupMatchScores, setGroupMatchScore2FullyEqualTeams, setGroupMatchScore3EqualTeams,
     setGroupMatchScore2on2EqualTeamsWithDifferenceBetween
 } from "./SpecHelpers";
+import {Tournament} from "../src/shared/models/pronostiek/Tournament";
+
 
 describe("this will test the processing of the group matches:", function() {
 

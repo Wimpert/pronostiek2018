@@ -77,7 +77,6 @@ module.exports = function(passport) {
                             updateDate: date
                         };
                         var insertQuery = "INSERT INTO users ( username, password, email, firstname, lastname, creationdate, lastupdate ) values (?,?,?,?,?,?,?)";
-                        console.log(newUserMysql);
                         connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.creationDate, newUserMysql.updateDate],function(err, rows) {
                             if(err){return done(err);}
                             newUserMysql.id = rows.insertId;
@@ -104,7 +103,6 @@ module.exports = function(passport) {
                 passReqToCallback : true // allows us to pass back the entire request to the callback
             },
             function(req, username, password, done) { // callback with email and password from our form
-                console.log('smdkfjsdmqkfjsdqf');
                 connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
                     if (err)
                         return done(err);
@@ -117,7 +115,6 @@ module.exports = function(passport) {
                         return done(null, false, req.send('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
                     // all is well, return successful user
-                    console.log(rows[0]);
                     return done(null, rows[0]);
                 });
             })

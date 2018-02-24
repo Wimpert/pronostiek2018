@@ -1,4 +1,5 @@
-var messages = require('../shared/models/messages')
+var messages = require('../shared/models/messages');
+var DBUtils = require('./config/DBUtils')
 
 module.exports = function(app, passport) {
 
@@ -67,6 +68,19 @@ module.exports = function(app, passport) {
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
+    });
+
+
+    /**
+     * this will return the pronotiek base on who is logged in:
+     */
+    app.get('/api/pronostiek', isLoggedIn, function(req, res) {
+        console.log(req.user);
+        DBUtils.PronostiekUtils.getPronostiek(req);
+
+        res.send({
+            user : req.user // get the user out of session and pass to template
+        });
     });
 
 };
