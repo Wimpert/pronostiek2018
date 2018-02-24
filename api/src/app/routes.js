@@ -74,14 +74,9 @@ module.exports = function(app, passport) {
     /**
      * this will return the pronotiek base on who is logged in:
      */
-    app.get('/api/pronostiek', isLoggedIn, function(req, res) {
-        console.log(req.user);
-        DBUtils.PronostiekUtils.getPronostiek(req);
+    app.get('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.getPronostiek);
+    app.post('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.savePronostiek);
 
-        res.send({
-            user : req.user // get the user out of session and pass to template
-        });
-    });
 
 };
 
