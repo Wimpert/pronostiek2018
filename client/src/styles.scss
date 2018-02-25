@@ -4,7 +4,10 @@
 
 @import "variables";
 
-html{
+html, body{
   font-family: 'Montserrat', sans-serif;
   color: $font-color;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }

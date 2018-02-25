@@ -1,0 +1,12 @@
+<mat-dialog-content>
+  <mat-form-field>
+  <input matInput placeholder="username or email">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="password" type="password">
+  </mat-form-field>
+  <div class="button-row">
+    <button color="primary" mat-raised-button (click)="dialogRef.close()">Annuleren</button>
+    <button  type="submit" mat-raised-button>Login</button>
+  </div>
+</mat-dialog-content>

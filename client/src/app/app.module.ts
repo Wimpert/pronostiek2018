@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ProfileService} from "./services/profile.service";
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
 
@@ -33,9 +34,10 @@ const appRoutes: Routes = [
     PronostiekComponent,
     HeaderComponent,
     SidebarComponent,
-    SignUpDialogComponent
+    SignUpDialogComponent,
+    LoginComponent
   ],
-  entryComponents: [SignUpDialogComponent],
+  entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,

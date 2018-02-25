@@ -1,19 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<button color="primary" mat-raised-button (click)="fakeLogin()">Doe Mee</button>
-<button color="primary" mat-raised-button (click)="openDialog()">Open</button>
-<span>
-<div *ngIf="!(authService.userIsLoggedIn$ | async)" style="text-align:center">
-  <!--
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+
+
+<div *ngIf="!(authService.userIsLoggedIn$ | async)" id="welcome-screen">
+  <h3>
+    Welkom op de pronostiek!
+  </h3>
  <img width="300" alt="Angular Logo"  src="../assets/images/logo_jackies.jpg">
- -->
+  <div>
+    <button color="primary" mat-raised-button (click)="openSignupDialog()">Schrijf je in</button>
+    <button color="primary" mat-raised-button (click)="openLoginDialog()">Meld je aan</button>
+  </div>
 </div>
 <div *ngIf="(authService.userIsLoggedIn$ | async)">
   <app-header></app-header>
   <app-sidebar></app-sidebar>
   <router-outlet></router-outlet>
 </div>
-</span>
+
 

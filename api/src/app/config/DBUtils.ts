@@ -29,7 +29,7 @@ export class PronostiekUtils{
                             res.send(prono);
                         }
          });
-    }
+    };
 
     public static savePronostiek(req : Request, res : Response)  {
 
@@ -54,24 +54,5 @@ export class PronostiekUtils{
             });
 
         }
-
-
-
-
-
-
-
-        /*connection.query("SELECT * FROM pronostiek WHERE userId = ?",[req.user.id], function(err : Error, rows : Pronostiek[]){
-            if (err)
-                throw err;
-            if(rows.length == 1){
-                res.send(rows[0]);
-            } else {
-                //this means there is none, so lets create one;
-                let prono : Pronostiek = new Pronostiek(req.user.id);
-                prono.tournament = new Tournament();
-                res.send(prono);
-            }
-        });*/
-    }
+    };
 }

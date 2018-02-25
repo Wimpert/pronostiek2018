@@ -23,3 +23,22 @@
   margin-top: 2px;
   margin-bottom: 2px;
 }
+
+
+#welcome-screen{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#welcome-screen > *{
+  padding: 10px;
+}
+
+#welcome-screen > div > button{
+  margin: 0px 10px 0px 10px;
+}
+

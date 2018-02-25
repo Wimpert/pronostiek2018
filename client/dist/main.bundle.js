@@ -35,7 +35,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<button color=\"primary\" mat-raised-button (click)=\"fakeLogin()\">Doe Mee</button>\n<button color=\"primary\" mat-raised-button (click)=\"openDialog()\">Open</button>\n<span>\n<div *ngIf=\"!(authService.userIsLoggedIn$ | async)\" style=\"text-align:center\">\n  <!--\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n <img width=\"300\" alt=\"Angular Logo\"  src=\"../assets/images/logo_jackies.jpg\">\n -->\n</div>\n<div *ngIf=\"(authService.userIsLoggedIn$ | async)\">\n  <app-header></app-header>\n  <app-sidebar></app-sidebar>\n  <router-outlet></router-outlet>\n</div>\n</span>\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n\n<div *ngIf=\"!(authService.userIsLoggedIn$ | async)\" id=\"welcome-screen\">\n  <h3>\n    Welkom op de pronostiek!\n  </h3>\n <img width=\"300\" alt=\"Angular Logo\"  src=\"../assets/images/logo_jackies.jpg\">\n  <div>\n    <button color=\"primary\" mat-raised-button (click)=\"openSignupDialog()\">Schrijf je in</button>\n    <button color=\"primary\" mat-raised-button (click)=\"openLoginDialog()\">Meld je aan</button>\n  </div>\n</div>\n<div *ngIf=\"(authService.userIsLoggedIn$ | async)\">\n  <app-header></app-header>\n  <app-sidebar></app-sidebar>\n  <router-outlet></router-outlet>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -47,7 +47,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "::ng-deep.input-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  max-height: 80px; }\n\n::ng-deep.input-row mat-form-field {\n  width: 100%;\n  padding-left: 2px;\n  padding-right: 2px;\n  -ms-flex-negative: 1;\n      flex-shrink: 1; }\n\n::ng-deep.button-row {\n  margin-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end; }\n\n::ng-deep.button-row button {\n  margin-right: 10px;\n  margin-top: 2px;\n  margin-bottom: 2px; }\n", ""]);
+exports.push([module.i, "::ng-deep.input-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  max-height: 80px; }\n\n::ng-deep.input-row mat-form-field {\n  width: 100%;\n  padding-left: 2px;\n  padding-right: 2px;\n  -ms-flex-negative: 1;\n      flex-shrink: 1; }\n\n::ng-deep.button-row {\n  margin-top: 10px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end; }\n\n::ng-deep.button-row button {\n  margin-right: 10px;\n  margin-top: 2px;\n  margin-bottom: 2px; }\n\n#welcome-screen {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: 100%;\n  height: 100%; }\n\n#welcome-screen > * {\n  padding: 10px; }\n\n#welcome-screen > div > button {\n  margin: 0px 10px 0px 10px; }\n", ""]);
 
 // exports
 
@@ -66,6 +66,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup_component__ = __webpack_require__("../../../../../src/app/signup/signup.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -79,29 +80,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(authService, signUpDialog) {
+    function AppComponent(authService, matDialog) {
         this.authService = authService;
-        this.signUpDialog = signUpDialog;
+        this.matDialog = matDialog;
         this.title = 'Pronostiek';
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.openDialog();
+        this.openLoginDialog();
     };
-    AppComponent.prototype.fakeLogin = function () {
-        this.authService.toggleLogin();
-    };
-    AppComponent.prototype.openDialog = function () {
-        var dialogRef = this.signUpDialog.open(__WEBPACK_IMPORTED_MODULE_3__signup_signup_component__["a" /* SignUpDialogComponent */], {
+    AppComponent.prototype.openLoginDialog = function () {
+        var loginDialogRef = this.matDialog.open(__WEBPACK_IMPORTED_MODULE_4__login_login_component__["a" /* LoginComponent */], {
             width: 'auto',
             height: 'auto',
             maxWidth: '80%',
             maxHeight: '80%',
             minWidth: '300px'
         });
-        dialogRef.afterClosed().subscribe(function (result) {
-            console.log('The dialog was closed');
+    };
+    AppComponent.prototype.openSignupDialog = function () {
+        var signUpdialogRef = this.matDialog.open(__WEBPACK_IMPORTED_MODULE_3__signup_signup_component__["a" /* SignUpDialogComponent */], {
+            width: 'auto',
+            height: 'auto',
+            maxWidth: '80%',
+            maxHeight: '80%',
+            minWidth: '300px'
         });
+        /*signUpdialogRef.afterClosed().subscribe(result => {
+           console.log('The dialog was closed');
+         });*/
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -139,12 +147,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__signup_signup_component__ = __webpack_require__("../../../../../src/app/signup/signup.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_profile_service__ = __webpack_require__("../../../../../src/app/services/profile.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -178,9 +188,10 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_7__pronostiek_pronostiek_component__["a" /* PronostiekComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__header_header_component__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_10__sidebar_sidebar_component__["a" /* SidebarComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__signup_signup_component__["a" /* SignUpDialogComponent */]
+                __WEBPACK_IMPORTED_MODULE_13__signup_signup_component__["a" /* SignUpDialogComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__login_login_component__["a" /* LoginComponent */]
             ],
-            entryComponents: [__WEBPACK_IMPORTED_MODULE_13__signup_signup_component__["a" /* SignUpDialogComponent */]],
+            entryComponents: [__WEBPACK_IMPORTED_MODULE_13__signup_signup_component__["a" /* SignUpDialogComponent */], __WEBPACK_IMPORTED_MODULE_16__login_login_component__["a" /* LoginComponent */]],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
                 ),
@@ -298,6 +309,70 @@ var HeaderComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], HeaderComponent);
     return HeaderComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/login/login.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<mat-dialog-content>\n  <mat-form-field>\n  <input matInput placeholder=\"username or email\">\n  </mat-form-field>\n  <mat-form-field>\n  <input matInput placeholder=\"password\" type=\"password\">\n  </mat-form-field>\n  <div class=\"button-row\">\n    <button color=\"primary\" mat-raised-button (click)=\"dialogRef.close()\">Annuleren</button>\n    <button  type=\"submit\" mat-raised-button>Login</button>\n  </div>\n</mat-dialog-content>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/login/login.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "mat-form-field {\n  width: 100%; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/login/login.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var LoginComponent = /** @class */ (function () {
+    function LoginComponent(dialogRef) {
+        this.dialogRef = dialogRef;
+    }
+    LoginComponent.prototype.ngOnInit = function () {
+    };
+    LoginComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-login',
+            template: __webpack_require__("../../../../../src/app/login/login.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/login/login.component.scss")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_material__["f" /* MatDialogRef */]])
+    ], LoginComponent);
+    return LoginComponent;
 }());
 
 
@@ -730,10 +805,6 @@ var PasswordValidation = /** @class */ (function () {
     PasswordValidation.MatchPassword = function (AC) {
         var password = AC.get('passwordFormControl').value; // to get value in input tag
         var confirmPassword = AC.get('confirmPasswordFormControl').value; // to get value in input tag
-        console.log("pas:" + password);
-        console.log("conf: " + confirmPassword);
-        console.log(password != confirmPassword);
-        console.log(password !== confirmPassword);
         if (password !== confirmPassword) {
             AC.get('confirmPasswordFormControl').setErrors({ MatchPassword: true });
         }
