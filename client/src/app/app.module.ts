@@ -17,6 +17,7 @@ import {SignUpDialogComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ProfileService} from "./services/profile.service";
 import { LoginComponent } from './login/login.component';
+import {LoginService} from "./services/login.service";
 
 const appRoutes: Routes = [
 
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [AuthService, ProfileService],
+  providers: [AuthService, ProfileService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {User} from "../../../api/src/shared/models/User";
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
+import {ProfileService} from "./services/profile.service";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent implements  OnInit{
   title = 'Pronostiek';
 
 
-  constructor(public  authService : AuthService, private matDialog : MatDialog){
+  constructor(public  authService : AuthService, private matDialog : MatDialog , private _profileService : ProfileService){
   }
 
   ngOnInit(): void {
@@ -47,6 +48,13 @@ export class AppComponent implements  OnInit{
       console.log('The dialog was closed');
     });*/
   }
+
+  get() : void{
+    this._profileService.getProfile()
+      .subscribe(value => console.log(value));
+  }
+
+
 }
 
 

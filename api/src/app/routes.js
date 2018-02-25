@@ -5,12 +5,13 @@ module.exports = function(app, passport) {
 
 
 
-    app.post('/api/login', passport.authenticate('local-login', {
+   /* app.post('/api/login', passport.authenticate('local-login', {
         successRedirect : '/api', // redirect to the secure profile section
         failureRedirect : '/api/login', // redirect back to the signup page if there is an error
         failureFlash : false // allow flash messages
     }),
         function(req, res) {
+            console.log("test");
             if (req.body.remember) {
                 req.session.cookie.maxAge = 1000 * 60 * 3;
             } else {
@@ -19,13 +20,36 @@ module.exports = function(app, passport) {
             }
             res.redirect('/test');
     });
-
+*/
     // process the signup form
    /* app.post('/api/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/profile', // redirect to the secure profile section
         failureRedirect : '/api/signup', // redirect back to the signup page if there is an error
         failureFlash : false // allow flash messages
     }));*/
+
+  app.post('/api/login' , function (req, res, next) {
+       passport.authenticate('local-login', function (err, user ,info) {
+           console.log(err);
+           console.log(user);
+           console.log(info);
+           if(err){
+               return next(err)
+           }
+           if(!user){
+               if(info){
+                   return res.send(409, info);
+               }
+           }
+           req.logIn(user, function (err) {
+               if (err) {
+                   return next(err);
+               }
+               return res.send(200, user);
+           });
+       })(req, res, next);
+   });
+
 
     app.post('/api/signup', function(req, res, next) {
         passport.authenticate('local-signup', function(err, user, info) {

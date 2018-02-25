@@ -5,10 +5,11 @@
   <h3>
     Welkom op de pronostiek!
   </h3>
- <img width="300" alt="Angular Logo"  src="../assets/images/logo_jackies.jpg">
+ <img width="auto" alt="De Jackies"  src="../assets/images/logo_jackies.jpg">
   <div>
     <button color="primary" mat-raised-button (click)="openSignupDialog()">Schrijf je in</button>
     <button color="primary" mat-raised-button (click)="openLoginDialog()">Meld je aan</button>
+    <button (click)="get()">test</button>
   </div>
 </div>
 <div *ngIf="(authService.userIsLoggedIn$ | async)">

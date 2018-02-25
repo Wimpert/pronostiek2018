@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../../../api/src/shared/models/User";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidation} from "../utils/utils";
+import {ProfileService} from "../services/profile.service";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   @Output() userUpdated = new EventEmitter<User>();
   profileFormGroup: FormGroup;
 
-  constructor(private _formBuilder : FormBuilder) {
+  constructor(private _formBuilder : FormBuilder, private _profileService : ProfileService) {
   }
 
   ngOnInit() {
@@ -41,10 +42,11 @@ export class ProfileComponent implements OnInit {
   onSubmit() : void {
     console.log("test");
 
-    /*this.profileFormGroup.get("emailFormControl").setErrors({emailInUse:true});
-    this.profileFormGroup.get("userNameFormControl").setErrors({userNameInUse:true});*/
-    console.log(this.profileFormGroup);
-    this.userUpdated.emit(this.user);
+    this._profileService.createProfile(this.user)
+      .subscribe(value => console.log(value));
+    //this.userUpdated.emit(this.user);
   }
+
+
 
 }

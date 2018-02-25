@@ -16,4 +16,8 @@ export class ProfileService {
      return this._http.post(this._baseUrl+"signup",user);
   }
 
+  getProfile() : Observable<any> {
+    return this._http.get(this._baseUrl+"profile", {withCredentials:true});
+  }
+
 }

@@ -47,7 +47,6 @@ module.exports = function(passport) {
                 passReqToCallback : true // allows us to pass back the entire request to the callback
             },
             function(req, username, password, done) {
-                console.log(req.body);
 
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
@@ -80,7 +79,6 @@ module.exports = function(passport) {
                         connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.creationDate, newUserMysql.updateDate],function(err, rows) {
                             if(err){return done(err);}
                             newUserMysql.id = rows.insertId;
-                            console.log(rows);
                             return done(null, newUserMysql);
                         });
                     }
@@ -103,16 +101,17 @@ module.exports = function(passport) {
                 passReqToCallback : true // allows us to pass back the entire request to the callback
             },
             function(req, username, password, done) { // callback with email and password from our form
+                console.log("mqsdfkjsd");
                 connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
                     if (err)
                         return done(err);
                     if (!rows.length) {
-                        return done(null, false, req.send('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                        return done(null, false, messages.loginMessages.comboNotFound); // req.flash is the way to set flashdata using connect-flash
                     }
 
                     // if the user is found but the password is wrong
                     if (!bcrypt.compareSync(password, rows[0].password))
-                        return done(null, false, req.send('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                        return done(null, false, rmessages.loginMessages.comboNotFound); // create the loginMessage and save it to session as flashdata
 
                     // all is well, return successful user
                     return done(null, rows[0]);
