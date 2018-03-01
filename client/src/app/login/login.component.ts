@@ -15,13 +15,15 @@ export class LoginComponent implements OnDestroy {
 
   username : string;
   password: string;
+  remember: boolean = false;
   private _loginSubscribtion;
 
   constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>, private _loginService: LoginService) {}
 
 
   login() : void {
-    this._loginSubscribtion =  this._loginService.login(this.username, this.password)
+    console.log(this.remember);
+    this._loginSubscribtion =  this._loginService.login(this.username, this.password, this.remember)
       .subscribe(value => console.log(value));
   }
 

@@ -5,7 +5,6 @@ import {MatButtonModule, MatCheckboxModule, MatDialogModule, MatInputModule} fro
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { SigninComponent } from './signin/signin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PronostiekComponent } from './pronostiek/pronostiek.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -30,7 +29,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent,
     ProfileComponent,
     PronostiekComponent,
     HeaderComponent,

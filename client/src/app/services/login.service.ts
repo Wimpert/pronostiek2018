@@ -10,8 +10,8 @@ export class LoginService {
 
   constructor(private  _httpClient : HttpClient) { }
 
-  login(username:string, password:string) : Observable<any>{
-    return this._httpClient.post(this._baseUrl + "login",{username:username,password:password},{withCredentials:true});
+  login(username:string, password:string, remeber: boolean) : Observable<any>{
+    return this._httpClient.post(this._baseUrl + "login",{username:username,password:password, remember: remeber},{withCredentials:true});
   }
 
 }

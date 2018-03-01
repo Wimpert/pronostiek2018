@@ -6,10 +6,12 @@
     <mat-form-field>
       <input matInput placeholder="password" type="password" [(ngModel)]="password">
     </mat-form-field>
+    <mat-checkbox [(ngModel)]="remember">Keep me logged in.</mat-checkbox>
     <div class="button-row">
       <button color="primary" mat-raised-button (click)="dialogRef.close()">Annuleren</button>
       <button  type="submit" mat-raised-button  [disabled]="(!username && !password)" (click)="login()">Login</button>
     </div>
   </div>
+
 
 </mat-dialog-content>

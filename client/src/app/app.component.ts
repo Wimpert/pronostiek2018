@@ -42,9 +42,7 @@ export class AppComponent implements  OnInit{
       minWidth: '300px'
     });
 
-   /*signUpdialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });*/
+
   }
 
   get() : void{
