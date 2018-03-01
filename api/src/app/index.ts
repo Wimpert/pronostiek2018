@@ -51,7 +51,8 @@ app.use(express.static('./client/dist'));
 app.use(session({
     secret: 'spelvreugde666',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    rolling: false
 } ));
 
 app.use(passport.initialize());

@@ -30,9 +30,7 @@ module.exports = function(app, passport) {
 
   app.post('/api/login' , function (req, res, next) {
        passport.authenticate('local-login', function (err, user ,info) {
-           console.log(err);
-           console.log(user);
-           console.log(info);
+
            if(err){
                return next(err)
            }
@@ -45,6 +43,10 @@ module.exports = function(app, passport) {
                if (err) {
                    return next(err);
                }
+              /* const tenYears = 1000*60*60*24*365*10;
+               const tenYearFromNow = new Date(Date.now() + tenYears);
+               req.session.cookie.maxAge = tenYears;
+               console.log(req.session);*/
                return res.send(200, user);
            });
        })(req, res, next);
@@ -81,6 +83,7 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/api/profile', isLoggedIn, function(req, res) {
         console.log(req.user);
+        console.log(req.session);
         res.send({
             user : req.user // get the user out of session and pass to template
         });

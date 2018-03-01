@@ -1,12 +1,15 @@
 <mat-dialog-content>
-  <mat-form-field>
-  <input matInput placeholder="username or email" [(ngModel)]="username">
-  </mat-form-field>
-  <mat-form-field>
-  <input matInput placeholder="password" type="password" [(ngModel)]="password">
-  </mat-form-field>
-  <div class="button-row">
-    <button color="primary" mat-raised-button (click)="dialogRef.close()">Annuleren</button>
-    <button  type="submit" mat-raised-button  [disabled]="(!username && !password)" (click)="login()">Login</button>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="username or email" [(ngModel)]="username">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="password" type="password" [(ngModel)]="password">
+    </mat-form-field>
+    <div class="button-row">
+      <button color="primary" mat-raised-button (click)="dialogRef.close()">Annuleren</button>
+      <button  type="submit" mat-raised-button  [disabled]="(!username && !password)" (click)="login()">Login</button>
+    </div>
   </div>
+
 </mat-dialog-content>

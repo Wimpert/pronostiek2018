@@ -11,7 +11,7 @@ import { PronostiekComponent } from './pronostiek/pronostiek.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {AuthService} from "./auth.service";
+import {AuthService} from "./services/auth.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
