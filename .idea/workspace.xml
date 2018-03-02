@@ -4,19 +4,6 @@
     <list default="true" id="44aec351-03fb-43e0-980e-7f6f6e8e97a0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/api/src/app/config/database.ts" afterPath="$PROJECT_DIR$/api/src/app/config/database.ts" />
-      <change beforePath="$PROJECT_DIR$/client/dist/assets/images/logo_jackies.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/favicon.ico" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/inline.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/inline.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/main.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/main.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/polyfills.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/polyfills.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/styles.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/styles.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/vendor.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/vendor.bundle.js.map" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -82,8 +69,8 @@
       <file leaf-file-name="database.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/src/app/config/database.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="2" lean-forward="false" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="90">
+              <caret line="6" column="39" lean-forward="false" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -554,15 +541,16 @@
       <workItem from="1519890871694" duration="299000" />
       <workItem from="1519892433064" duration="15000" />
       <workItem from="1519919044046" duration="3118000" />
-      <workItem from="1519934837698" duration="912000" />
+      <workItem from="1519934837698" duration="1635000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144862000" />
+    <option name="totallyTimeSpent" value="145585000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -951,8 +939,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/src/app/config/database.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="2" lean-forward="false" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="90">
+          <caret line="6" column="39" lean-forward="false" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
           <folding />
         </state>
       </provider>
