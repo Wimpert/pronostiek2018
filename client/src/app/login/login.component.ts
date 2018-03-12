@@ -1,9 +1,10 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {User} from "../../../../api/src/shared/models/User";
+import {Component, OnDestroy} from '@angular/core';
+import { MatDialogRef} from "@angular/material";
 import {SignUpDialogComponent} from "../signup/signup.component";
-import {ProfileService} from "../services/profile.service";
 import {LoginService} from "../services/login.service";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
+import {switchMap, tap, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -16,21 +17,35 @@ export class LoginComponent implements OnDestroy {
   username : string;
   password: string;
   remember: boolean = false;
-  private _loginSubscribtion;
 
-  constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>, private _loginService: LoginService) {}
+  _loginSubscribtion : Observable<boolean>;
+  private  _loginButton$ = new Subject<string>();
 
 
-  login() : void {
-    console.log(this.remember);
-    this._loginSubscribtion =  this._loginService.login(this.username, this.password, this.remember)
-      .subscribe(value => console.log(value));
+  constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>, private _loginService: LoginService) {
+
+    this._loginSubscribtion = this._loginButton$.pipe(
+      switchMap(_ => this._loginService.login(this.username, this.password, this.remember)),
+      tap(user => console.log(user)),
+      map(user => {
+        if(user){
+          return user.id != undefined;
+        }
+        return false;
+      }),
+      tap(val => console.log("val: " + val))
+    );
   }
 
+
+  login(){
+    this._loginButton$.next("clicked");
+  }
+
+
+
   ngOnDestroy(): void {
-    if(this._loginSubscribtion){
-      this._loginSubscribtion.unsubscribe();
-    }
+
   }
 
 }

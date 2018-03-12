@@ -10,17 +10,15 @@ export class AuthService {
 
 
 
-  constructor() {
-    console.log(document);
-    console.log(document.cookie);
-    document.cookie = "wim=hello";
-    console.log(document.cookie);
-    this.userIsLoggedIn$.next(false);
+  constructor( ) {
+    const cookies : string  = document.cookie;
+    const startValue : boolean = cookies.indexOf("uid=") >= 0;
+    this.userIsLoggedIn$.next(startValue);
+   // this.userIsLoggedIn$ =
   }
 
-  toggleLogin()  {
-    let value = Math.random() > 0.5;
-    this.userIsLoggedIn$.next(value);
+  emitUserLoggedInEvent()  {
+
   }
 
 }

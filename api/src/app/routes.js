@@ -48,9 +48,9 @@ module.exports = function(app, passport) {
                   //"we want to be remebered:"
                    const tenYears = 1000*60*60*24*365*10;
                    req.session.cookie.maxAge = tenYears;
-                   res.cookie("jackiescookie","hellow",{maxAge:tenYears});
+                   res.cookie("uid",user.id,{maxAge:tenYears});
                } else {
-                   res.cookie("jackiescookie","hellow");
+                   res.cookie("uid",user.id);
                }
 
 
