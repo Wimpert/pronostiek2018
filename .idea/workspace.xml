@@ -2,31 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44aec351-03fb-43e0-980e-7f6f6e8e97a0" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/app/services/logout.service.spec.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/client/src/app/services/logout.service.ts" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/api/src/app/config/database.ts" afterPath="$PROJECT_DIR$/api/src/app/config/database.ts" />
-      <change beforePath="$PROJECT_DIR$/api/src/app/config/passport.js" afterPath="$PROJECT_DIR$/api/src/app/config/passport.js" />
-      <change beforePath="$PROJECT_DIR$/api/src/app/routes.js" afterPath="$PROJECT_DIR$/api/src/app/routes.js" />
-      <change beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change beforePath="$PROJECT_DIR$/client/dist/assets/images/logo_jackies.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/favicon.ico" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/inline.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/inline.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/main.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/main.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/polyfills.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/polyfills.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/styles.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/styles.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/vendor.bundle.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/dist/vendor.bundle.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/header/header.component.html" afterPath="$PROJECT_DIR$/client/src/app/header/header.component.html" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/header/header.component.ts" afterPath="$PROJECT_DIR$/client/src/app/header/header.component.ts" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/login/login.component.ts" afterPath="$PROJECT_DIR$/client/src/app/login/login.component.ts" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/services/auth.service.ts" afterPath="$PROJECT_DIR$/client/src/app/services/auth.service.ts" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/services/login.service.ts" afterPath="$PROJECT_DIR$/client/src/app/services/login.service.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,7 +33,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.component.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="login.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/app/login/login.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="638">
@@ -79,7 +55,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/src/app/routes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="321">
@@ -237,8 +213,9 @@
     <handled-path value="$PROJECT_DIR$/client/node_modules" />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="22" />
     <option name="width" value="1920" />
-    <option name="height" value="1200" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -559,12 +536,12 @@
       <workItem from="1519919044046" duration="3118000" />
       <workItem from="1519934837698" duration="2029000" />
       <workItem from="1520003341200" duration="1782000" />
-      <workItem from="1520843874696" duration="1539000" />
+      <workItem from="1520843874696" duration="2034000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149300000" />
+    <option name="totallyTimeSpent" value="149795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
@@ -576,7 +553,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27369353" sideWeight="0.73801917" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27369353" sideWeight="0.73801917" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2630458" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -950,14 +927,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/src/app/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="42" column="25" lean-forward="false" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/src/app/index.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -981,6 +950,14 @@
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/src/app/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="42" column="25" lean-forward="false" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
