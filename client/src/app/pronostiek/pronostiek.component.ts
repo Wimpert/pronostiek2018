@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../services/user.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-pronostiek',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PronostiekComponent implements OnInit {
 
-  constructor() { }
+  pronostiek$ : Observable<any>;
+
+  constructor(private _userService : UserService) { }
 
   ngOnInit() {
+    this.pronostiek$ = this._userService.getPronostiek();
   }
 
 }

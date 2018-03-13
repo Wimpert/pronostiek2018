@@ -21,7 +21,6 @@ export class LoginComponent implements OnDestroy {
 
 
   login(){
-    console.log("login func");
     this._loginService.login(this.username, this.password, this.remember);
   }
 

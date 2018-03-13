@@ -5,9 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {User} from "../../../../api/src/shared/models/User";
 import {map, merge, share, startWith, switchMap, tap} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
-import {ReplaySubject} from "rxjs/ReplaySubject";
 import {COOKIE_NAME} from "../../../../api/src/shared/models/Constants";
-import {LogoutService} from "./logout.service";
 
 @Injectable()
 export class UserService {
@@ -39,11 +37,7 @@ export class UserService {
 
     this.userLoggedOut$ = this.logoutRequest$.pipe(
       switchMap(_ =>
-        this._httpClient.get(this._baseUrl+"logout",{withCredentials:true}).pipe(
-          map( value => {
-            return value.logoutSuccess !== undefined;
-          })
-        )
+        this._httpClient.get<boolean>(this._baseUrl+"logout",{withCredentials:true})
       ),
       share()
     );
@@ -64,8 +58,10 @@ export class UserService {
 
   logout() {
     this.logoutRequest$.next( "logout");
-   // return this._httpClient.get(this._baseUrl+"logout",{withCredentials:true})
+  }
 
+  getPronostiek() : Observable<any> {
+    return this._httpClient.get(this._baseUrl + "pronostiek", {withCredentials:true});
   }
 
 }
