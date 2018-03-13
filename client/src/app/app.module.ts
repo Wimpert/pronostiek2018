@@ -13,8 +13,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
-import {ProfileService} from "./services/profile.service";
-import { LoginComponent } from './login/login.component';
+import {LoginComponent } from './login/login.component';
 import {UserService} from "./services/user.service";
 
 const appRoutes: Routes = [
@@ -52,7 +51,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [ ProfileService, UserService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

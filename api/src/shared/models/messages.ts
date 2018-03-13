@@ -6,3 +6,7 @@ export const signUpMessages = {
 export const loginMessages = {
     comboNotFound  : {message:"No combo found", code:1}
 }
+
+export const logoutMessages = {
+    success : {message: "User logged out" , logoutSuccess : true}
+}

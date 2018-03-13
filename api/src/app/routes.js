@@ -107,7 +107,7 @@ module.exports = function(app, passport) {
     app.get('/api/logout', function(req, res) {
         req.logout();
         res.cookie(constants.COOKIE_NAME,"",{expires:new Date()});
-        res.send(200,{logoutSuccess : true});
+        res.send(200, messages.logoutMessages.success.logoutSuccess);
     });
 
 

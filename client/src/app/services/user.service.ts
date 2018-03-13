@@ -65,4 +65,8 @@ export class UserService {
     return this._httpClient.get(this._baseUrl + "pronostiek", {withCredentials:true});
   }
 
+  createUser(user: User) : Observable<any> {
+    return this._httpClient.post(this._baseUrl+"signup",user);
+  }
+
 }

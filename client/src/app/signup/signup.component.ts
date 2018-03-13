@@ -1,8 +1,8 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {Component, Inject, ViewChild} from "@angular/core";
 import {User} from "../../../../api/src/shared/models/User";
-import {ProfileService} from "../services/profile.service";
 import {ProfileComponent} from "../profile/profile.component";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'sign-up-dialog',
@@ -16,7 +16,7 @@ export class SignUpDialogComponent {
 
   constructor(  public dialogRef: MatDialogRef<SignUpDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
-                private profileService : ProfileService) {
+                private _userService : UserService) {
     this.user = new User();
   }
 

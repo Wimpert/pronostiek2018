@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../../../api/src/shared/models/User";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidation} from "../utils/utils";
-import {ProfileService} from "../services/profile.service";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   @Output() userUpdated = new EventEmitter<User>();
   profileFormGroup: FormGroup;
 
-  constructor(private _formBuilder : FormBuilder, private _profileService : ProfileService) {
+  constructor(private _formBuilder : FormBuilder, private _userService : UserService) {
   }
 
   ngOnInit() {
@@ -40,9 +40,8 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() : void {
-    console.log("test");
 
-    this._profileService.createProfile(this.user)
+    this._userService.createUser(this.user)
       .subscribe(value => console.log(value));
     //this.userUpdated.emit(this.user);
   }
