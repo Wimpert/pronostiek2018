@@ -16,19 +16,28 @@ export class UserService {
 
   private loginRequest$ : Subject<any> = new Subject<any>();
   private logoutRequest$ : Subject<any> = new Subject<any>();
+  private userCreateRequest$ :Subject<User> = new Subject<User>();
   private userLoggedIn$ : Observable<boolean>;
   private userLoggedOut$ : Observable<boolean>;
+  private userCreated$ : Observable<boolean>;
 
   constructor(private  _httpClient : HttpClient) {
     this.userLoggedIn$ = this.loginRequest$.pipe(
       switchMap(body =>
         this._httpClient.post<User>(this._baseUrl + "login", body ,{withCredentials:true}).pipe(
           map(value => {
-            if(value.id){
-              return true;
-            } else {
-              return false;
-            }
+            return value.id !== undefined;
+          })
+        )
+      ),
+      share()
+    );
+
+    this.userCreated$ = this.userCreateRequest$.pipe(
+      switchMap(user =>
+        this._httpClient.post<User>(this._baseUrl+"signup",user).pipe(
+          map(user => {
+            return user.id !== undefined;
           })
         )
       ),
@@ -46,6 +55,7 @@ export class UserService {
       merge(this.userLoggedOut$.pipe(
         map(value => !value)
       )),
+      merge(this.userCreated$),
       startWith(document.cookie.indexOf(COOKIE_NAME) >= 0),
       tap(_ => console.log("log:" + _)),
       share()
@@ -56,7 +66,6 @@ export class UserService {
     this.loginRequest$.next({username:username, password: password, remember: remeber});
   }
 
-
   logout() {
     this.logoutRequest$.next( "logout");
   }
@@ -65,8 +74,8 @@ export class UserService {
     return this._httpClient.get(this._baseUrl + "pronostiek", {withCredentials:true});
   }
 
-  createUser(user: User) : Observable<any> {
-    return this._httpClient.post(this._baseUrl+"signup",user);
+  createUser(user: User) {
+    this.userCreateRequest$.next(user);
   }
 
 }

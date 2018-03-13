@@ -3,6 +3,7 @@ import {User} from "../../../../api/src/shared/models/User";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidation} from "../utils/utils";
 import {UserService} from "../services/user.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +15,18 @@ export class ProfileComponent implements OnInit {
   @Input() user: User;
   confirmPassword : String;
   @Output() canceled = new EventEmitter();
-  @Output() userUpdated = new EventEmitter<User>();
+  @Output() userUpdated = new EventEmitter();
   profileFormGroup: FormGroup;
 
   constructor(private _formBuilder : FormBuilder, private _userService : UserService) {
+    //this is dirty;
+    this._userService.userIsLoggedIn$.pipe(
+      tap(value => {
+        if(value) {
+          this.userUpdated.next("user updated");
+        }
+      })
+    );
   }
 
   ngOnInit() {
@@ -40,10 +49,8 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() : void {
-
-    this._userService.createUser(this.user)
-      .subscribe(value => console.log(value));
-    //this.userUpdated.emit(this.user);
+    //TODO VALIDATION ON PASSWORD !!
+    //this._userService.createUser(this.user);
   }
 
 
