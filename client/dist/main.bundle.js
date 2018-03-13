@@ -51,7 +51,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n\n<div *ngIf=\"!(loginService.userIsLoggedIn$ | async)\" id=\"welcome-screen\">\n  <h3>\n    Welkom op de pronostiek!\n  </h3>\n <img width=\"auto\" alt=\"De Jackies\"  src=\"../assets/images/logo_jackies.jpg\">\n  <div>\n    <button color=\"primary\" mat-raised-button (click)=\"openSignupDialog()\">Schrijf je in</button>\n    <button color=\"primary\" mat-raised-button (click)=\"openLoginDialog()\">Meld je aan</button>\n    <button (click)=\"get()\">testdfqfdssqfs</button>\n  </div>\n</div>\n<div *ngIf=\"(loginService.userIsLoggedIn$ | async)\">\n  <app-header></app-header>\n  <app-sidebar></app-sidebar>\n  <router-outlet></router-outlet>\n</div>\n\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n\n<div *ngIf=\"!(loginService.userIsLoggedIn$ | async)\" id=\"welcome-screen\">\n  <h3>\n    Welkom op de pronostiek!\n  </h3>\n <img width=\"auto\" alt=\"De Jackies\"  src=\"../assets/images/logo_jackies.jpg\">\n  <div>\n    <button color=\"primary\" mat-raised-button (click)=\"openSignupDialog()\">Schrijf je in</button>\n    <button color=\"primary\" mat-raised-button (click)=\"openLoginDialog()\">Meld je aan</button>\n  </div>\n</div>\n<div *ngIf=\"(loginService.userIsLoggedIn$ | async)\">\n  <app-header></app-header>\n  <app-sidebar></app-sidebar>\n  <router-outlet></router-outlet>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -124,10 +124,6 @@ var AppComponent = /** @class */ (function () {
             maxHeight: '80%',
             minWidth: '300px'
         });
-    };
-    AppComponent.prototype.get = function () {
-        this._profileService.getProfile()
-            .subscribe(function (value) { return console.log(value); });
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -301,7 +297,7 @@ var HeaderComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content>\n  <div>\n    <mat-form-field>\n      <input matInput placeholder=\"username or email\" [(ngModel)]=\"username\">\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"password\" type=\"password\" [(ngModel)]=\"password\">\n    </mat-form-field>\n    <mat-checkbox [(ngModel)]=\"remember\">Keep me logged in.</mat-checkbox>\n    <div class=\"button-row\">\n      <button color=\"primary\" mat-raised-button (click)=\"dialogRef.close()\">Annuleren</button>\n      <button  type=\"submit\" mat-raised-button  [disabled]=\"(!username && !password)\" (click)=\"login()\">Login</button>\n    </div>\n  </div>\n\n\n</mat-dialog-content>\n"
+module.exports = "<mat-dialog-content>\n  <div>\n    <mat-form-field>\n      <input matInput placeholder=\"username or email\" [(ngModel)]=\"username\">\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"password\" type=\"password\" [(ngModel)]=\"password\">\n    </mat-form-field>\n    <mat-checkbox [(ngModel)]=\"remember\">Keep me logged in.</mat-checkbox>\n    <div class=\"button-row\">\n      <button color=\"primary\" mat-raised-button (click)=\"dialogRef.close()\">Annuleren</button>\n      <button  type=\"submit\" mat-raised-button  [disabled]=\"(!username && !password)\" (click)=\"login()\">Login</button>\n    </div>\n  </div>\n</mat-dialog-content>\n"
 
 /***/ }),
 
@@ -331,6 +327,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operators__ = __webpack_require__("../../../../rxjs/_esm5/operators.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -343,16 +340,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LoginComponent = /** @class */ (function () {
     function LoginComponent(dialogRef, _loginService) {
+        var _this = this;
         this.dialogRef = dialogRef;
         this._loginService = _loginService;
         this.remember = false;
+        this.subscribtion = this._loginService.userIsLoggedIn$.pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["f" /* tap */])(function (value) {
+            if (value) {
+                _this.dialogRef.close();
+            }
+        })).subscribe();
     }
     LoginComponent.prototype.login = function () {
         this._loginService.login(this.username, this.password, this.remember);
     };
     LoginComponent.prototype.ngOnDestroy = function () {
+        this.subscribtion.unsubscribe();
     };
     LoginComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -628,7 +633,7 @@ var UserService = /** @class */ (function () {
         this.userLoggedOut$ = this.logoutRequest$.pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* switchMap */])(function (_) {
             return _this._httpClient.get(_this._baseUrl + "logout", { withCredentials: true });
         }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["c" /* share */])());
-        this.userIsLoggedIn$ = this.userLoggedIn$.pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["b" /* merge */])(this.userLoggedOut$.pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* map */])(function (value) { return !value; }))), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["d" /* startWith */])(document.cookie.indexOf(__WEBPACK_IMPORTED_MODULE_5__api_src_shared_models_Constants__["a" /* COOKIE_NAME */]) >= 0), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["f" /* tap */])(function (_) { return console.log("log:" + _); }));
+        this.userIsLoggedIn$ = this.userLoggedIn$.pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["b" /* merge */])(this.userLoggedOut$.pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* map */])(function (value) { return !value; }))), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["d" /* startWith */])(document.cookie.indexOf(__WEBPACK_IMPORTED_MODULE_5__api_src_shared_models_Constants__["a" /* COOKIE_NAME */]) >= 0), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["f" /* tap */])(function (_) { return console.log("log:" + _); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["c" /* share */])());
     }
     UserService.prototype.login = function (username, password, remeber) {
         this.loginRequest$.next({ username: username, password: password, remember: remeber });

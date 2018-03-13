@@ -40,13 +40,6 @@ export class AppComponent implements  OnInit{
       maxHeight: '80%',
       minWidth: '300px'
     });
-
-
-  }
-
-  get() : void{
-    this._profileService.getProfile()
-      .subscribe(value => console.log(value));
   }
 
 

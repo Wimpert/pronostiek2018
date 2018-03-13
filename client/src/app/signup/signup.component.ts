@@ -31,6 +31,7 @@ export class SignUpDialogComponent {
   userSaveSuccessfully(user : User): void {
     console.log("this is the new user: ");
     console.log(user);
+    this.close();
   }
 
 }

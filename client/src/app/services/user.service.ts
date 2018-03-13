@@ -47,7 +47,8 @@ export class UserService {
         map(value => !value)
       )),
       startWith(document.cookie.indexOf(COOKIE_NAME) >= 0),
-      tap(_ => console.log("log:" + _))
+      tap(_ => console.log("log:" + _)),
+      share()
     );
   }
 
