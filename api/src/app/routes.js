@@ -1,5 +1,6 @@
 var messages = require('../shared/models/messages');
-var DBUtils = require('./config/DBUtils')
+var DBUtils = require('./config/DBUtils');
+var constants =  require('../shared/models/Constants')
 
 module.exports = function(app, passport) {
 
@@ -48,9 +49,9 @@ module.exports = function(app, passport) {
                   //"we want to be remebered:"
                    const tenYears = 1000*60*60*24*365*10;
                    req.session.cookie.maxAge = tenYears;
-                   res.cookie("uid",user.id,{maxAge:tenYears});
+                   res.cookie(constants.COOKIE_NAME,user.id,{maxAge:tenYears});
                } else {
-                   res.cookie("uid",user.id);
+                   res.cookie(constants.COOKIE_NAME,user.id);
                }
 
 
@@ -103,9 +104,10 @@ module.exports = function(app, passport) {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    app.get('/logout', function(req, res) {
+    app.get('/api/logout', function(req, res) {
         req.logout();
-        res.redirect('/');
+        res.cookie(constants.COOKIE_NAME,"",{expires:new Date()});
+        res.send(200,{logoutSuccess : true});
     });
 
 

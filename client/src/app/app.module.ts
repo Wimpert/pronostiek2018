@@ -10,13 +10,12 @@ import { PronostiekComponent } from './pronostiek/pronostiek.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {AuthService} from "./services/auth.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ProfileService} from "./services/profile.service";
 import { LoginComponent } from './login/login.component';
-import {LoginService} from "./services/login.service";
+import {UserService} from "./services/user.service";
 
 const appRoutes: Routes = [
 
@@ -53,7 +52,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [AuthService, ProfileService, LoginService],
+  providers: [ ProfileService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

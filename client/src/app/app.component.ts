@@ -1,10 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AuthService} from "./services/auth.service";
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {User} from "../../../api/src/shared/models/User";
+import {Component,OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material';
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 import {ProfileService} from "./services/profile.service";
+import {UserService} from "./services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ export class AppComponent implements  OnInit{
   title = 'Pronostiek';
 
 
-  constructor(public  authService : AuthService, private matDialog : MatDialog , private _profileService : ProfileService){
+  constructor(public  loginService : UserService, private matDialog : MatDialog , private _profileService : ProfileService){
   }
 
   ngOnInit(): void {}

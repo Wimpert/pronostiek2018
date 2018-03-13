@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 
-<div *ngIf="!(authService.userIsLoggedIn$ | async)" id="welcome-screen">
+<div *ngIf="!(loginService.userIsLoggedIn$ | async)" id="welcome-screen">
   <h3>
     Welkom op de pronostiek!
   </h3>
@@ -12,7 +12,7 @@
     <button (click)="get()">testdfqfdssqfs</button>
   </div>
 </div>
-<div *ngIf="(authService.userIsLoggedIn$ | async)">
+<div *ngIf="(loginService.userIsLoggedIn$ | async)">
   <app-header></app-header>
   <app-sidebar></app-sidebar>
   <router-outlet></router-outlet>
