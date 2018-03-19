@@ -1,7 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
-
-<div *ngIf="!(_userService.userIsLoggedIn$ | async)" id="welcome-screen">
+<div *ngIf="(showWelcome$ | async); else content" id="welcome-screen">
   <h3>
     Welkom op de pronostiek!
   </h3>
@@ -11,10 +8,13 @@
     <button color="primary" mat-raised-button (click)="openLoginDialog()">Meld je aan</button>
   </div>
 </div>
-<div *ngIf="(_userService.userIsLoggedIn$ | async)">
-  <app-header></app-header>
-  <app-sidebar></app-sidebar>
-  <router-outlet></router-outlet>
-</div>
+
+
+<ng-template #content>
+ <div id="content-container">
+    <app-content></app-content>
+  </div>
+</ng-template>
+
 
 

@@ -21,9 +21,10 @@ export class LoginComponent implements OnDestroy {
 
 
 
-  constructor(public dialogRef: MatDialogRef<SignUpDialogComponent>, public _loginService: UserService) {
-   this.subscribtion =  this._loginService.userIsLoggedIn$.pipe(
+  constructor(public dialogRef: MatDialogRef<SignUpDialogComponent>, public _userService: UserService) {
+   this.subscribtion =  this._userService.userIsLoggedIn$.pipe(
       tap(value => {
+
         if(value) {
           this.dialogRef.close();
         }
@@ -33,7 +34,7 @@ export class LoginComponent implements OnDestroy {
 
 
   login(){
-    this._loginService.login(this.username, this.password, this.remember);
+    this._userService.login(this.username, this.password, this.remember);
   }
 
 

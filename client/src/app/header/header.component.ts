@@ -7,7 +7,7 @@ import {UserService} from "../services/user.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService :  UserService) { }
+  constructor(private userService :  UserService) {}
 
   ngOnInit() {
   }
@@ -15,5 +15,4 @@ export class HeaderComponent implements OnInit {
   logout(){
     this.userService.logout();
   }
-
 }

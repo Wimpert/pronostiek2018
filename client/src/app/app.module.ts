@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {MatButtonModule, MatCheckboxModule, MatDialogModule, MatInputModule} from '@angular/material';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {
+  MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbar,
+  MatToolbarModule
+} from '@angular/material';
 
 
 import {AppComponent} from './app.component';
@@ -9,12 +12,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { PronostiekComponent } from './pronostiek/pronostiek.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpDialogComponent} from "./signup/signup.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginComponent } from './login/login.component';
 import {UserService} from "./services/user.service";
+import { ContentComponent } from './content/content.component';
+import {Interceptor} from "./services/http.interceptor";
 
 const appRoutes: Routes = [
 
@@ -30,9 +34,9 @@ const appRoutes: Routes = [
     ProfileComponent,
     PronostiekComponent,
     HeaderComponent,
-    SidebarComponent,
     SignUpDialogComponent,
-    LoginComponent
+    LoginComponent,
+    ContentComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [
@@ -46,12 +50,21 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatDialogModule,
     MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule
 
   ],
-  providers: [UserService],
+  providers: [UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

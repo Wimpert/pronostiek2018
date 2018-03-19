@@ -11,3 +11,17 @@ html, body{
   width: 100%;
   margin: 0;
 }
+
+
+.icon-button{
+  background: transparent;
+  border:none;
+}
+
+.icon-button:hover{
+  cursor: pointer;
+}
+
+.icon-button:focus{
+  outline: 0;
+}

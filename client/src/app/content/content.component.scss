@@ -1,0 +1,9 @@
+@import "../../variables";
+
+.example-container {
+  position: absolute;
+  top: $tool-bar-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

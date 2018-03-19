@@ -3,7 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../../../api/src/shared/models/User";
-import {map, merge, share, startWith, switchMap, tap} from "rxjs/operators";
+import {map, merge, share, shareReplay, startWith, switchMap, tap} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import {COOKIE_NAME} from "../../../../api/src/shared/models/Constants";
 
@@ -20,6 +20,7 @@ export class UserService {
   private userLoggedIn$ : Observable<boolean>;
   private userLoggedOut$ : Observable<boolean>;
   private userCreated$ : Observable<boolean>;
+  private unauthorizedResponse$ :  Subject<boolean> = new Subject<boolean>();
 
   constructor(private  _httpClient : HttpClient) {
     this.userLoggedIn$ = this.loginRequest$.pipe(
@@ -56,9 +57,12 @@ export class UserService {
         map(value => !value)
       )),
       merge(this.userCreated$),
+      merge(this.unauthorizedResponse$.pipe(
+        map(value => !value)
+      )),
       startWith(document.cookie.indexOf(COOKIE_NAME) >= 0),
-      tap(_ => console.log("log:" + _)),
-      share()
+      shareReplay(1)
+      //tap(value => {console.log("isloggedin: " + value)})
     );
   }
 
@@ -76,6 +80,11 @@ export class UserService {
 
   createUser(user: User) {
     this.userCreateRequest$.next(user);
+  }
+
+  handle401() {
+    console.log("hi");
+    this.unauthorizedResponse$.next(true);
   }
 
 }

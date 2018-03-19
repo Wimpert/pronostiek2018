@@ -3,6 +3,10 @@ import {MatDialog} from '@angular/material';
 import {SignUpDialogComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 import {UserService} from "./services/user.service";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
+import {ReplaySubject} from "rxjs/ReplaySubject";
+import {map, shareReplay, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -12,17 +16,19 @@ import {UserService} from "./services/user.service";
 
 export class AppComponent implements  OnInit{
 
+  showWelcome$ : Observable<boolean>;
 
-  title = 'Pronostiek';
+  constructor(public  _userService : UserService, private matDialog : MatDialog ){}
 
-
-  constructor(public  _userService : UserService, private matDialog : MatDialog ){
+  ngOnInit(): void {
+    this.showWelcome$ = this._userService.userIsLoggedIn$.pipe(
+     map(value => ! value)
+    );
   }
 
-  ngOnInit(): void {}
-
   openLoginDialog() {
-    let loginDialogRef = this.matDialog.open(LoginComponent, {
+    //let loginDialogRef =
+      this.matDialog.open(LoginComponent, {
       width: 'auto',
       height: 'auto',
       maxWidth: '80%',
@@ -32,7 +38,8 @@ export class AppComponent implements  OnInit{
   }
 
  openSignupDialog(): void {
-    let signUpdialogRef = this.matDialog.open(SignUpDialogComponent, {
+    //let signUpdialogRef =
+      this.matDialog.open(SignUpDialogComponent, {
       width: 'auto',
       height: 'auto',
       maxWidth: '80%',

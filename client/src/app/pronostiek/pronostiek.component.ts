@@ -11,7 +11,7 @@ export class PronostiekComponent implements OnInit {
 
   pronostiek$ : Observable<any>;
 
-  constructor(private _userService : UserService) { }
+  constructor(private _userService : UserService) {}
 
   ngOnInit() {
     this.pronostiek$ = this._userService.getPronostiek();
