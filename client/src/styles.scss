@@ -10,6 +10,7 @@ html, body{
   height: 100%;
   width: 100%;
   margin: 0;
+  font-size: 20px;
 }
 
 
@@ -24,4 +25,23 @@ html, body{
 
 .icon-button:focus{
   outline: 0;
+}
+
+.match-container{
+  padding: 5px;
+  flex-direction: row;
+  display: flex;
+}
+
+.score-inputs{
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.score-field{
+  width: 30px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid lightgray;
 }

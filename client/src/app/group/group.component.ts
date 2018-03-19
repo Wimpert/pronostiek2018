@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
 
 @Component({
@@ -6,13 +6,12 @@ import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent  {
+
 
   @Input() group : Group;
 
   constructor() { }
 
-  ngOnInit() {
-  }
 
 }

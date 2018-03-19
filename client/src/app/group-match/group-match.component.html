@@ -1,2 +1,9 @@
-{{groupMatch.homeTeamName}} vs. {{groupMatch.outTeamName}}
-
+<div class="match-container">
+  <span class="left-team-name">{{groupMatch.homeTeamName}}</span>
+  <span class="score-inputs">
+    <input [(ngModel)]="groupMatch.homeTeamScore" class="score-field">
+    <span> - </span>
+    <input [(ngModel)]="groupMatch.outTeamScore" class="score-field">
+  </span>
+  <span class="right-team-name">{{groupMatch.outTeamName}}</span>
+</div>
