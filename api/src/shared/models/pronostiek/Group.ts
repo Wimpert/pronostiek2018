@@ -44,8 +44,8 @@ export  class Group {
             if(match.outTeamScore != undefined && match.homeTeamScore != undefined){
                 //this means match is played, so let do what we need to do:
                 let matchOutCome = match.getOutCome();
-                let homeTeam = this.getTeam(match.homeTeam.name);
-                let outTeam = this.getTeam(match.outTeam.name);
+                let homeTeam = this.getTeam(match.homeTeamName);
+                let outTeam = this.getTeam(match.outTeamName);
                 if(matchOutCome == HOME_TEAM_WINS){
                     homeTeam.points += 3;
                     homeTeam.matchesWon++;
@@ -97,7 +97,7 @@ export  class Group {
 
     printGroupMatches(){
         this.matches.forEach((match) => {
-            console.log(`${match.homeTeam.name} - ${match.outTeam.name} : ${match.homeTeamScore} - ${match.outTeamScore}`);
+            console.log(`${match.homeTeamName} - ${match.outTeamName} : ${match.homeTeamScore} - ${match.outTeamScore}`);
         })
     }
 

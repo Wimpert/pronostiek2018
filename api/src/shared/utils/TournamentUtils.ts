@@ -11,27 +11,27 @@ export function getTournament() : Tournament {
 
     let tournament : Tournament = new Tournament();
 
-    let a = ["Russia", "Saudi Arabia", "Egypt", "Uruguay"];
-    let teamsA: Team[] = [];
-    a.forEach((name) => {
-        teamsA.push(new Team(name));
-    })
+    let allTeams =  [
+        ["Russia", "Saudi Arabia", "Egypt", "Uruguay"],
+        ["Portugal", "Spain", "Morocco", "Iran"],
+        ["France", "Australia", "Peru", "Denmark"],
+        ["Argentina", "Iceland", "Croatia", "Nigeria"],
+        ["Brazil", "Switzerland", "Costa Rica", "Serbia"],
+        ["Germany", "Mexico", "Sweden", "Korea Republic"],
+        ["Belgium", "Panama", "Tunisia", "England"],
+        ["Poland", "Senegal", "Colombia", "Japan"],
+    ];
 
-    let groupA = new Group("Group A", teamsA);
-    tournament.groups.push(groupA)
+    let groupLetter = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
-    let b = ["Portugal", "Spain", "Morocco", "Iran"];
-    let teamsb: Team[] = [];
-    b.forEach((name) => {
-        teamsb.push(new Team(name));
-    })
-
-    let groupb = new Group("Group B", teamsb);
-
-    tournament.groups.push(groupb);
-
-    console.log("***** Tournament generation Complete ****");
-
+    allTeams.forEach( (groupTeamsNames,index) => {
+        let teams: Team[] = [];
+        groupTeamsNames.forEach(teamName => {
+            teams.push(new Team(teamName));
+        });
+        let group = new Group ("Group " + groupLetter[index], teams);
+        tournament.groups.push(group);
+    });
     return tournament;
 }
 
@@ -58,7 +58,7 @@ export function getMatchesFromTeams(teams : Team[], allMatches : Match[]) : Matc
 
     var returnVal : Match [] = new Array<Match>();
     allMatches.forEach((match) => {
-       if(teamNames.indexOf(match.homeTeam.name) != -1 && teamNames.indexOf(match.outTeam.name) != -1){
+       if(teamNames.indexOf(match.homeTeamName) != -1 && teamNames.indexOf(match.outTeamName) != -1){
              returnVal.push(Object.create(match));
        }
 
@@ -92,8 +92,8 @@ export function proccesMatches(group: Group) :void {
         if(match.outTeamScore != undefined && match.homeTeamScore != undefined){
             //this means match is played, so let do what we need to do:
             let matchOutCome = match.getOutCome();
-            let homeTeam = group.getTeam(match.homeTeam.name);
-            let outTeam = group.getTeam(match.outTeam.name);
+            let homeTeam = group.getTeam(match.homeTeamName);
+            let outTeam = group.getTeam(match.outTeamName);
             if(matchOutCome == HOME_TEAM_WINS){
                 homeTeam.points += 3;
                 homeTeam.matchesWon++;

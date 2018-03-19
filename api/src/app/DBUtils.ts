@@ -1,9 +1,10 @@
 import {Request, Response} from "express";
-import {Pronostiek} from "../../shared/models/pronostiek/Pronostiek";
-import {Tournament} from "../../shared/models/pronostiek/Tournament";
+import {Pronostiek} from "../shared/models/pronostiek/Pronostiek";
+import {Tournament} from "../shared/models/pronostiek/Tournament";
+import {getTournament} from "../shared/utils/TournamentUtils";
 
 const mysql = require('mysql');
-const dbconfig = require('./database');
+const dbconfig = require('./config/database');
 const connection = mysql.createConnection(dbconfig.connection);
 
 connection.query('USE ' + dbconfig.database);
@@ -25,7 +26,7 @@ export class PronostiekUtils{
                         } else {
                             //this means there is none, so lets create one;
                             let prono : Pronostiek = new Pronostiek(req.user.id);
-                            prono.tournament = new Tournament();
+                            prono.tournament =  getTournament();
                             res.send(prono);
                         }
          });

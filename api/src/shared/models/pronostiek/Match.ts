@@ -2,14 +2,14 @@ import {Team} from "./Team";
 import { HOME_TEAM_WINS, MATCH_IS_DRAW, OUT_TEAM_WINS} from "../Constants";
 
 export class Match{
-    homeTeam : Team;
-    outTeam: Team;
+    homeTeamName : string;
+    outTeamName: string;
     homeTeamScore: number = undefined;
     outTeamScore: number = undefined;
 
     constructor(homeTeam: Team, outTeam : Team){
-        this.homeTeam =homeTeam;
-        this.outTeam = outTeam;
+        this.homeTeamName = homeTeam.name;
+        this.outTeamName = outTeam.name;
     }
 
     getOutCome() : number {

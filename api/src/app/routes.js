@@ -1,5 +1,5 @@
 var messages = require('../shared/models/messages');
-var DBUtils = require('./config/DBUtils');
+var DBUtils = require('./DBUtils');
 var constants =  require('../shared/models/Constants')
 
 module.exports = function(app, passport) {
