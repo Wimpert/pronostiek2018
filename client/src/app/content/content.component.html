@@ -1,8 +1,8 @@
-<app-header></app-header>
-<mat-sidenav-container>
-  <mat-sidenav mode="over" opened="false">Sidenav content</mat-sidenav>
+<app-header (toggleSideNav)="sideNavToggled()"></app-header>
+<mat-sidenav-container class="content-container">
+  <mat-sidenav mode="over" [opened]="sideNavOpen">Sidenav content</mat-sidenav>
   <mat-sidenav-content>
-    <h1>Main contetnt</h1>
+    <h1>Main content</h1>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

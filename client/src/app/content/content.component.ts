@@ -8,13 +8,18 @@ import {Observable} from "rxjs/Observable";
 })
 export class ContentComponent implements OnInit {
 
-  sideBarOpen$ : Observable<boolean>
+  sideNavOpen : boolean;
 
   constructor() { }
 
   ngOnInit() {
 
-    //this.
+    this.sideNavOpen = false;
+  }
+
+  sideNavToggled(){
+    console.log("here");
+    this.sideNavOpen = !this.sideNavOpen;
   }
 
 }
