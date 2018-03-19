@@ -13,12 +13,10 @@ export class ContentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
     this.sideNavOpen = false;
   }
 
   sideNavToggled(){
-    console.log("here");
     this.sideNavOpen = !this.sideNavOpen;
   }
 

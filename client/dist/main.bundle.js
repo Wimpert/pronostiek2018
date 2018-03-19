@@ -4,9 +4,9 @@ webpackJsonp(["main"],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export HOME_TEAM_WINS */
-/* unused harmony export OUT_TEAM_WINS */
-/* unused harmony export MATCH_IS_DRAW */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return HOME_TEAM_WINS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return OUT_TEAM_WINS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MATCH_IS_DRAW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return COOKIE_NAME; });
 var HOME_TEAM_WINS = 1;
 var OUT_TEAM_WINS = 2;
@@ -26,6 +26,222 @@ var User = /** @class */ (function () {
     }
     return User;
 }());
+
+
+
+/***/ }),
+
+/***/ "../../../../../../api/src/shared/models/pronostiek/Group.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Group; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Match__ = __webpack_require__("../../../../../../api/src/shared/models/pronostiek/Match.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Constants__ = __webpack_require__("../../../../../../api/src/shared/models/Constants.ts");
+
+
+var Group = /** @class */ (function () {
+    function Group(groupname, teams) {
+        this.allMatchesPlayed = false;
+        this.groupNeedsDraw = false;
+        this.groupname = groupname;
+        this.teams = teams;
+        if (this.teams) {
+            this.initMatches();
+        }
+    }
+    Group.prototype.initMatches = function () {
+        this.matches = [];
+        this.matches.push(new __WEBPACK_IMPORTED_MODULE_0__Match__["a" /* Match */](this.teams[0], this.teams[1]));
+        this.matches.push(new __WEBPACK_IMPORTED_MODULE_0__Match__["a" /* Match */](this.teams[2], this.teams[3]));
+        this.matches.push(new __WEBPACK_IMPORTED_MODULE_0__Match__["a" /* Match */](this.teams[0], this.teams[2]));
+        this.matches.push(new __WEBPACK_IMPORTED_MODULE_0__Match__["a" /* Match */](this.teams[3], this.teams[1]));
+        this.matches.push(new __WEBPACK_IMPORTED_MODULE_0__Match__["a" /* Match */](this.teams[3], this.teams[0]));
+        this.matches.push(new __WEBPACK_IMPORTED_MODULE_0__Match__["a" /* Match */](this.teams[1], this.teams[2]));
+    };
+    Group.prototype.processMatches = function () {
+        var _this = this;
+        this.allMatchesPlayed = true;
+        this.teams.forEach(function (team) {
+            team.reset();
+        });
+        this.matches.forEach(function (match) {
+            if (match.outTeamScore != undefined && match.homeTeamScore != undefined) {
+                //this means match is played, so let do what we need to do:
+                var matchOutCome = match.getOutCome();
+                var homeTeam = _this.getTeam(match.homeTeamName);
+                var outTeam = _this.getTeam(match.outTeamName);
+                if (matchOutCome == __WEBPACK_IMPORTED_MODULE_1__Constants__["b" /* HOME_TEAM_WINS */]) {
+                    homeTeam.points += 3;
+                    homeTeam.matchesWon++;
+                    outTeam.matchesLost++;
+                }
+                else if (matchOutCome == __WEBPACK_IMPORTED_MODULE_1__Constants__["d" /* OUT_TEAM_WINS */]) {
+                    outTeam.points += 3;
+                    outTeam.matchesWon++;
+                    homeTeam.matchesLost++;
+                }
+                else {
+                    homeTeam.points += 1;
+                    outTeam.points += 1;
+                    outTeam.matchesDrawed++;
+                    homeTeam.matchesDrawed++;
+                }
+                outTeam.goalsScored += match.outTeamScore;
+                outTeam.goalsConcieved += match.homeTeamScore;
+                homeTeam.goalsScored += match.homeTeamScore;
+                homeTeam.goalsConcieved += match.outTeamScore;
+            }
+            else {
+                _this.allMatchesPlayed = false;
+            }
+        });
+        //if all played matches are done, we put the points:
+        this.teams.forEach(function (team) {
+            team.points = team.matchesWon * 3 + team.matchesDrawed;
+        });
+    };
+    //this get the corresponding to the teamname passed to the method:
+    Group.prototype.getTeam = function (name) {
+        for (var _i = 0, _a = this.teams; _i < _a.length; _i++) {
+            var team = _a[_i];
+            if (team.name == name) {
+                return team;
+            }
+        }
+    };
+    Group.prototype.printGroupStanding = function () {
+        this.teams.forEach(function (team) {
+            console.log(team.name + "  w:" + team.matchesWon + "  d:" + team.matchesDrawed + " l:" + team.matchesLost + " s:" + team.goalsScored + " c:" + team.goalsConcieved + " P:" + team.points);
+        });
+        console.log("All played: " + this.allMatchesPlayed);
+    };
+    Group.prototype.printGroupMatches = function () {
+        this.matches.forEach(function (match) {
+            console.log(match.homeTeamName + " - " + match.outTeamName + " : " + match.homeTeamScore + " - " + match.outTeamScore);
+        });
+    };
+    Group.prototype.getEqualTeams = function () {
+        return this.equalTeams;
+    };
+    Group.prototype.getAllMatchesPlayed = function () {
+        return this.allMatchesPlayed;
+    };
+    Group.prototype.addToEqualTeams = function (teamsToAdd) {
+        if (this.getEqualTeams().length == 0) {
+            // first, just add it:
+            this.equalTeams.push(teamsToAdd);
+        }
+        else {
+            var added = false;
+            // we need to check is one of the 2 teams already is in on of the arrays that was already added:
+            for (var _i = 0, _a = this.equalTeams; _i < _a.length; _i++) {
+                var alreadyAddedTeams = _a[_i];
+                //check if it contains one of them:
+                var indexOfExistingTeam = 0;
+                for (var _b = 0, teamsToAdd_1 = teamsToAdd; _b < teamsToAdd_1.length; _b++) {
+                    var teamToAdd = teamsToAdd_1[_b];
+                    //if it already in there, just add the other one as well and we are done:
+                    if (alreadyAddedTeams.lastIndexOf(teamToAdd) != -1) {
+                        break;
+                    }
+                    indexOfExistingTeam++;
+                }
+                //if this is 2, this means we did not find the team in alreadyAddedTeams
+                if (indexOfExistingTeam != 2) {
+                    //if is 0 or 1, we found is, so we need to add the other team.
+                    var indexOfTeamToAdd = indexOfExistingTeam == 1 ? 0 : 1;
+                    //console.log(indexOfTeamToAdd);
+                    alreadyAddedTeams.push(teamsToAdd[indexOfTeamToAdd]);
+                    added = true;
+                    break;
+                }
+            }
+            if (!added) {
+                // this mean teams are equal 2 on 2
+                this.equalTeams.push(teamsToAdd);
+            }
+        }
+    };
+    /**
+     * This is purely for helping method:
+     */
+    Group.prototype.containsTeamWithName = function (name) {
+        for (var _i = 0, _a = this.teams; _i < _a.length; _i++) {
+            var team = _a[_i];
+            if (team.name == name) {
+                return true;
+            }
+        }
+        return false;
+    };
+    return Group;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../../api/src/shared/models/pronostiek/Match.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Match; });
+/* unused harmony export KnockoutMatch */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Constants__ = __webpack_require__("../../../../../../api/src/shared/models/Constants.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var Match = /** @class */ (function () {
+    function Match(homeTeam, outTeam) {
+        this.homeTeamScore = undefined;
+        this.outTeamScore = undefined;
+        this.homeTeamName = homeTeam.name;
+        this.outTeamName = outTeam.name;
+    }
+    Match.prototype.getOutCome = function () {
+        if (this.homeTeamScore > this.outTeamScore) {
+            return __WEBPACK_IMPORTED_MODULE_0__Constants__["b" /* HOME_TEAM_WINS */];
+        }
+        else if (this.outTeamScore > this.homeTeamScore) {
+            return __WEBPACK_IMPORTED_MODULE_0__Constants__["d" /* OUT_TEAM_WINS */];
+        }
+        return __WEBPACK_IMPORTED_MODULE_0__Constants__["c" /* MATCH_IS_DRAW */];
+    };
+    return Match;
+}());
+
+var KnockoutMatch = /** @class */ (function (_super) {
+    __extends(KnockoutMatch, _super);
+    function KnockoutMatch() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.homeTeamPenaltyScore = undefined;
+        _this.outTeamPenaltyScore = undefined;
+        return _this;
+    }
+    KnockoutMatch.prototype.getOutCome = function () {
+        var outCome = _super.prototype.getOutCome.call(this);
+        if (outCome == __WEBPACK_IMPORTED_MODULE_0__Constants__["c" /* MATCH_IS_DRAW */]) {
+            //This means match was with penals ...
+            if (this.homeTeamPenaltyScore > this.outTeamPenaltyScore) {
+                return __WEBPACK_IMPORTED_MODULE_0__Constants__["b" /* HOME_TEAM_WINS */];
+            }
+            else {
+                return __WEBPACK_IMPORTED_MODULE_0__Constants__["d" /* OUT_TEAM_WINS */];
+            }
+        }
+        return outCome;
+    };
+    return KnockoutMatch;
+}(Match));
 
 
 
@@ -163,12 +379,18 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__content_content_component__ = __webpack_require__("../../../../../src/app/content/content.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_http_interceptor__ = __webpack_require__("../../../../../src/app/services/http.interceptor.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__groups_groups_component__ = __webpack_require__("../../../../../src/app/groups/groups.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__group_group_component__ = __webpack_require__("../../../../../src/app/group/group.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__group_match_group_match_component__ = __webpack_require__("../../../../../src/app/group-match/group-match.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -202,7 +424,10 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_8__header_header_component__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_10__signup_signup_component__["a" /* SignUpDialogComponent */],
                 __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__content_content_component__["a" /* ContentComponent */]
+                __WEBPACK_IMPORTED_MODULE_14__content_content_component__["a" /* ContentComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__groups_groups_component__["a" /* GroupsComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__group_group_component__["a" /* GroupComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__group_match_group_match_component__["a" /* GroupMatchComponent */]
             ],
             entryComponents: [__WEBPACK_IMPORTED_MODULE_10__signup_signup_component__["a" /* SignUpDialogComponent */], __WEBPACK_IMPORTED_MODULE_12__login_login_component__["a" /* LoginComponent */]],
             imports: [
@@ -213,10 +438,11 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_material__["b" /* MatButtonModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatCheckboxModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_material__["e" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["h" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["j" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["g" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_material__["i" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["i" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["k" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["h" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["j" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_material__["g" /* MatExpansionModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["i" /* ReactiveFormsModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["d" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_11__angular_common_http__["c" /* HttpClientModule */]
@@ -286,7 +512,6 @@ var ContentComponent = /** @class */ (function () {
         this.sideNavOpen = false;
     };
     ContentComponent.prototype.sideNavToggled = function () {
-        console.log("here");
         this.sideNavOpen = !this.sideNavOpen;
     };
     ContentComponent = __decorate([
@@ -298,6 +523,205 @@ var ContentComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ContentComponent);
     return ContentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/group-match/group-match.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "{{groupMatch.homeTeamName}} vs. {{groupMatch.outTeamName}}\n\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/group-match/group-match.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/group-match/group-match.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupMatchComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_src_shared_models_pronostiek_Match__ = __webpack_require__("../../../../../../api/src/shared/models/pronostiek/Match.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var GroupMatchComponent = /** @class */ (function () {
+    function GroupMatchComponent() {
+    }
+    GroupMatchComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__api_src_shared_models_pronostiek_Match__["a" /* Match */])
+    ], GroupMatchComponent.prototype, "groupMatch", void 0);
+    GroupMatchComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-group-match',
+            template: __webpack_require__("../../../../../src/app/group-match/group-match.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/group-match/group-match.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], GroupMatchComponent);
+    return GroupMatchComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/group/group.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"group-matches-container\" >\n  <app-group-match *ngFor=\"let match of group.matches\" [groupMatch]=\"match\" ></app-group-match>\n</div>\n<div class=\"group-standing-container\">\n  Stadings\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/group/group.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ":host {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap; }\n\n.group-matches-container, .group-standing-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  min-width: 250px;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  border: solid blue 1px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/group/group.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_src_shared_models_pronostiek_Group__ = __webpack_require__("../../../../../../api/src/shared/models/pronostiek/Group.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var GroupComponent = /** @class */ (function () {
+    function GroupComponent() {
+    }
+    GroupComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__api_src_shared_models_pronostiek_Group__["a" /* Group */])
+    ], GroupComponent.prototype, "group", void 0);
+    GroupComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-group',
+            template: __webpack_require__("../../../../../src/app/group/group.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/group/group.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], GroupComponent);
+    return GroupComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/groups/groups.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<mat-accordion>\n  <mat-expansion-panel *ngFor=\"let group of groups\">\n    <mat-expansion-panel-header>\n      <mat-panel-title>\n        {{group.groupname}}\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <app-group [group]=\"group\" ></app-group>\n  </mat-expansion-panel>\n</mat-accordion>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/groups/groups.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ":host {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  max-width: 90%; }\n\n:host > mat-accordion {\n  width: 100%; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/groups/groups.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var GroupsComponent = /** @class */ (function () {
+    function GroupsComponent() {
+    }
+    GroupsComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Array)
+    ], GroupsComponent.prototype, "groups", void 0);
+    GroupsComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-groups',
+            template: __webpack_require__("../../../../../src/app/groups/groups.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/groups/groups.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], GroupsComponent);
+    return GroupsComponent;
 }());
 
 
@@ -577,7 +1001,7 @@ var ProfileComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/pronostiek/pronostiek.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  {{pronostiek$ | async | json}}\n</p>\n"
+module.exports = "<!--{{pronostiek$ | async | json}}-->\n<app-groups [groups]=\"(pronostiek$ | async)?.tournament?.groups\"></app-groups>\n"
 
 /***/ }),
 
@@ -589,7 +1013,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ":host {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
 
 // exports
 

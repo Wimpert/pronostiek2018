@@ -1,0 +1,15 @@
+:host{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+.group-matches-container,.group-standing-container{
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  flex-grow: 1;
+  border: solid blue 1px;
+}
+

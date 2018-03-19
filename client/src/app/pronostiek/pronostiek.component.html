@@ -1,3 +1,2 @@
-<p>
-  {{pronostiek$ | async | json}}
-</p>
+<!--{{pronostiek$ | async | json}}-->
+<app-groups [groups]="(pronostiek$ | async)?.tournament?.groups"></app-groups>

@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {
-  MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbar,
+  MatButtonModule, MatCheckboxModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
+  MatSidenavModule, MatToolbar,
   MatToolbarModule
 } from '@angular/material';
 
@@ -19,6 +20,9 @@ import {LoginComponent } from './login/login.component';
 import {UserService} from "./services/user.service";
 import { ContentComponent } from './content/content.component';
 import {Interceptor} from "./services/http.interceptor";
+import { GroupsComponent } from './groups/groups.component';
+import { GroupComponent } from './group/group.component';
+import { GroupMatchComponent } from './group-match/group-match.component';
 
 const appRoutes: Routes = [
 
@@ -36,7 +40,10 @@ const appRoutes: Routes = [
     HeaderComponent,
     SignUpDialogComponent,
     LoginComponent,
-    ContentComponent
+    ContentComponent,
+    GroupsComponent,
+    GroupComponent,
+    GroupMatchComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [
@@ -53,6 +60,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
+    MatExpansionModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule

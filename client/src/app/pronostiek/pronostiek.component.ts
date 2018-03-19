@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Observable} from "rxjs/Observable";
+import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
 
 @Component({
   selector: 'app-pronostiek',
@@ -9,7 +10,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class PronostiekComponent implements OnInit {
 
-  pronostiek$ : Observable<any>;
+  pronostiek$ : Observable<Pronostiek>;
 
   constructor(private _userService : UserService) {}
 
