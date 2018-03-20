@@ -15,4 +15,16 @@ export class GroupMatchComponent implements OnInit {
   ngOnInit() {
   }
 
+  outTeamScoreChanged(event :any) {
+    if(event.srcElement && event.srcElement.value){
+      this.groupMatch.outTeamScore = Number(event.srcElement.value);
+    }
+  }
+
+  homeTeamScoreChanged(event :any) {
+    if(event.srcElement && event.srcElement.value){
+      this.groupMatch.homeTeamScore = Number(event.srcElement.value);
+    }
+  }
+
 }

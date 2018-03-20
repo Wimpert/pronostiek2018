@@ -1,6 +1,8 @@
+import {Group} from "./Group";
+
 export class Team {
 
-    name: string;
+    public name: string;
     points: number = 0 ;
     matchesWon: number = 0 ;
     matchesLost: number = 0;
@@ -12,6 +14,8 @@ export class Team {
     constructor(name:string){
         this.name =  name;
     }
+
+
 
     reset() :void {
         this.goalsScored = 0;
@@ -25,6 +29,21 @@ export class Team {
 
     getGoalsDifference() : number {
         return this.goalsScored - this.goalsConcieved;
+    }
+
+    static deserialize(input: any) : Team {
+        const name = input.name;
+        const team = new Team(name);
+        /*Object.assign(Team, input);
+        console.log(team);*/
+        team.points =  Number(input.points);
+        team.matchesWon = Number(input.matchesWon);
+        team.matchesLost = Number(input.matchesLost);
+        team.matchesDrawed = Number(input.matchesDrawed);
+        team.goalsScored = Number(input.goalsScored);
+        team.goalsConcieved = Number(input.goalsConcieved);
+        return team;
+
     }
 
 

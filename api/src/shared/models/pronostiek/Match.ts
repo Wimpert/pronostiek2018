@@ -7,9 +7,9 @@ export class Match{
     homeTeamScore: number = undefined;
     outTeamScore: number = undefined;
 
-    constructor(homeTeam: Team, outTeam : Team){
-        this.homeTeamName = homeTeam.name;
-        this.outTeamName = outTeam.name;
+    constructor(homeTeamName: string, outTeamName : string){
+        this.homeTeamName = homeTeamName;
+        this.outTeamName = outTeamName;
     }
 
     getOutCome() : number {
@@ -20,6 +20,14 @@ export class Match{
         }
         return MATCH_IS_DRAW;
     }
+
+    static deserialize(input: any) : Match {
+        const m = new Match(input.homeTeamName, input.outTeamName);
+        Object.assign(m, input);
+        return m;
+
+    }
+
 
 }
 

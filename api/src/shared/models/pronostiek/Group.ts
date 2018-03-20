@@ -22,14 +22,14 @@ export  class Group {
     private initMatches() :  void{
 
         this.matches = [];
-        this.matches.push(new Match(this.teams[0], this.teams[1]));
-        this.matches.push(new Match(this.teams[2], this.teams[3]));
+        this.matches.push(new Match(this.teams[0].name, this.teams[1].name));
+        this.matches.push(new Match(this.teams[2].name, this.teams[3].name));
 
-        this.matches.push(new Match(this.teams[0], this.teams[2]));
-        this.matches.push(new Match(this.teams[3], this.teams[1]));
+        this.matches.push(new Match(this.teams[0].name, this.teams[2].name));
+        this.matches.push(new Match(this.teams[3].name, this.teams[1].name));
 
-        this.matches.push(new Match(this.teams[3], this.teams[0]));
-        this.matches.push(new Match(this.teams[1], this.teams[2]));
+        this.matches.push(new Match(this.teams[3].name, this.teams[0].name));
+        this.matches.push(new Match(this.teams[1].name, this.teams[2].name));
     }
 
     processMatches() : void{
@@ -155,6 +155,25 @@ export  class Group {
             }
         }
         return false
+    }
+
+    deserialize(input: any) : Group {
+            const group = new Group();
+            Object.assign(group, input);
+
+            let newTeams: Team[] = [];
+            group.teams.forEach(team => {
+                 newTeams.push(Team.deserialize(team));
+            });
+            group.teams = newTeams;
+
+            let newMatches: Match[] = [];
+            group.matches.forEach(match  => {
+                newMatches.push(Match.deserialize(match));
+            });
+            group.matches = newMatches;
+            return group;
+
     }
 }
 

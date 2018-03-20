@@ -10,5 +10,4 @@ export class Pronostiek{
 
     constructor(userId : number){}
 
-
 }

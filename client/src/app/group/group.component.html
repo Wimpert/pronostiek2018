@@ -1,11 +1,11 @@
 <div class="group-matches-container" >
-  <app-group-match *ngFor="let match of group.matches" [groupMatch]="match" ></app-group-match>
+  <app-group-match *ngFor="let match of group.matches" [groupMatch]="match" (change)="matchChanged()" ></app-group-match>
 </div>
 <div class="group-standing-container">
-  <div *ngFor="let match of group.matches">
-    {{match | json}}
+  <div>
+    NAME:  w - l - d - s - c - p
   </div>
   <div *ngFor="let team of group.teams">
-    {{team.name}} - {{team.goalsScored}} - {{team.goalsConcieved}} - {{team.points}}
+    {{team.name}}: {{team.matchesWon}} - {{team.matchesLost}} - {{team.matchesDrawed}} - {{team.goalsScored}} - {{team.goalsConcieved}} - {{team.points}}
   </div>
 </div>
