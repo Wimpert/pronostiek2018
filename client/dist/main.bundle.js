@@ -771,7 +771,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".content-container {\n  position: absolute;\n  top: 80px;\n  bottom: 0;\n  left: 0;\n  right: 0; }\n", ""]);
+exports.push([module.i, ".content-container {\n  position: absolute;\n  top: 80px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: #e1e1e1; }\n", ""]);
 
 // exports
 
@@ -824,7 +824,7 @@ var ContentComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/group-match/group-match.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"match-container\">\n  <span class=\"left-team-name\">{{groupMatch.homeTeamName}}</span>\n  <span class=\"score-inputs\">\n    <input type=\"number\" [ngModel]=\"groupMatch.homeTeamScore\" (change)=\"homeTeamScoreChanged($event)\" class=\"score-field\">\n    <span> - </span>\n    <input type=\"number\" [ngModel]=\"groupMatch.outTeamScore\" (change)=\"outTeamScoreChanged($event)\" class=\"score-field\">\n  </span>\n  <span class=\"right-team-name\">{{groupMatch.outTeamName}}</span>\n</div>\n"
+module.exports = "<div class=\"match-container\">\n  <span class=\"team-container  hometeam-container\">\n    <span class=\"left-team-name\">{{groupMatch.homeTeamName}}</span>\n    <input type=\"number\" [ngModel]=\"groupMatch.homeTeamScore\" (change)=\"homeTeamScoreChanged($event)\" class=\"score-field\">\n  </span>\n  <span>-</span>\n  <span class=\"team-container outteam-container\">\n    <input type=\"number\" [ngModel]=\"groupMatch.outTeamScore\" (change)=\"outTeamScoreChanged($event)\" class=\"score-field\">\n    <span class=\"right-team-name\">{{groupMatch.outTeamName}}</span>\n  </span>\n</div>\n"
 
 /***/ }),
 
@@ -836,7 +836,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".team-container {\n  width: 45%;\n  padding: 5px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row; }\n\n.hometeam-container {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end; }\n\n.outteam-container {\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start; }\n", ""]);
 
 // exports
 
@@ -947,7 +947,6 @@ var GroupComponent = /** @class */ (function () {
     function GroupComponent() {
     }
     GroupComponent.prototype.ngOnInit = function () {
-        console.log(this.group);
         this.group = new __WEBPACK_IMPORTED_MODULE_1__api_src_shared_models_pronostiek_Group__["a" /* Group */]().deserialize(this.group);
     };
     GroupComponent.prototype.matchChanged = function () {
@@ -1323,7 +1322,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n", ""]);
+exports.push([module.i, ":host {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px; }\n", ""]);
 
 // exports
 

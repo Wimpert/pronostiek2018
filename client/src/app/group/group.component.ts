@@ -9,15 +9,11 @@ import {orderTeams} from "../../../../api/src/shared/utils/TournamentUtils";
 })
 export class GroupComponent implements OnInit{
 
-
-
   @Input() group : Group;
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.group);
-
     this.group = new Group().deserialize(this.group);
   }
 

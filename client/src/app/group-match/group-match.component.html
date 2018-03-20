@@ -1,9 +1,11 @@
 <div class="match-container">
-  <span class="left-team-name">{{groupMatch.homeTeamName}}</span>
-  <span class="score-inputs">
+  <span class="team-container  hometeam-container">
+    <span class="left-team-name">{{groupMatch.homeTeamName}}</span>
     <input type="number" [ngModel]="groupMatch.homeTeamScore" (change)="homeTeamScoreChanged($event)" class="score-field">
-    <span> - </span>
-    <input type="number" [ngModel]="groupMatch.outTeamScore" (change)="outTeamScoreChanged($event)" class="score-field">
   </span>
-  <span class="right-team-name">{{groupMatch.outTeamName}}</span>
+  <span>-</span>
+  <span class="team-container outteam-container">
+    <input type="number" [ngModel]="groupMatch.outTeamScore" (change)="outTeamScoreChanged($event)" class="score-field">
+    <span class="right-team-name">{{groupMatch.outTeamName}}</span>
+  </span>
 </div>
