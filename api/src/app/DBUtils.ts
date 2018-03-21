@@ -22,7 +22,10 @@ export class PronostiekUtils{
                         if (err)
                             throw err;
                         if(rows.length == 1){
-                            res.send(rows[0]);
+                            let pronostiek = rows[0];
+                            let stringValue = pronostiek.tournament.toString('utf8');
+                            pronostiek.tournament = JSON.parse(stringValue);
+                            res.send(pronostiek);
                         } else {
                             //this means there is none, so lets create one;
                             let prono : Pronostiek = new Pronostiek(req.user.id);
@@ -37,12 +40,15 @@ export class PronostiekUtils{
         const prono = req.body;
         const now = new Date();
 
+        //console.log(prono);
+
         let query : string;
 
         if(prono.id){
-            query = "UPDATE pronostiek SET userId = ? , lastupdate = ? , pronostiek = ? where userId = ? ";
-            connection.query(query,[req.user.id, now, JSON.stringify(prono.tournament), req.user.id],function(err : Error, rows : any) {
+            query = "UPDATE pronostiek SET  lastupdate = ? , tournament = ? where id = ? ";
+            connection.query(query,[now, JSON.stringify(prono.tournament), prono.id],function(err : Error ) {
                 if(err){throw  err;}
+                prono.lastupdate = now ;
                 res.send(prono);
             });
 

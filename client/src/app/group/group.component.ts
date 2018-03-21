@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
 import {orderTeams} from "../../../../api/src/shared/utils/TournamentUtils";
 
@@ -10,6 +10,7 @@ import {orderTeams} from "../../../../api/src/shared/utils/TournamentUtils";
 export class GroupComponent implements OnInit{
 
   @Input() group : Group;
+  @Output() groupChanged: EventEmitter<Group> = new EventEmitter<Group>();
 
   constructor() {}
 
@@ -20,7 +21,10 @@ export class GroupComponent implements OnInit{
   matchChanged() : void{
     this.group.processMatches();
     orderTeams(this.group);
+    this.groupChanged.emit(this.group);
   }
+
+
 
 
 

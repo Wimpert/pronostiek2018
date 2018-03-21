@@ -1,10 +1,12 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let group of groups" >
+  <mat-expansion-panel *ngFor="let group of groups; let index = index;"
+                       (opened)="openedPanel(index)" (closed)="closedPanel(index)"
+                        [expanded]="panelIsOpen(index)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{group.groupname}}
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-group [group]="group" ></app-group>
+    <app-group [group]="group" (groupChanged)="groupChanged($event)" ></app-group>
   </mat-expansion-panel>
 </mat-accordion>

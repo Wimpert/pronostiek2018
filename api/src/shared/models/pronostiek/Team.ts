@@ -22,7 +22,7 @@ export class Team {
         this.points = 0;
         this.matchesDrawed = 0;
         this.matchesWon = 0;
-        this.matchesWon = 0;
+        this.matchesLost = 0;
         this.goalsConcieved = 0;
         this.matchesDrawed = 0;
     }

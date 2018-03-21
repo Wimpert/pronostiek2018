@@ -79,6 +79,10 @@ export class UserService {
     return this._httpClient.get<Pronostiek>(this._baseUrl + "pronostiek", {withCredentials:true});
   }
 
+  savePronostiek(pronostiek : Pronostiek) : Observable<Pronostiek> {
+    return this._httpClient.post<Pronostiek>(this._baseUrl+"pronostiek" , pronostiek , {withCredentials:true});
+  }
+
   createUser(user: User) {
     this.userCreateRequest$.next(user);
   }

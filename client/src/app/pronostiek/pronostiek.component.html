@@ -1,2 +1,5 @@
-<!--{{pronostiek$ | async | json}}-->
-<app-groups [groups]="(pronostiek$ | async)?.tournament?.groups"></app-groups>
+<div id="prono-save-button">
+  <button mat-fab color="primary" (click)="savePronosiek()">Save</button>
+</div>
+
+<app-groups [groups]="(pronostiek$ | async)?.tournament?.groups" (groupsChanged)="groupsChanged($event)" ></app-groups>

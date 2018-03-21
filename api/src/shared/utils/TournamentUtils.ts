@@ -147,9 +147,9 @@ export function orderTeams(group : Group, complete? : boolean) : void {
             //we need to make a subgroup and do the ordering again:
             for ( var equalTeamsSubGroup of group.equalTeams){
                 if(complete == undefined || complete){
-                    console.log("Before ");
+                   /* console.log("Before ");
                     group.printGroupStanding();
-                    group.printGroupMatches()
+                    group.printGroupMatches()*/
                 }
                var subgroup = getSubGroup(equalTeamsSubGroup, group);
                 subgroup.processMatches();
@@ -167,9 +167,9 @@ export function orderTeams(group : Group, complete? : boolean) : void {
         }
     }
     if(complete == undefined || complete){
-        console.log("Final print");
+       /* console.log("Final print");
         group.printGroupStanding();
-        group.printGroupMatches()
+        group.printGroupMatches()*/
     }
 
 }
@@ -207,5 +207,20 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
     }
     return returnVal;
 
+}
+
+
+export function replaceBasedOnName(newGroup, groups :Group[]) {
+    let index = findIndexOfGroupBasedOnName(newGroup, groups);
+    groups[index] = newGroup;
+}
+
+function findIndexOfGroupBasedOnName(groupToFind:Group , groups : Group[]){
+
+    for(let i in groups){
+        if(groups[i].groupname == groupToFind.groupname){
+            return i;
+        }
+    }
 }
 
