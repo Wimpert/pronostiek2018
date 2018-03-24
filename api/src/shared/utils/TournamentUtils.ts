@@ -208,7 +208,8 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
     var returnVal : Group = new Group();
     returnVal.teams = [];
     for (var subGroupTeam  of subGroup.teams){
-        var teamToAdd = Object.create(originalGroup.getTeam(subGroupTeam.name));
+        var teamToAdd = Object.assign({}, originalGroup.getTeam((subGroupTeam.name)));
+        //var teamToAdd = Object.create(originalGroup.getTeam(subGroupTeam.name));
         returnVal.teams.push(teamToAdd);
     }
     return returnVal;
