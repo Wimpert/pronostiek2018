@@ -80,6 +80,8 @@ export class UserService {
   }
 
   savePronostiek(pronostiek : Pronostiek) : Observable<Pronostiek> {
+    console.log("saving:");
+    console.log(pronostiek);
     return this._httpClient.post<Pronostiek>(this._baseUrl+"pronostiek" , pronostiek , {withCredentials:true});
   }
 

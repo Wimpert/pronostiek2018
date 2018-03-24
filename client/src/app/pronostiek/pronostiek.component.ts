@@ -24,14 +24,12 @@ export class PronostiekComponent implements OnInit {
   ngOnInit() {
 
     this.pronostiekSaved$ = this.savePronostiekEvent$.pipe(
-      switchMap(_ => this._userService.savePronostiek(this.pronostiekToSave)),
-      tap(_ => console.log(_))
+      switchMap(_ => this._userService.savePronostiek(this.pronostiekToSave))
     )
 
     this.pronostiek$ = this._userService.getPronostiek().pipe(
       tap(value => this.pronostiekToSave = value),
-      merge(this.pronostiekSaved$),
-      tap(_ => console.log(_))
+      merge(this.pronostiekSaved$)
     )
   }
 
@@ -40,7 +38,6 @@ export class PronostiekComponent implements OnInit {
   }
 
   groupsChanged(groups : Group[]) {
-    console.log("groups");
     console.log(groups);
     this.pronostiekToSave.tournament.groups = groups;
   }

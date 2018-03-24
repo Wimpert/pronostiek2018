@@ -40,8 +40,6 @@ export class PronostiekUtils{
         const prono = req.body;
         const now = new Date();
 
-        //console.log(prono);
-
         let query : string;
 
         if(prono.id){
@@ -53,7 +51,7 @@ export class PronostiekUtils{
             });
 
         } else {
-            query = "INSERT INTO pronostiek ( userId, creationdate, lastupdate, pronostiek ) values (?,?,?,?)";
+            query = "INSERT INTO pronostiek ( userId, creationdate, lastupdate, tournament ) values (?,?,?,?)";
             connection.query(query,[req.user.id, now, now, JSON.stringify(prono.tournament)],function(err : Error, rows : any) {
                 if(err){throw  err;}
                 prono.id = rows.insertId;

@@ -18,13 +18,15 @@ export class Team {
 
 
     reset() :void {
-        this.goalsScored = 0;
+
         this.points = 0;
+
         this.matchesDrawed = 0;
         this.matchesWon = 0;
         this.matchesLost = 0;
+
+        this.goalsScored = 0;
         this.goalsConcieved = 0;
-        this.matchesDrawed = 0;
     }
 
     getGoalsDifference() : number {

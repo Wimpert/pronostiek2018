@@ -129,14 +129,20 @@ export function orderTeams(group : Group, complete? : boolean) : void {
     group.groupNeedsDraw = false;
     group.equalTeams = new Array<Team[]>();
     group.teams.sort( (teama, teamb) => {
-        var returnValue =  compareTeams(teama, teamb);
-        if(returnValue == 0){
+        var _ =  compareTeams(teama, teamb);
+        if( _ == 0){
             // this means team a and team b are concidered equal:
             group.addToEqualTeams([teama, teamb]);
             //console.log(this.equalTeams);
         }
-        return returnValue;
+        return _;
     });
+
+    //TODO:
+    //may here check if all matches are played ??
+    if(!group.allMatchesPlayed){
+        return;
+    }
 
     //check if there are equalteams, and do whats needed:
     if(group.equalTeams.length > 0){
@@ -200,7 +206,7 @@ function orderAccordingToSubGroups(group: Group, subGroup : Group){
 
 function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group ) :  Group{
     var returnVal : Group = new Group();
-    returnVal.teams = []
+    returnVal.teams = [];
     for (var subGroupTeam  of subGroup.teams){
         var teamToAdd = Object.create(originalGroup.getTeam(subGroupTeam.name));
         returnVal.teams.push(teamToAdd);
@@ -210,6 +216,9 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
 }
 
 
+
+
+// *** Frontend Helper methods: *** //
 export function replaceBasedOnName(newGroup, groups :Group[]) {
     let index = findIndexOfGroupBasedOnName(newGroup, groups);
     groups[index] = newGroup;
@@ -223,4 +232,5 @@ function findIndexOfGroupBasedOnName(groupToFind:Group , groups : Group[]){
         }
     }
 }
+// *** END *** //
 
