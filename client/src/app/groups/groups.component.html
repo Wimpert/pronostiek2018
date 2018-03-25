@@ -6,6 +6,9 @@
       <mat-panel-title>
         {{group.groupname}}
       </mat-panel-title>
+      <mat-panel-description>
+        <span *ngIf="group.allMatchesPlayed" class="material-icons">done</span>
+      </mat-panel-description>
     </mat-expansion-panel-header>
     <app-group [group]="group" (groupChanged)="groupChanged($event)" ></app-group>
   </mat-expansion-panel>

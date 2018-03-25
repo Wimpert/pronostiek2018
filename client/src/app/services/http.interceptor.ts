@@ -23,7 +23,7 @@ export class Interceptor implements HttpInterceptor{
              this.userSerivce.logout();
            }
          }
-         return new ErrorObservable("alarm alarm");
+         return new ErrorObservable(err);
        })
     );
 

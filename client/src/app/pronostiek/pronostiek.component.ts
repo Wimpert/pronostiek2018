@@ -17,9 +17,12 @@ export class PronostiekComponent implements OnInit {
   pronostiekToSave: Pronostiek;
   pronostiekSaved$: Observable<Pronostiek>;
   savePronostiekEvent$: Subject<string> = new Subject();
+  userChangedPronostiek$: Subject<void>;
 
 
-  constructor(private _userService : UserService) {}
+  constructor(private _userService : UserService) {
+    this.userChangedPronostiek$ = new Subject<void>();
+  }
 
   ngOnInit() {
 
@@ -38,12 +41,13 @@ export class PronostiekComponent implements OnInit {
   }
 
   groupsChanged(groups : Group[]) {
-    console.log(groups);
     this.pronostiekToSave.tournament.groups = groups;
+    this.userChangedPronostiek$.next();
   }
 
   roundsChanged(rounds) : void{
     console.log(rounds);
+    this.userChangedPronostiek$.next();
   }
 
 }

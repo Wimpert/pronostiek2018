@@ -3,10 +3,11 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../../../api/src/shared/models/User";
-import {map, merge, share, shareReplay, startWith, switchMap, tap} from "rxjs/operators";
+import {catchError, map, merge, onErrorResumeNext, share, shareReplay, startWith, switchMap, tap} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import {COOKIE_NAME} from "../../../../api/src/shared/models/Constants";
 import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,7 @@ export class UserService {
   private _baseUrl : string  = environment.apiUrl;
 
   userIsLoggedIn$ : Observable<boolean>;
+  userLoginFailedMessage$: Subject<any> = new Subject<any>();
 
   private loginRequest$ : Subject<any> = new Subject<any>();
   private logoutRequest$ : Subject<any> = new Subject<any>();
@@ -24,12 +26,22 @@ export class UserService {
   private unauthorizedResponse$ :  Subject<boolean> = new Subject<boolean>();
 
   constructor(private  _httpClient : HttpClient) {
+
+    //TODO: this should not stop on error !:
     this.userLoggedIn$ = this.loginRequest$.pipe(
       switchMap(body =>
         this._httpClient.post<User>(this._baseUrl + "login", body ,{withCredentials:true}).pipe(
+          catchError(error => {
+            if(error.error && error.error.code){
+              this.userLoginFailedMessage$.next(error.error);
+            } else {
+              this.userLoginFailedMessage$.next(error);
+            }
+            return new ErrorObservable(error);
+          }),
           map(value => {
             return value.id !== undefined;
-          })
+          }),
         )
       ),
       share()
@@ -80,8 +92,6 @@ export class UserService {
   }
 
   savePronostiek(pronostiek : Pronostiek) : Observable<Pronostiek> {
-    console.log("saving:");
-    console.log(pronostiek);
     return this._httpClient.post<Pronostiek>(this._baseUrl+"pronostiek" , pronostiek , {withCredentials:true});
   }
 

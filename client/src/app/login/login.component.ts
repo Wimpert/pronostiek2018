@@ -3,6 +3,7 @@ import { MatDialogRef} from "@angular/material";
 import {SignUpDialogComponent} from "../signup/signup.component";
 import {UserService} from "../services/user.service";
 import {tap} from "rxjs/operators";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-login',
@@ -16,13 +17,13 @@ export class LoginComponent implements OnDestroy {
   password: string;
   remember: boolean = false;
 
-  subscribtion ;
+  subscribtion;
 
 
 
 
-  constructor(public dialogRef: MatDialogRef<SignUpDialogComponent>, public _userService: UserService) {
-   this.subscribtion =  this._userService.userIsLoggedIn$.pipe(
+  constructor(public dialogRef: MatDialogRef<SignUpDialogComponent>, public userService: UserService) {
+   this.subscribtion =  this.userService.userIsLoggedIn$.pipe(
       tap(value => {
 
         if(value) {
@@ -30,11 +31,14 @@ export class LoginComponent implements OnDestroy {
         }
       })
     ).subscribe();
+
+
+
   }
 
 
   login(){
-    this._userService.login(this.username, this.password, this.remember);
+    this.userService.login(this.username, this.password, this.remember);
   }
 
 
