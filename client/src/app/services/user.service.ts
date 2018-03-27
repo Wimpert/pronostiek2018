@@ -3,11 +3,13 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../../../api/src/shared/models/User";
-import {catchError, map, merge, onErrorResumeNext, share, shareReplay, startWith, switchMap, tap} from "rxjs/operators";
+import {catchError, map, merge, share, shareReplay, startWith, switchMap, tap} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import {COOKIE_NAME} from "../../../../api/src/shared/models/Constants";
 import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+import {EmptyObservable} from "rxjs/observable/EmptyObservable";
+import "rxjs/add/observable/of";
 
 @Injectable()
 export class UserService {
@@ -16,6 +18,7 @@ export class UserService {
 
   userIsLoggedIn$ : Observable<boolean>;
   userLoginFailedMessage$: Subject<any> = new Subject<any>();
+  userSignUpFailedMessage$: Subject<any> = new Subject<any>();
 
   private loginRequest$ : Subject<any> = new Subject<any>();
   private logoutRequest$ : Subject<any> = new Subject<any>();
@@ -37,11 +40,11 @@ export class UserService {
             } else {
               this.userLoginFailedMessage$.next(error);
             }
-            return new ErrorObservable(error);
+            return  Observable.of(new User());
           }),
           map(value => {
             return value.id !== undefined;
-          }),
+          })
         )
       ),
       share()
@@ -49,7 +52,16 @@ export class UserService {
 
     this.userCreated$ = this.userCreateRequest$.pipe(
       switchMap(user =>
-        this._httpClient.post<User>(this._baseUrl+"signup",user).pipe(
+        this._httpClient.post<User>(this._baseUrl+"signup",user,{withCredentials:true}).pipe(
+          catchError(error => {
+            if(error.error && error.error.code){
+              this.userSignUpFailedMessage$.next(error.error);
+            } else {
+              this.userSignUpFailedMessage$.next(error);
+            }
+            return  Observable.of(new User());
+          }),
+          tap(user => console.log(user)),
           map(user => {
             return user.id !== undefined;
           })
@@ -75,7 +87,6 @@ export class UserService {
       )),
       startWith(document.cookie.indexOf(COOKIE_NAME) >= 0),
       shareReplay(1)
-      //tap(value => {console.log("isloggedin: " + value)})
     );
   }
 
@@ -99,9 +110,6 @@ export class UserService {
     this.userCreateRequest$.next(user);
   }
 
-  handle401() {
-    console.log("hi");
-    this.unauthorizedResponse$.next(true);
-  }
+
 
 }

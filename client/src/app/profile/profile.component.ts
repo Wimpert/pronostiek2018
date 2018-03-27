@@ -21,6 +21,9 @@ export class ProfileComponent implements OnInit {
   constructor(private _formBuilder : FormBuilder, private _userService : UserService) {
     //this is dirty;
     this._userService.userIsLoggedIn$.pipe(
+      tap(_ => {
+        console.log(_);
+      }),
       tap(value => {
         if(value) {
           this.userUpdated.next("user updated");
@@ -31,7 +34,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    //copy the value:
     this.confirmPassword = this.user !== undefined ? this.user.password : undefined;
   }
 
@@ -49,8 +51,9 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() : void {
-    //TODO VALIDATION ON PASSWORD !!
-    //this.userService.createUser(this.user);
+    if(this.profileFormGroup.valid){
+      this._userService.createUser(this.user);
+    }
   }
 
 

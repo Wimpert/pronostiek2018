@@ -44,6 +44,7 @@ module.exports = function(app, passport) {
                if (err) {
                    return next(err);
                }
+
                //here we set the cookies maxage:
                if(req.body.remember){
                   //"we want to be remebered:"
@@ -54,11 +55,6 @@ module.exports = function(app, passport) {
                    res.cookie(constants.COOKIE_NAME,user.id);
                }
 
-
-              /* const tenYears = 1000*60*60*24*365*10;
-               const tenYearFromNow = new Date(Date.now() + tenYears);
-               req.session.cookie.maxAge = tenYears;
-               console.log(req.session);*/
                return res.send(200, user);
            });
        })(req, res, next);
@@ -76,8 +72,24 @@ module.exports = function(app, passport) {
                 }
                 return res.redirect('');
            }
+            console.log("user id");
+            console.log(user.id);
             req.logIn(user, function(err) {
+
                 if (err) { return next(err); }
+
+                //here we set the cookies maxage:
+                if(req.body.remember){
+                    //"we want to be remebered:"
+                    const tenYears = 1000*60*60*24*365*10;
+                    req.session.cookie.maxAge = tenYears;
+                    res.cookie(constants.COOKIE_NAME,user.id,{maxAge:tenYears});
+                } else {
+                    res.cookie(constants.COOKIE_NAME,user.id);
+                }
+
+                console.log("done");
+
                 return res.send(200, user);
             });
         })(req, res, next);

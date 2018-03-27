@@ -220,12 +220,12 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
 
 
 // *** Frontend Helper methods: *** //
-export function replaceBasedOnName(newGroup, groups :Group[]) {
+export function replaceBasedOnName(newGroup : Group, groups :Group[]) : void {
     let index = findIndexOfGroupBasedOnName(newGroup, groups);
     groups[index] = newGroup;
 }
 
-function findIndexOfGroupBasedOnName(groupToFind:Group , groups : Group[]){
+function findIndexOfGroupBasedOnName(groupToFind:Group , groups : Group[]) : any {
 
     for(let i in groups){
         if(groups[i].groupname == groupToFind.groupname){

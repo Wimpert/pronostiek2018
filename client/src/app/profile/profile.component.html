@@ -1,4 +1,7 @@
 <form  novalidate [formGroup]="profileFormGroup" (ngSubmit)="onSubmit()">
+  <div class="error">
+    {{(_userService.userSignUpFailedMessage$ | async)?.message}}
+  </div>
   <div class="input-row">
     <mat-form-field>
       <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl" [(ngModel)]="user.firstname">
