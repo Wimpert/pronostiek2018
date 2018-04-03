@@ -167,7 +167,7 @@ export function orderTeams(group : Group, complete? : boolean) : void {
                 //after this subgroups have been ordered, so now we order them in
                 //subgroup.printGroupStanding();
                 orderAccordingToSubGroups(group, subgroup);
-                //group.printGroupStanding();
+                console.log(subgroup.equalTeams);
             }
 
         }
@@ -234,4 +234,3 @@ function findIndexOfGroupBasedOnName(groupToFind:Group , groups : Group[]) : any
     }
 }
 // *** END *** //
-
