@@ -6,8 +6,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const port     = process.env.PORT || 8888;
 var mysql = require('mysql');
-var dbconfig = require('./config/database');
-var connection = mysql.createConnection(dbconfig.connection);
+var sessionStoreConf = require('./config/SessionStore');
 var MySQLStore = require('express-mysql-session')(session);
 
 
@@ -54,14 +53,9 @@ app.use(function (req : any, res: any, next: any) {
 app.use(express.static('./client/dist'));
 
 
-var options ={
-    host: 'localhost',
-    user: 'root',
-    database: 'pronostiek',
-    createDatabaseTable: true
-}
+console.log(sessionStoreConf)
 
-var sessionStore = new MySQLStore(options);
+var sessionStore = new MySQLStore(sessionStoreConf);
 // required for passport
 app.use(session({
     secret: 'spelvreugde666',

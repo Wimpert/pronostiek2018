@@ -17,9 +17,7 @@ function getDBConf() {
     return {
         'connection': {
             'host': 'localhost',
-            'user' : 'root',
-            'createDatabaseTable': 'true'
-
+            'user' : 'root'
         },
         'database': 'pronostiek',
         'users_table': 'users'
@@ -27,3 +25,4 @@ function getDBConf() {
 }
 
 module.exports =  getDBConf();
+
