@@ -50,9 +50,8 @@ app.use(express.static('./client/dist'));
 // required for passport
 app.use(session({
     secret: 'spelvreugde666',
-    resave: true,
-    saveUninitialized: true,
-    rolling: false
+    resave: false,
+    saveUninitialized: false
 } ));
 
 app.use(passport.initialize());
