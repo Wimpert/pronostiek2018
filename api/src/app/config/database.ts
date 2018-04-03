@@ -6,7 +6,9 @@ function getDBConf() {
             'connection': {
                 'host': 'localhost',
                 'user': 'de_jackies',
-                'password' : 'spelvreugde666'
+                'password' : 'spelvreugde666',
+               'createDatabaseTable': 'true'
+
          },
             'database': 'pronostiek',
             'users_table': 'users'
@@ -16,6 +18,7 @@ function getDBConf() {
         'connection': {
             'host': 'localhost',
             'user' : 'root',
+            'createDatabaseTable': 'true'
 
         },
         'database': 'pronostiek',

@@ -5,6 +5,12 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const port     = process.env.PORT || 8888;
+var mysql = require('mysql');
+var dbconfig = require('./config/database');
+var connection = mysql.createConnection(dbconfig.connection);
+var MySQLStore = require('express-mysql-session')(session);
+
+
 
 
 
@@ -47,11 +53,21 @@ app.use(function (req : any, res: any, next: any) {
 
 app.use(express.static('./client/dist'));
 
+
+var options ={
+    host: 'localhost',
+    user: 'root',
+    database: 'pronostiek',
+    createDatabaseTable: true
+}
+
+var sessionStore = new MySQLStore(options);
 // required for passport
 app.use(session({
     secret: 'spelvreugde666',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: sessionStore
 } ));
 
 app.use(passport.initialize());
