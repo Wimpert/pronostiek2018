@@ -53,7 +53,6 @@ app.use(function (req : any, res: any, next: any) {
 app.use(express.static('./client/dist'));
 
 
-console.log(sessionStoreConf)
 
 var sessionStore = new MySQLStore(sessionStoreConf);
 // required for passport

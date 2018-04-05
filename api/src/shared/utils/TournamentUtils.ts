@@ -4,6 +4,7 @@ import {Group} from "../models/pronostiek/Group";
 import {Match} from "../models/pronostiek/Match";
 import {HOME_TEAM_WINS, OUT_TEAM_WINS} from "../models/Constants";
 import {Tournament} from "../models/pronostiek/Tournament";
+import {KnockOutRound} from "../models/pronostiek/KnockOutRound";
 
 export function getTournament() : Tournament {
 
@@ -32,6 +33,14 @@ export function getTournament() : Tournament {
         let group = new Group ("Group " + groupLetter[index], teams);
         tournament.groups.push(group);
     });
+
+    let rounds=["Round of 16", "Quarter Final", "Semi Final", "Final"];
+
+    rounds.forEach((roundName) => {
+        let knockOutRound = new KnockOutRound(roundName, []);
+        tournament.knockOutRounds.push(knockOutRound);
+    });
+
     return tournament;
 }
 
@@ -144,10 +153,14 @@ export function orderTeams(group : Group, complete? : boolean) : void {
         return;
     }
 
+   /* console.log("teams:");
+    console.log(group.teams);
+    console.log("equalsTeams:");
+    console.log(group.equalTeams);*/
     //check if there are equalteams, and do whats needed:
     if(group.equalTeams.length > 0){
-        if(group.equalTeams[0].length == 4){
-            //this means all 4 of them were equal, so there is nothing more to do:
+        if(group.equalTeams[0].length == group.teams.length){
+            //this means all  of the teams were equal, so there is nothing more to do:
             group.groupNeedsDraw = true;
         } else {
             //we need to make a subgroup and do the ordering again:
@@ -161,13 +174,22 @@ export function orderTeams(group : Group, complete? : boolean) : void {
                 subgroup.processMatches();
 
                 //watch out here for infinite loops!!!
-                if (complete == undefined || complete) {
+                /*if (complete == undefined || complete) {
                     orderTeams(subgroup,false);
+                }*/
+
+                if(!group.groupNeedsDraw){
+                    orderTeams(subgroup, false);
                 }
+
+                if(subgroup.groupNeedsDraw){
+                    group.groupNeedsDraw =  true;
+                }
+
                 //after this subgroups have been ordered, so now we order them in
                 //subgroup.printGroupStanding();
                 orderAccordingToSubGroups(group, subgroup);
-                console.log(subgroup.equalTeams);
+
             }
 
         }

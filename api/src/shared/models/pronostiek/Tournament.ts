@@ -1,8 +1,9 @@
-import {KnockoutMatch} from "./Match";
 import {Group} from "./Group";
+import {KnockOutRound} from "./KnockOutRound";
 
 export class Tournament{
+
     groups : Group[] =  [];
-    knockOutRounds :  [KnockoutMatch[]];
+    knockOutRounds :  KnockOutRound[] = [];
 
 }
