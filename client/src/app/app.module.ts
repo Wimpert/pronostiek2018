@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {
-  MatButtonModule, MatCheckboxModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatSidenavModule, MatToolbar,
   MatToolbarModule
 } from '@angular/material';
@@ -61,6 +61,7 @@ const appRoutes: Routes = [
     MatIconModule,
     MatSidenavModule,
     MatExpansionModule,
+    MatCardModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule

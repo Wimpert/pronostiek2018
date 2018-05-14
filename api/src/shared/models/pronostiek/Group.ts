@@ -109,7 +109,8 @@ export  class Group {
         return this.allMatchesPlayed;
     }
 
-     addToEqualTeams(teamsToAdd : Team[]) : void {
+
+    addToEqualTeams(teamsToAdd : Team[]) : void {
         if(this.getEqualTeams().length == 0) {
             // first, just add it:
             this.equalTeams.push(teamsToAdd);

@@ -142,7 +142,6 @@ export function orderTeams(group : Group, complete? : boolean) : void {
         if( _ == 0){
             // this means team a and team b are concidered equal:
             group.addToEqualTeams([teama, teamb]);
-            //console.log(this.equalTeams);
         }
         return _;
     });
@@ -152,11 +151,6 @@ export function orderTeams(group : Group, complete? : boolean) : void {
     if(!group.allMatchesPlayed){
         return;
     }
-
-   /* console.log("teams:");
-    console.log(group.teams);
-    console.log("equalsTeams:");
-    console.log(group.equalTeams);*/
     //check if there are equalteams, and do whats needed:
     if(group.equalTeams.length > 0){
         if(group.equalTeams[0].length == group.teams.length){
@@ -237,8 +231,6 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
     return returnVal;
 
 }
-
-
 
 
 // *** Frontend Helper methods: *** //

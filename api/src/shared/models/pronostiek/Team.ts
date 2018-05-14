@@ -9,6 +9,7 @@ export class Team {
     matchesDrawed: number = 0;
     goalsScored: number = 0;
     goalsConcieved: number = 0;
+    subGroupIndex: number = 0;
 
 
     constructor(name:string){
@@ -27,6 +28,7 @@ export class Team {
 
         this.goalsScored = 0;
         this.goalsConcieved = 0;
+        this.subGroupIndex = 0;
     }
 
     getGoalsDifference() : number {
@@ -44,6 +46,7 @@ export class Team {
         team.matchesDrawed = Number(input.matchesDrawed);
         team.goalsScored = Number(input.goalsScored);
         team.goalsConcieved = Number(input.goalsConcieved);
+        team.subGroupIndex = Number(input.subGroupIndex);
         return team;
 
     }
