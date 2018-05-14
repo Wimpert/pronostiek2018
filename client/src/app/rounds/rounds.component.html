@@ -1,1 +1,13 @@
-<app-round *ngFor="let round of rounds" [round]="round"></app-round>
+
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let round of rounds">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{round.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-round [round]="round" ></app-round>
+  </mat-expansion-panel>
+</mat-accordion>

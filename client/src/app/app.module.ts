@@ -25,6 +25,7 @@ import { GroupComponent } from './group/group.component';
 import { GroupMatchComponent } from './group-match/group-match.component';
 import { RoundsComponent } from './rounds/rounds.component';
 import { RoundComponent } from './round/round.component';
+import { RoundMatchComponent } from './round-match/round-match.component';
 
 const appRoutes: Routes = [
 
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     GroupComponent,
     GroupMatchComponent,
     RoundsComponent,
-    RoundComponent
+    RoundComponent,
+    RoundMatchComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [

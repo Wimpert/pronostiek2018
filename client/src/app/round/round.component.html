@@ -1,3 +1,1 @@
-<p>
-  {{round.name}}
-</p>
+<app-round-match *ngFor="let match of round.matches" [match]="match"></app-round-match>

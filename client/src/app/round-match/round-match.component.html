@@ -1,0 +1,11 @@
+<div class="match-container">
+  <span class="team-container  hometeam-container">
+    <span class="left-team-name">{{match.homeTeamName}}</span>
+    <input type="number" [ngModel]="match.homeTeamScore" class="score-field">
+  </span>
+  <span>-</span>
+  <span class="team-container outteam-container">
+    <input type="number" [ngModel]="match.outTeamScore"  class="score-field">
+    <span class="right-team-name">{{match.outTeamName}}</span>
+  </span>
+</div>
