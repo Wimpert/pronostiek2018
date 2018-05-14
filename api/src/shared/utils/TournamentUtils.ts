@@ -1,3 +1,4 @@
+import { KnockoutMatch } from './../models/pronostiek/Match';
 import {Pronostiek} from "../models/pronostiek/Pronostiek";
 import {Team} from "../models/pronostiek/Team";
 import {Group} from "../models/pronostiek/Group";
@@ -30,17 +31,22 @@ export function getTournament() : Tournament {
         groupTeamsNames.forEach(teamName => {
             teams.push(new Team(teamName));
         });
-        let group = new Group ("Group " + groupLetter[index], teams);
+        let group = new Group ("Groep " + groupLetter[index], teams);
         tournament.groups.push(group);
     });
 
-    let rounds=["Round of 16", "Quarter Final", "Semi Final", "Final"];
+    let rounds=[
+        {name:"Round of 16",numberOfMatches:8},
+        {name:"Quarter Final",numberOfMatches:4},
+        {name:"Semi Final",numberOfMatches:2},
+        {name:"Final",numberOfMatches:1}
+        ];
 
-    rounds.forEach((roundName) => {
-        let knockOutRound = new KnockOutRound(roundName, []);
-        tournament.knockOutRounds.push(knockOutRound);
+    rounds.forEach((roundData) => {
+        let knockOutRound = new KnockOutRound(roundData.name, roundData.numberOfMatches);
+        tournament.rounds.push(knockOutRound);
     });
-
+    
     return tournament;
 }
 
@@ -230,6 +236,105 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
     return returnVal;
 
 }
+
+export function addToNextRound(tournament : any,groupIndex: any) {
+    var achtsteFinale = tournament.rounds[0];
+      if (groupIndex == 0) {
+        achtsteFinale.matches[0].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[4].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[8].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+        achtsteFinale.matches[12].outTeamName = tournament.groups[groupIndex].teams[3].name;
+  
+      } else if (groupIndex == 1) {
+        achtsteFinale.matches[1].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[5].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[9].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+        achtsteFinale.matches[13].outTeamName = tournament.groups[groupIndex].teams[3].name;
+  
+      } else if (groupIndex == 2) {
+        achtsteFinale.matches[2].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[6].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[10].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+        achtsteFinale.matches[14].outTeamName = tournament.groups[groupIndex].teams[3].name;
+      } else if (groupIndex == 3) {
+        achtsteFinale.matches[3].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[7].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[11].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+        achtsteFinale.matches[15].outTeamName = tournament.groups[groupIndex].teams[3].name;
+      } else if (groupIndex == 4) {
+        achtsteFinale.matches[0].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[4].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[8].outTeamName = tournament.groups[groupIndex].teams[3].name;
+        achtsteFinale.matches[12].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+      } else if (groupIndex == 5) {
+        achtsteFinale.matches[1].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[5].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[9].outTeamName = tournament.groups[groupIndex].teams[3].name;
+        achtsteFinale.matches[13].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+      } else if (groupIndex == 6) {
+        achtsteFinale.matches[2].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[6].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[10].outTeamName = tournament.groups[groupIndex].teams[3].name;
+        achtsteFinale.matches[14].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+      } else if (groupIndex == 7) {
+        achtsteFinale.matches[3].outTeamName = tournament.groups[groupIndex].teams[1].name;
+        achtsteFinale.matches[7].homeTeamName = tournament.groups[groupIndex].teams[0].name;
+        achtsteFinale.matches[11].outTeamName = tournament.groups[groupIndex].teams[3].name;
+        achtsteFinale.matches[15].homeTeamName = tournament.groups[groupIndex].teams[2].name;
+      }
+    
+  }
+  
+//   export function processRound(tournament: Tournament,roundIndex: number) {
+//       if(roundIndex == tournament.rounds.length){
+//           return;
+//       }
+//       let correction = 0;
+//       const round = tournament.rounds[roundIndex];
+      
+//       const nextRound = tournament.rounds[roundIndex+1];
+  
+//      round.matches.forEach((match:KnockoutMatch, index) => {
+//           let winnernumber: number;
+//           let loserNumber: number;
+//            if(index%2 == 0 ){
+//                if(index != 0){
+//                   correction++;
+//               }
+//               if(correction == round.numberOfPlaces/4){
+//                   correction = 0;
+//               }
+//               //console.log("even", index , "correction", correction);
+//                winnernumber = match.matchNumber+16 -correction;
+//                loserNumber = match.matchNumber+16+round.numberOfPlaces/4 - correction;
+//               //console.log(winnernumber, loserNumber);
+              
+//           } else {
+//               //console.log("odd", index, "correction", correction);
+//               winnernumber = match.matchNumber+15 -correction;
+//               loserNumber = match.matchNumber+15+round.numberOfPlaces/4 - correction;
+//               //console.log(winnernumber, loserNumber);
+//           }
+  
+//           const winnerMatch = nextRound.matches.find((match) => {
+//               return match.matchNumber == winnernumber;
+//           });
+  
+//           const loserMatch = nextRound.matches.find((match) => {
+//               return match.matchNumber == loserNumber;
+//           });
+  
+//           if(index%2 == 0){
+//               winnerMatch.homeTeamName = match.getWinner();
+//               loserMatch.homeTeamName = match.getLoser();
+//           } else {
+//               winnerMatch.outTeamName = match.getWinner();
+//               loserMatch.outTeamName = match.getLoser();
+//           }
+          
+  
+//         });
+//       }
 
 
 // *** Frontend Helper methods: *** //

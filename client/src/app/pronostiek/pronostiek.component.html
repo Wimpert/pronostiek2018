@@ -2,21 +2,12 @@
 <div id="prono-save-button">
   <button mat-fab color="primary" (click)="savePronosiek()">Save</button>
 </div>
-
-<!--<mat-card class="prono-card">
-  <mat-card-header>
-    <mat-card-title>Group Stage</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <app-groups
-      [groups]="(pronostiek$ | async)?.tournament?.groups"
-      (groupsChanged)="groupsChanged($event)" >
-    </app-groups>
-  </mat-card-content>
-</mat-card>-->
-
-
+<h3>Groepen:</h3>
 <app-groups
   [groups]="(pronostiek$ | async)?.tournament?.groups"
   (groupsChanged)="groupsChanged($event)" >
 </app-groups>
+<h3>Knockoutfase:</h3>
+<app-rounds [rounds]="(pronostiek$ | async)?.tournament?.rounds"></app-rounds>
+
+

@@ -23,6 +23,8 @@ import {Interceptor} from "./services/http.interceptor";
 import { GroupsComponent } from './groups/groups.component';
 import { GroupComponent } from './group/group.component';
 import { GroupMatchComponent } from './group-match/group-match.component';
+import { RoundsComponent } from './rounds/rounds.component';
+import { RoundComponent } from './round/round.component';
 
 const appRoutes: Routes = [
 
@@ -43,7 +45,9 @@ const appRoutes: Routes = [
     ContentComponent,
     GroupsComponent,
     GroupComponent,
-    GroupMatchComponent
+    GroupMatchComponent,
+    RoundsComponent,
+    RoundComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [

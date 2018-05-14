@@ -3,7 +3,7 @@ import {UserService} from "../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
-import {merge, switchMap, tap} from "rxjs/operators";
+import {merge, switchMap, tap, share} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 
 @Component({
@@ -32,7 +32,8 @@ export class PronostiekComponent implements OnInit {
 
     this.pronostiek$ = this._userService.getPronostiek().pipe(
       tap(value => this.pronostiekToSave = value),
-      merge(this.pronostiekSaved$)
+      merge(this.pronostiekSaved$),
+      share()
     )
   }
 

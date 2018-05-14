@@ -18,12 +18,16 @@ export class GroupMatchComponent implements OnInit {
   outTeamScoreChanged(event :any) {
     if(event.srcElement && event.srcElement.value){
       this.groupMatch.outTeamScore = Number(event.srcElement.value);
+    } else {
+      this.groupMatch.outTeamScore = undefined;
     }
   }
 
   homeTeamScoreChanged(event :any) {
     if(event.srcElement && event.srcElement.value){
       this.groupMatch.homeTeamScore = Number(event.srcElement.value);
+    } else {
+      this.groupMatch.homeTeamScore = undefined;
     }
   }
 
