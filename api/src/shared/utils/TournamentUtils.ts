@@ -89,49 +89,49 @@ export function getSubGroup(teams : Team[], originalGroup : Group) :  Group {
      return group;
 }
 
-export function proccesMatches(group: Group) :void {
+// export function proccesMatches(group: Group) :void {
 
-    //group.getAllMatchesPlayed() = true;
+//     //group.getAllMatchesPlayed() = true;
 
-    group.teams.forEach((team) => {
-        team.reset();
-    });
+//     group.teams.forEach((team) => {
+//         team.reset();
+//     });
 
-    group.matches.forEach((match) => {
-        if(match.outTeamScore != undefined && match.homeTeamScore != undefined){
-            //this means match is played, so let do what we need to do:
-            let matchOutCome = match.getOutCome();
-            let homeTeam = group.getTeam(match.homeTeamName);
-            let outTeam = group.getTeam(match.outTeamName);
-            if(matchOutCome == HOME_TEAM_WINS){
-                homeTeam.points += 3;
-                homeTeam.matchesWon++;
-                outTeam.matchesLost++;
-            } else if(matchOutCome == OUT_TEAM_WINS){
-                outTeam.points += 3;
-                outTeam.matchesWon++;
-                homeTeam.matchesLost++;
-            } else {
-                homeTeam.points += 1;
-                outTeam.points += 1;
-                outTeam.matchesDrawed++;
-                homeTeam.matchesDrawed++;
-            }
-            outTeam.goalsScored += match.outTeamScore;
-            outTeam.goalsConcieved += match.homeTeamScore;
-            homeTeam.goalsScored += match.homeTeamScore;
-            homeTeam.goalsConcieved += match.outTeamScore;
-        } else {
-            group.allMatchesPlayed = false;
-        }
+//     group.matches.forEach((match) => {
+//         if(match.outTeamScore != undefined && match.homeTeamScore != undefined){
+//             //this means match is played, so let do what we need to do:
+//             let matchOutCome = match.getOutCome();
+//             let homeTeam = group.getTeam(match.homeTeamName);
+//             let outTeam = group.getTeam(match.outTeamName);
+//             if(matchOutCome == HOME_TEAM_WINS){
+//                 homeTeam.points += 3;
+//                 homeTeam.matchesWon++;
+//                 outTeam.matchesLost++;
+//             } else if(matchOutCome == OUT_TEAM_WINS){
+//                 outTeam.points += 3;
+//                 outTeam.matchesWon++;
+//                 homeTeam.matchesLost++;
+//             } else {
+//                 homeTeam.points += 1;
+//                 outTeam.points += 1;
+//                 outTeam.matchesDrawed++;
+//                 homeTeam.matchesDrawed++;
+//             }
+//             outTeam.goalsScored += match.outTeamScore;
+//             outTeam.goalsConcieved += match.homeTeamScore;
+//             homeTeam.goalsScored += match.homeTeamScore;
+//             homeTeam.goalsConcieved += match.outTeamScore;
+//         } else {
+//             group.allMatchesPlayed = false;
+//         }
 
-    });
+//     });
 
-    //if all played matches are done, we put the points:
-    group.teams.forEach((team)=>{
-        team.points = team.matchesWon*3 + team.matchesDrawed;
-    });
-}
+//     //if all played matches are done, we put the points:
+//     group.teams.forEach((team)=>{
+//         team.points = team.matchesWon*3 + team.matchesDrawed;
+//     });
+// }
 
 export function orderTeams(group : Group, complete? : boolean) : void {
     //reset some stuff:
@@ -146,8 +146,7 @@ export function orderTeams(group : Group, complete? : boolean) : void {
         return _;
     });
 
-    //TODO:
-    //may here check if all matches are played ??
+    //IF not all matches are played, we can skipp the rest
     if(!group.allMatchesPlayed){
         return;
     }
