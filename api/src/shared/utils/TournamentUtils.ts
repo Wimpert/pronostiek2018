@@ -95,49 +95,6 @@ export function getSubGroup(teams : Team[], originalGroup : Group) :  Group {
      return group;
 }
 
-// export function proccesMatches(group: Group) :void {
-
-//     //group.getAllMatchesPlayed() = true;
-
-//     group.teams.forEach((team) => {
-//         team.reset();
-//     });
-
-//     group.matches.forEach((match) => {
-//         if(match.outTeamScore != undefined && match.homeTeamScore != undefined){
-//             //this means match is played, so let do what we need to do:
-//             let matchOutCome = match.getOutCome();
-//             let homeTeam = group.getTeam(match.homeTeamName);
-//             let outTeam = group.getTeam(match.outTeamName);
-//             if(matchOutCome == HOME_TEAM_WINS){
-//                 homeTeam.points += 3;
-//                 homeTeam.matchesWon++;
-//                 outTeam.matchesLost++;
-//             } else if(matchOutCome == OUT_TEAM_WINS){
-//                 outTeam.points += 3;
-//                 outTeam.matchesWon++;
-//                 homeTeam.matchesLost++;
-//             } else {
-//                 homeTeam.points += 1;
-//                 outTeam.points += 1;
-//                 outTeam.matchesDrawed++;
-//                 homeTeam.matchesDrawed++;
-//             }
-//             outTeam.goalsScored += match.outTeamScore;
-//             outTeam.goalsConcieved += match.homeTeamScore;
-//             homeTeam.goalsScored += match.homeTeamScore;
-//             homeTeam.goalsConcieved += match.outTeamScore;
-//         } else {
-//             group.allMatchesPlayed = false;
-//         }
-
-//     });
-
-//     //if all played matches are done, we put the points:
-//     group.teams.forEach((team)=>{
-//         team.points = team.matchesWon*3 + team.matchesDrawed;
-//     });
-// }
 
 export function orderTeams(group : Group, complete? : boolean) : void {
     //reset some stuff:
@@ -237,104 +194,36 @@ function getSubGroupFromOriginalGroup (originalGroup  : Group, subGroup : Group 
 
 }
 
-export function addToNextRound(tournament : any,groupIndex: any) {
-    var achtsteFinale = tournament.rounds[0];
-      if (groupIndex == 0) {
-        achtsteFinale.matches[0].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[4].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[8].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-        achtsteFinale.matches[12].outTeamName = tournament.groups[groupIndex].teams[3].name;
-  
-      } else if (groupIndex == 1) {
-        achtsteFinale.matches[1].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[5].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[9].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-        achtsteFinale.matches[13].outTeamName = tournament.groups[groupIndex].teams[3].name;
-  
-      } else if (groupIndex == 2) {
-        achtsteFinale.matches[2].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[6].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[10].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-        achtsteFinale.matches[14].outTeamName = tournament.groups[groupIndex].teams[3].name;
-      } else if (groupIndex == 3) {
-        achtsteFinale.matches[3].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[7].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[11].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-        achtsteFinale.matches[15].outTeamName = tournament.groups[groupIndex].teams[3].name;
-      } else if (groupIndex == 4) {
-        achtsteFinale.matches[0].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[4].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[8].outTeamName = tournament.groups[groupIndex].teams[3].name;
-        achtsteFinale.matches[12].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-      } else if (groupIndex == 5) {
-        achtsteFinale.matches[1].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[5].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[9].outTeamName = tournament.groups[groupIndex].teams[3].name;
-        achtsteFinale.matches[13].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-      } else if (groupIndex == 6) {
-        achtsteFinale.matches[2].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[6].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[10].outTeamName = tournament.groups[groupIndex].teams[3].name;
-        achtsteFinale.matches[14].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-      } else if (groupIndex == 7) {
-        achtsteFinale.matches[3].outTeamName = tournament.groups[groupIndex].teams[1].name;
-        achtsteFinale.matches[7].homeTeamName = tournament.groups[groupIndex].teams[0].name;
-        achtsteFinale.matches[11].outTeamName = tournament.groups[groupIndex].teams[3].name;
-        achtsteFinale.matches[15].homeTeamName = tournament.groups[groupIndex].teams[2].name;
-      }
+
+/* 
+Winner A v. Runner-up B = 1 - 0
+Winner B v. Runner-up A = 2 - 1
+Winner C v. Runner-up D = 3 
+Winner D v. Runner-up C = 4
+Winner E v. Runner-up F = 5
+Winner F v. Runner-up E = 6
+Winner G v. Runner-up H = 7
+Winner H v. Runner-up G = 8 
+*/
+export function addToNextRound(tournament : Tournament,groupIndex: number) {
     
-  }
+    const achsteFinales =  tournament.rounds[0];
+    const groupWinner = tournament.groups[groupIndex].teams[0];
+    const groupRunnerUp = tournament.groups[groupIndex].teams[1];
+
+    if(groupIndex%2 == 0){
+        //even index so group winner in home index, runnerup in out index + 1;
+        achsteFinales.matches[groupIndex].homeTeamName = groupWinner.name;
+        achsteFinales.matches[groupIndex+1].outTeamName = groupRunnerUp.name;
+
+    } else {
+        //odd index so group winner in out index+1, runnerup in home index;
+        achsteFinales.matches[groupIndex].homeTeamName = groupRunnerUp.name;
+        achsteFinales.matches[groupIndex+1].outTeamName = groupWinner.name;
+    }
+}
   
-//   export function processRound(tournament: Tournament,roundIndex: number) {
-//       if(roundIndex == tournament.rounds.length){
-//           return;
-//       }
-//       let correction = 0;
-//       const round = tournament.rounds[roundIndex];
-      
-//       const nextRound = tournament.rounds[roundIndex+1];
-  
-//      round.matches.forEach((match:KnockoutMatch, index) => {
-//           let winnernumber: number;
-//           let loserNumber: number;
-//            if(index%2 == 0 ){
-//                if(index != 0){
-//                   correction++;
-//               }
-//               if(correction == round.numberOfPlaces/4){
-//                   correction = 0;
-//               }
-//               //console.log("even", index , "correction", correction);
-//                winnernumber = match.matchNumber+16 -correction;
-//                loserNumber = match.matchNumber+16+round.numberOfPlaces/4 - correction;
-//               //console.log(winnernumber, loserNumber);
-              
-//           } else {
-//               //console.log("odd", index, "correction", correction);
-//               winnernumber = match.matchNumber+15 -correction;
-//               loserNumber = match.matchNumber+15+round.numberOfPlaces/4 - correction;
-//               //console.log(winnernumber, loserNumber);
-//           }
-  
-//           const winnerMatch = nextRound.matches.find((match) => {
-//               return match.matchNumber == winnernumber;
-//           });
-  
-//           const loserMatch = nextRound.matches.find((match) => {
-//               return match.matchNumber == loserNumber;
-//           });
-  
-//           if(index%2 == 0){
-//               winnerMatch.homeTeamName = match.getWinner();
-//               loserMatch.homeTeamName = match.getLoser();
-//           } else {
-//               winnerMatch.outTeamName = match.getWinner();
-//               loserMatch.outTeamName = match.getLoser();
-//           }
-          
-  
-//         });
-//       }
+
 
 
 // *** Frontend Helper methods: *** //

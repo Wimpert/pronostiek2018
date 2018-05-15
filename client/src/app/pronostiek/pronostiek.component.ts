@@ -47,7 +47,6 @@ export class PronostiekComponent implements OnInit {
   }
 
   roundsChanged(rounds) : void{
-    console.log(rounds);
     this.userChangedPronostiek$.next();
   }
 

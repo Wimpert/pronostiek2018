@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
-import {replaceBasedOnName} from "../../../../api/src/shared/utils/TournamentUtils";
+import {replaceBasedOnName, addToNextRound} from "../../../../api/src/shared/utils/TournamentUtils";
 
 @Component({
   selector: 'app-groups',
@@ -19,12 +19,13 @@ export class GroupsComponent implements OnInit , OnChanges {
   }
 
   ngOnInit() {
-
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.groups.currentValue && this.panelsOpen.length == 0){
       this.groups.forEach((group, index) => {
+        addToNextRound(undefined, index);
         this.panelsOpen[index] = false;
       })
     }
