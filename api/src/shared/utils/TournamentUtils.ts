@@ -205,22 +205,28 @@ Winner F v. Runner-up E = 6
 Winner G v. Runner-up H = 7
 Winner H v. Runner-up G = 8 
 */
-export function addToNextRound(tournament : Tournament,groupIndex: number) {
+export function addToNextRound(tournament : Tournament) {
     
     const achsteFinales =  tournament.rounds[0];
-    const groupWinner = tournament.groups[groupIndex].teams[0];
-    const groupRunnerUp = tournament.groups[groupIndex].teams[1];
 
-    if(groupIndex%2 == 0){
-        //even index so group winner in home index, runnerup in out index + 1;
-        achsteFinales.matches[groupIndex].homeTeamName = groupWinner.name;
-        achsteFinales.matches[groupIndex+1].outTeamName = groupRunnerUp.name;
+    tournament.groups.forEach((group, groupIndex) => {
 
-    } else {
-        //odd index so group winner in out index+1, runnerup in home index;
-        achsteFinales.matches[groupIndex].homeTeamName = groupRunnerUp.name;
-        achsteFinales.matches[groupIndex+1].outTeamName = groupWinner.name;
-    }
+        if(group.allMatchesPlayed){
+            const groupWinner = tournament.groups[groupIndex].teams[0];
+            const groupRunnerUp = tournament.groups[groupIndex].teams[1];
+        
+            if(groupIndex%2 == 0){
+                //even index so group winner in home index, runnerup in out index + 1;
+                achsteFinales.matches[groupIndex].homeTeamName = groupWinner.name;
+                achsteFinales.matches[groupIndex+1].outTeamName = groupRunnerUp.name;
+        
+            } else {
+                //odd index so group winner in out index+1, runnerup in home index;
+                achsteFinales.matches[groupIndex].homeTeamName = groupRunnerUp.name;
+                achsteFinales.matches[groupIndex+1].outTeamName = groupWinner.name;
+            }
+        }
+    });
 }
   
 

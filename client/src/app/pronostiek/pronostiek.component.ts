@@ -5,6 +5,7 @@ import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostie
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
 import {merge, switchMap, tap, share} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
+import { addToNextRound } from '../../../../api/src/shared/utils/TournamentUtils';
 
 @Component({
   selector: 'app-pronostiek',
@@ -43,6 +44,7 @@ export class PronostiekComponent implements OnInit {
 
   groupsChanged(groups : Group[]) {
     this.pronostiekToSave.tournament.groups = groups;
+    addToNextRound(this.pronostiekToSave.tournament);
     this.userChangedPronostiek$.next();
   }
 
