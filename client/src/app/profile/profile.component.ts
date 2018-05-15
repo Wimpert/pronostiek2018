@@ -18,18 +18,8 @@ export class ProfileComponent implements OnInit {
   @Output() userUpdated = new EventEmitter();
   profileFormGroup: FormGroup;
 
-  constructor(private _formBuilder : FormBuilder, private _userService : UserService) {
-    //this is dirty;
-    this._userService.userIsLoggedIn$.pipe(
-      tap(_ => {
-        console.log(_);
-      }),
-      tap(value => {
-        if(value) {
-          this.userUpdated.next("user updated");
-        }
-      })
-    );
+  constructor(private _formBuilder : FormBuilder,  public userService : UserService) {
+    
   }
 
   ngOnInit() {
@@ -52,7 +42,7 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() : void {
     if(this.profileFormGroup.valid){
-      this._userService.createUser(this.user);
+      this.userService.createUser(this.user);
     }
   }
 
