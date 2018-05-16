@@ -1,6 +1,6 @@
 
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let round of rounds">
+  <mat-expansion-panel *ngFor="let round of rounds; let roundIndex = index;">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{round.name}}
@@ -8,6 +8,6 @@
       <mat-panel-description>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-round [round]="round" ></app-round>
+    <app-round [round]="round" (matchInRoundChanged)="matchInRoundChanged($event, roundIndex)" ></app-round>
   </mat-expansion-panel>
 </mat-accordion>

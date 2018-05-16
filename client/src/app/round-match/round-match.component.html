@@ -1,11 +1,20 @@
 <div class="match-container">
   <span class="team-container  hometeam-container">
-    <span class="left-team-name">{{match.homeTeamName}}</span>
-    <input type="number" [ngModel]="match.homeTeamScore" class="score-field">
+    <mat-checkbox class="example-margin"
+     labelPosition="before" 
+     (change)="homeTeamWinsChanged($event)"
+     [(ngModel)]="match.homeTeamWins"
+     [disabled]="match.homeTeamName === undefined">
+     {{match.homeTeamName}}
+    </mat-checkbox>
   </span>
   <span>-</span>
   <span class="team-container outteam-container">
-    <input type="number" [ngModel]="match.outTeamScore"  class="score-field">
-    <span class="right-team-name">{{match.outTeamName}}</span>
-  </span>
+      <mat-checkbox class="example-margin" 
+      (change)="outTeamWinsChanged($event)" 
+      [(ngModel)]="match.outTeamWins"
+      [disabled]="match.outTeamName === undefined">
+      {{match.outTeamName}}
+    </mat-checkbox>
+    </span>
 </div>

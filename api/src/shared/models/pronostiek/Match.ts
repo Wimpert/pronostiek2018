@@ -35,17 +35,16 @@ export class KnockoutMatch extends Match {
     
     homeTeamPenaltyScore : number = undefined;
     outTeamPenaltyScore: number = undefined;
+    homeTeamWins: boolean = false;
+    outTeamWins: boolean = false;
 
     getOutCome() : number {
-        let outCome =  super.getOutCome();
-        if(outCome == MATCH_IS_DRAW){
-            //This means match was with penals ...
-            if(this.homeTeamPenaltyScore > this.outTeamPenaltyScore){
-                return HOME_TEAM_WINS
-            } else {
-                return OUT_TEAM_WINS
-            }
+
+        if(this.homeTeamWins){
+            return HOME_TEAM_WINS;
+        } else if(this.outTeamWins){
+            return OUT_TEAM_WINS;
         }
-        return outCome
+        return MATCH_IS_DRAW;
     }
 }

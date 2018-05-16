@@ -8,6 +8,9 @@
   (groupsChanged)="groupsChanged($event)" >
 </app-groups>
 <h3>Knockoutfase:</h3>
-<app-rounds [rounds]="(pronostiek$ | async)?.tournament?.rounds"></app-rounds>
+<app-rounds 
+[rounds]="(pronostiek$ | async)?.tournament?.rounds"
+(roundChanged)="roundsChanged($event)"
+></app-rounds>
 
 

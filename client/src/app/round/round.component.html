@@ -1,1 +1,4 @@
-<app-round-match *ngFor="let match of round.matches" [match]="match"></app-round-match>
+<app-round-match 
+        *ngFor="let match of round.matches; let index = index" 
+        [match]="match" 
+        (winningTeam)="winningTeamChanged($event, index)"></app-round-match>

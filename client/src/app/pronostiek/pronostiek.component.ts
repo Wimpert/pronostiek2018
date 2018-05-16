@@ -5,7 +5,7 @@ import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostie
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
 import {merge, switchMap, tap, share} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
-import { addToNextRound } from '../../../../api/src/shared/utils/TournamentUtils';
+import { addToNextRound, addToNextKnockoutRound } from '../../../../api/src/shared/utils/TournamentUtils';
 
 @Component({
   selector: 'app-pronostiek',
@@ -48,7 +48,8 @@ export class PronostiekComponent implements OnInit {
     this.userChangedPronostiek$.next();
   }
 
-  roundsChanged(rounds) : void{
+  roundsChanged(event : {winner: string, matchIndex: number, roundIndex: number}) : void{
+    addToNextKnockoutRound(this.pronostiekToSave.tournament, event.roundIndex, event.matchIndex , event.winner);
     this.userChangedPronostiek$.next();
   }
 

@@ -1,10 +1,10 @@
+import { Tournament } from './../models/pronostiek/Tournament';
 import { KnockoutMatch } from './../models/pronostiek/Match';
 import {Pronostiek} from "../models/pronostiek/Pronostiek";
 import {Team} from "../models/pronostiek/Team";
 import {Group} from "../models/pronostiek/Group";
 import {Match} from "../models/pronostiek/Match";
 import {HOME_TEAM_WINS, OUT_TEAM_WINS} from "../models/Constants";
-import {Tournament} from "../models/pronostiek/Tournament";
 import {KnockOutRound} from "../models/pronostiek/KnockOutRound";
 
 export function getTournament() : Tournament {
@@ -240,6 +240,38 @@ export function addToNextRound(tournament : Tournament) {
             }
         }
     });
+}
+
+
+/*
+    Winner 1 v. Winner 3 = A
+    Winner 2 v. Winner 4 = B
+    Winner 5 v. Winner 7 = C
+    Winner 6 v. Winner 8 = D 
+*/
+export function addToNextKnockoutRound(tournament: Tournament, roundIndex : number, matchIndex: number , winningTeam: string){
+    let matchIndexToAddTo; 
+    let homeTeam = true
+    if(roundIndex == 0){
+        if(matchIndex == 0 || matchIndex == 2){
+            matchIndexToAddTo = 0
+        } else if(matchIndex == 1 || matchIndex == 3){
+            matchIndexToAddTo = 1
+        } else if(matchIndex == 4 || matchIndex == 6){
+            matchIndexToAddTo = 2
+        } else if(matchIndex == 5 || matchIndex == 7){
+            matchIndexToAddTo = 3
+        }  
+        if(matchIndex == 2 ||matchIndex == 3 || matchIndex == 6 || matchIndex == 7){
+            homeTeam = false;
+        }  
+    }
+    let matchToAddTo = tournament.rounds[roundIndex+1].matches[matchIndex];
+    if(homeTeam){
+        matchToAddTo.homeTeamName = winningTeam;
+    } else {
+        matchToAddTo.outTeamName = winningTeam;
+    }
 }
   
 
