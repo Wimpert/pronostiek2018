@@ -32,6 +32,7 @@ export class Match{
 }
 
 export class KnockoutMatch extends Match {
+    
     homeTeamPenaltyScore : number = undefined;
     outTeamPenaltyScore: number = undefined;
 

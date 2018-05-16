@@ -46,6 +46,19 @@ export function getTournament() : Tournament {
         let knockOutRound = new KnockOutRound(roundData.name, roundData.numberOfMatches);
         tournament.rounds.push(knockOutRound);
     });
+
+
+    // FOR DEV PURPOSES:
+    tournament.groups.forEach((group) => {
+        group.matches.forEach((match,index) => {
+            if(index < 5){
+                match.homeTeamScore = Math.round(Math.random()*5);
+                match.outTeamScore = Math.round(Math.random()*5);
+            }
+        });
+        group.processMatches();
+    });
+    // END
     
     return tournament;
 }
@@ -222,8 +235,8 @@ export function addToNextRound(tournament : Tournament) {
         
             } else {
                 //odd index so group winner in out index+1, runnerup in home index;
-                achsteFinales.matches[groupIndex].homeTeamName = groupRunnerUp.name;
-                achsteFinales.matches[groupIndex+1].outTeamName = groupWinner.name;
+                achsteFinales.matches[groupIndex].homeTeamName = groupWinner.name;
+                achsteFinales.matches[groupIndex-1].outTeamName = groupRunnerUp.name;
             }
         }
     });
