@@ -1,6 +1,9 @@
 // config/database.ts
 
 function getDBConf() {
+
+    console.log(process.env.NODE_ENV);
+    
     
     if (process.env.NODE_ENV === "production"){
         return {
