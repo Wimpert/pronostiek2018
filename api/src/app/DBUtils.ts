@@ -5,7 +5,6 @@ import {getTournament} from "../shared/utils/TournamentUtils";
 
 const mysql = require('mysql');
 const dbconfig = require('./config/database');
-
 const connection = mysql.createConnection(dbconfig.connection);
 
 connection.query('USE ' + dbconfig.database);

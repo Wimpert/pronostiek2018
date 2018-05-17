@@ -2,7 +2,7 @@ const path = require('path');
 
 var sourceConfig = {
     entry: './src/app/index.ts',
-    devtool: 'inline-source-map',
+    devtool: 'eval',
     module: {
         rules: [
             {
@@ -48,6 +48,6 @@ var testConfig = {
 };
 
 module.exports = [
-    sourceConfig, testConfig
+    sourceConfig
 ]
 
