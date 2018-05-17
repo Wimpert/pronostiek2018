@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jasmine",
     "build": "webpack",
-    "build-prod": "webpack --env.NODE_ENV=prod --env.production --progress --mode=development",
+    "build-prod": "webpack --env.NODE_ENV=production --env.production --progress --mode=production",
     "watch": "webpack --watch --mode=development",
     "build-start": "webpack --watch & nodemon ../app.js",
     "build-test": "webpack --watch test-webpack.config.js",
