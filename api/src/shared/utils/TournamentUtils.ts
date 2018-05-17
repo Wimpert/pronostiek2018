@@ -49,15 +49,15 @@ export function getTournament() : Tournament {
 
 
     // FOR DEV PURPOSES:
-    tournament.groups.forEach((group) => {
-        group.matches.forEach((match,index) => {
-            if(index < 5){
-                match.homeTeamScore = Math.round(Math.random()*5);
-                match.outTeamScore = Math.round(Math.random()*5);
-            }
-        });
-        group.processMatches();
-    });
+    // tournament.groups.forEach((group) => {
+    //     group.matches.forEach((match,index) => {
+    //         if(index < 5){
+    //             match.homeTeamScore = Math.round(Math.random()*5);
+    //             match.outTeamScore = Math.round(Math.random()*5);
+    //         }
+    //     });
+    //     group.processMatches();
+    // });
     // END
     
     return tournament;
@@ -248,8 +248,21 @@ export function addToNextRound(tournament : Tournament) {
     Winner 2 v. Winner 4 = B
     Winner 5 v. Winner 7 = C
     Winner 6 v. Winner 8 = D 
+
+    Semies:
+    Winner 1 v. Winner 3
+    Winner 2 v. Winner 4
+
+
+
 */
 export function addToNextKnockoutRound(tournament: Tournament, roundIndex : number, matchIndex: number , winningTeam: string){
+
+    if(roundIndex == 3){
+       // this is the final
+        return;
+    }
+
     let matchIndexToAddTo; 
     let homeTeam = true
     if(roundIndex == 0){
@@ -265,8 +278,23 @@ export function addToNextKnockoutRound(tournament: Tournament, roundIndex : numb
         if(matchIndex == 2 ||matchIndex == 3 || matchIndex == 6 || matchIndex == 7){
             homeTeam = false;
         }  
+    } else if(roundIndex == 1){
+        if (matchIndex == 0 || matchIndex == 2){
+            matchIndexToAddTo = 0;
+        } else {
+            matchIndexToAddTo = 1;
+        }
+
+        if(matchIndex == 2 ||matchIndex == 3){
+            homeTeam = false;
+        } 
+    } else {
+        matchIndexToAddTo = 0;
+        if(matchIndex == 1){
+            homeTeam = false;
+        }
     }
-    let matchToAddTo = tournament.rounds[roundIndex+1].matches[matchIndex];
+    let matchToAddTo = tournament.rounds[roundIndex+1].matches[matchIndexToAddTo];
     if(homeTeam){
         matchToAddTo.homeTeamName = winningTeam;
     } else {

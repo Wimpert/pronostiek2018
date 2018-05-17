@@ -1,5 +1,6 @@
 
-import {getMatchesFromTeams, getTournament, orderTeams} from "../src/shared/utils/TournamentUtils";
+import {} from 'jasmine';
+import {getMatchesFromTeams, getTournament, orderTeams, addToNextKnockoutRound} from "../src/shared/utils/TournamentUtils";
 import {
     setGroupMatchScores, setGroupMatchScore2FullyEqualTeams, setGroupMatchScore3EqualTeams,
     setGroupMatchScore2on2EqualTeamsWithDifferenceBetween
@@ -12,7 +13,7 @@ describe("this will test the processing of the group matches:", function() {
     let  tournament : Tournament = getTournament();
 
     it("tournament should contain group1 A", function () {
-        expect(tournament.groups[0].groupname).toEqual("Group A");
+        expect(tournament.groups[0].groupname).toEqual("Groep A");
     });
 
     setGroupMatchScores(tournament);
@@ -156,4 +157,13 @@ describe("If 2 on 2 Teams are equal we need make a difference between them", fun
         expect(groupB.getEqualTeams()[1].length).toBe(2);
     });
 
+});
+
+describe("it should add teams to next knockoutround", function(){
+    var tournament = getTournament();
+    const winningTeam = "winners"
+    addToNextKnockoutRound(tournament, 0, 0 , winningTeam);
+    it("should have added to first", function(){
+        expect(tournament.rounds[1].matches[0].homeTeamName).toBe(winningTeam);
+    })
 });

@@ -2,12 +2,10 @@
 <div id="prono-save-button">
   <button mat-fab color="primary" (click)="savePronosiek()">Save</button>
 </div>
-<h3>Groepen:</h3>
 <app-groups
   [groups]="(pronostiek$ | async)?.tournament?.groups"
   (groupsChanged)="groupsChanged($event)" >
 </app-groups>
-<h3>Knockoutfase:</h3>
 <app-rounds 
 [rounds]="(pronostiek$ | async)?.tournament?.rounds"
 (roundChanged)="roundsChanged($event)"

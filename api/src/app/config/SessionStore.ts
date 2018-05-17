@@ -1,6 +1,6 @@
 function getSessionStoreConf() {
 
-    if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development"){
+    if (process.env.NODE_ENV === "production"){
         return {
             host: 'localhost',
             user: 'de_jackies',
