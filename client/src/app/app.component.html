@@ -1,12 +1,18 @@
 <div *ngIf="(showWelcome$ | async); else content" id="welcome-screen">
-  <h3>
-    Welkom op de pronostiek!
-  </h3>
- <img width="auto" alt="De Jackies"  src="../assets/images/logo_jackies.jpg">
-  <div>
-    <button color="primary" mat-raised-button (click)="openSignupDialog()">Schrijf je in</button>
-    <button color="primary" mat-raised-button (click)="openLoginDialog()">Meld je aan</button>
+  <div *ngIf="!showSignup; else signup">
+    <h3>
+     Welkom op de pronostiek!
+   </h3>
+  <img width="auto" alt="De Jackies"  src="../assets/images/logo_jackies.jpg">
+    <div>
+      <button color="primary" mat-raised-button (click)="openSignupDialog()">Schrijf je in</button>
+      <button color="primary" mat-raised-button (click)="openLoginDialog()">Meld je aan</button>
+    </div>
   </div>
+  <ng-template #signup>
+    <app-profile (canceled)="closeSignUp()"></app-profile>
+  </ng-template>
+  
 </div>
 
 

@@ -6,29 +6,6 @@ module.exports = function(app, passport) {
 
 
 
-   /* app.post('/api/login', passport.authenticate('local-login', {
-        successRedirect : '/api', // redirect to the secure profile section
-        failureRedirect : '/api/login', // redirect back to the signup page if there is an error
-        failureFlash : false // allow flash messages
-    }),
-        function(req, res) {
-            console.log("test");
-            if (req.body.remember) {
-                req.session.cookie.maxAge = 1000 * 60 * 3;
-            } else {
-                req.session.cookie.expires = false;
-                console.log(req.session);
-            }
-            res.redirect('/test');
-    });
-*/
-    // process the signup form
-   /* app.post('/api/signup', passport.authenticate('local-signup', {
-        successRedirect : '/api/profile', // redirect to the secure profile section
-        failureRedirect : '/api/signup', // redirect back to the signup page if there is an error
-        failureFlash : false // allow flash messages
-    }));*/
-
   app.post('/api/login' , function (req, res, next) {
        passport.authenticate('local-login', function (err, user ,info) {
 
@@ -72,8 +49,7 @@ module.exports = function(app, passport) {
                 }
                 return res.redirect('');
            }
-            console.log("user id");
-            console.log(user.id);
+           
             req.logIn(user, function(err) {
 
                 if (err) { return next(err); }
@@ -88,7 +64,6 @@ module.exports = function(app, passport) {
                     res.cookie(constants.COOKIE_NAME,user.id);
                 }
 
-                console.log("done");
 
                 return res.send(200, user);
             });
@@ -128,6 +103,7 @@ module.exports = function(app, passport) {
      */
     app.get('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.getPronostiek);
     app.post('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.savePronostiek);
+    app.put('/api/keys/:number', isLoggedIn, DBUtils.PronostiekUtils.createKeys);
 
 
 };

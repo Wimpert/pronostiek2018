@@ -1,7 +1,12 @@
+var crypto = require("crypto");
+
+import { Key } from './../shared/models/key';
 import {Request, Response} from "express";
 import {Pronostiek} from "../shared/models/pronostiek/Pronostiek";
 import {Tournament} from "../shared/models/pronostiek/Tournament";
 import {getTournament} from "../shared/utils/TournamentUtils";
+import { STATUS_CODES } from 'http';
+import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 
 const mysql = require('mysql');
 const dbconfig = require('./config/database');
@@ -60,4 +65,38 @@ export class PronostiekUtils{
 
         }
     };
+
+    public static createKeys(req: Request, res: Response){
+
+        const keys: Key[] = [];
+
+        for (let i = 0; i < req.params.number; i++){
+            const key = new Key();
+            key.code = getKey();
+            keys.push(key);
+        }
+
+        let query = " INSERT INTO pronostiek.keys ( code , used_by ) values "
+        keys.forEach((key,index) => {
+            query = query.concat("('"+key.code+"', null)");
+            if(index != keys.length-1){
+                query = query.concat(",");
+            }
+        });
+        console.log(query);
+        
+        connection.query(query,[],function(err : Error, rows : any) {
+            if(err){throw  err;}
+            res.status(200).send("OK");
+        });
+
+        
+
+
+    }
+
+}
+
+function getKey() {
+    return crypto.randomBytes(5).toString('hex');;
 }

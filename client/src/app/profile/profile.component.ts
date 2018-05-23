@@ -23,6 +23,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.user === undefined){
+      this.user = new User();
+    }
     this.createForm();
     this.confirmPassword = this.user !== undefined ? this.user.password : undefined;
   }
@@ -45,7 +48,6 @@ export class ProfileComponent implements OnInit {
       this.userService.createUser(this.user);
     }
   }
-
 
 
 }

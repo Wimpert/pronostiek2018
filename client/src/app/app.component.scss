@@ -30,7 +30,7 @@
 }
 
 
-#welcome-screen{
+#welcome-screen>div{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,14 +41,15 @@
 
 #welcome-screen > *{
   padding: 10px;
+  margin: 10px;
 }
 
 #welcome-screen > div > button{
   margin: 0px 10px 0px 10px;
 }
 
-#welcome-screen > img{
-  max-height: 40%;
+#welcome-screen img{
+  max-width: 80%;
 }
 
 #content-container{

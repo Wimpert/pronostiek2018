@@ -30,7 +30,7 @@ import { RoundMatchComponent } from './round-match/round-match.component';
 const appRoutes: Routes = [
 
   { path: 'pronostiek', component: PronostiekComponent },
-  { path: 'profile/:id',      component: ProfileComponent },
+  { path: 'signup', component: ProfileComponent },
   { path: '**', component: PronostiekComponent }
 ];
 

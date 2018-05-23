@@ -17,6 +17,7 @@ import {map, shareReplay, tap} from "rxjs/operators";
 export class AppComponent implements  OnInit{
 
   showWelcome$ : Observable<boolean>;
+  showSignup = false;
 
   constructor(public  _userService : UserService, private matDialog : MatDialog ){}
 
@@ -27,7 +28,7 @@ export class AppComponent implements  OnInit{
   }
 
   openLoginDialog() {
-    //let loginDialogRef =
+    // let loginDialogRef =
       this.matDialog.open(LoginComponent, {
       width: 'auto',
       height: 'auto',
@@ -38,14 +39,19 @@ export class AppComponent implements  OnInit{
   }
 
  openSignupDialog(): void {
-    //let signUpdialogRef =
-      this.matDialog.open(SignUpDialogComponent, {
-      width: 'auto',
-      height: 'auto',
-      maxWidth: '80%',
-      maxHeight: '80%',
-      minWidth: '300px'
-    });
+   this.showSignup = true;
+    // let signUpdialogRef =
+    //   this.matDialog.open(SignUpDialogComponent, {
+    //   width: 'auto',
+    //   height: 'auto',
+    //   maxWidth: '80%',
+    //   maxHeight: '100%',
+    //   minWidth: '300px'
+    // });
+  }
+
+  closeSignUp() : void {
+    this.showSignup = false;
   }
 
 
