@@ -37,7 +37,8 @@ export class ProfileComponent implements OnInit {
       userNameFormControl :  ['', Validators.required],
       emailFormControl : ['', Validators.email],
       passwordFormControl : ['', Validators.required],
-      confirmPasswordFormControl : ['', Validators.required]
+      confirmPasswordFormControl : ['', Validators.required],
+      codeFormControl : ['',Validators.required]
     }, {
       validator: PasswordValidation.MatchPassword
     });

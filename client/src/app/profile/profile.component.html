@@ -1,3 +1,4 @@
+
 <form  novalidate [formGroup]="profileFormGroup" (ngSubmit)="onSubmit()">
   <div class="error">
     {{(userService.userSignUpFailedMessage$ | async)?.message}}
@@ -7,8 +8,9 @@
       <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl" [(ngModel)]="user.firstname">
       <mat-error>required</mat-error>
     </mat-form-field>
-  </div>
-  <div class="input-row"> <mat-form-field>
+    </div>
+    <div class="input-row">
+  <mat-form-field>
       <input matInput placeholder="Achternaam*" formControlName="lastNameFormControl" [(ngModel)]="user.lastname">
       <mat-error >required</mat-error>
     </mat-form-field>
@@ -54,8 +56,15 @@
     </mat-error>
   </mat-form-field>
   </div>
+  <div class="input-row">
+    <mat-form-field>
+      <input matInput placeholder="Code" formControlName="codeFormControl" type="text">
+      <mat-error *ngIf="profileFormGroup.get('codeFormControl').errors">required</mat-error>
+    </mat-form-field>
+  </div>
   <div class="button-row">
     <button color="primary" mat-raised-button (click)="canceled.emit()">Annuleren</button>
     <button  type="submit" mat-raised-button>Ok</button>
   </div>
 </form>
+
