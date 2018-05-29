@@ -2,13 +2,32 @@
   <app-group-match *ngFor="let match of group.matches" [groupMatch]="match" (change)="matchChanged()" ></app-group-match>
 </div>
 <div class="group-standing-container">
-  <div>
-    NAME:  w - l - d - s - c - p
-  </div>
-  <div *ngFor="let team of group.teams">
-    {{team.name}}: {{team.matchesWon}} - {{team.matchesLost}} - {{team.matchesDrawed}} - {{team.goalsScored}} - {{team.goalsConcieved}} - {{team.points}}
-  </div>
-  <div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Ploeg</th>
+        <th>w</th>
+        <th>v</th>
+        <th>g</th>
+        <th>gs</th>
+        <th>gt</th>
+        <th>p</th>
+      </tr>
+    </thead>
+  <tbody>
+  <tr *ngFor="let team of group.teams">
+    <td>{{team.name}}:</td>
+    <td>{{team.matchesWon}}</td>
+      <td>{{team.matchesLost}}</td>
+      <td>{{team.matchesDrawed}}</td>
+      <td>{{team.goalsScored}}</td>
+      <td>{{team.goalsConcieved}}</td>
+      <td>{{team.points}}</td>
+      </tr>
+  </tbody>
+  </table>
+  <!-- <div>
     {{group.groupNeedsDraw}}
-  </div>
+  </div> -->
 </div>

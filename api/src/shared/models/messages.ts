@@ -1,12 +1,14 @@
 export const signUpMessages = {
-    userNameInUse  : {message:"username in use", code:1},
-    emailInUse : {message:"email in use", code:2}
+    userNameInUse  : {message:"Gebruikersnaam in gebruik", code:1},
+    emailInUse : {message:"Email in gebruik", code:2},
+    codeInUse: {message:"Code in gebruik", code:3},
+    codeNotValid: {message: "Code niet geldig", code: 4}
 }
 
 export const loginMessages = {
-    comboNotFound  : {message:"No combo found", code:1}
+    comboNotFound  : {message:"Email/gebruikesnaam en paswoord komen niet overeen.", code:1}
 }
 
 export const logoutMessages = {
-    success : {message: "User logged out" , logoutSuccess : true}
+    success : {message: "gebruiker uitgelogd" , logoutSuccess : true}
 }

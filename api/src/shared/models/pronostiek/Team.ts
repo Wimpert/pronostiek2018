@@ -28,6 +28,7 @@ export class Team {
 
         this.goalsScored = 0;
         this.goalsConcieved = 0;
+        
         this.subGroupIndex = 0;
     }
 

@@ -6,23 +6,23 @@
   <div class="input-row">
     <mat-form-field>
       <input matInput placeholder="Voornaam*" formControlName="firstNameFormControl" [(ngModel)]="user.firstname">
-      <mat-error>required</mat-error>
+      <mat-error>Verplicht</mat-error>
     </mat-form-field>
     </div>
     <div class="input-row">
   <mat-form-field>
       <input matInput placeholder="Achternaam*" formControlName="lastNameFormControl" [(ngModel)]="user.lastname">
-      <mat-error >required</mat-error>
+      <mat-error >Verplicht</mat-error>
     </mat-form-field>
   </div>
   <div class="input-row">
   <mat-form-field >
-    <input matInput placeholder="Username*" formControlName="userNameFormControl" [(ngModel)]="user.username">
+    <input matInput placeholder="Gebruikersnaam*" formControlName="userNameFormControl" [(ngModel)]="user.username">
     <mat-error *ngIf="profileFormGroup.get('userNameFormControl').errors &&
-                        profileFormGroup.get('userNameFormControl').errors.required">required</mat-error>
+                        profileFormGroup.get('userNameFormControl').errors.required">Verplicht</mat-error>
     <mat-error *ngIf="profileFormGroup.get('userNameFormControl').errors &&
                         profileFormGroup.get('userNameFormControl').errors.userNameInUse">
-      username is in use
+      Username in gebruik
     </mat-error>
   </mat-form-field>
   </div>
@@ -30,9 +30,9 @@
     <mat-form-field >
       <input matInput placeholder="email*"  formControlName="emailFormControl" type="email" [(ngModel)]="user.email">
       <mat-error *ngIf="profileFormGroup.get('emailFormControl').errors &&
-                        profileFormGroup.get('emailFormControl').errors.required">required</mat-error>
+                        profileFormGroup.get('emailFormControl').errors.required">Verplicht</mat-error>
       <mat-error *ngIf="profileFormGroup.get('emailFormControl').errors &&
-                        profileFormGroup.get('emailFormControl').errors.email">invalid email</mat-error>
+                        profileFormGroup.get('emailFormControl').errors.email">ongeldige email</mat-error>
       <mat-error *ngIf="profileFormGroup.get('emailFormControl').errors &&
                         profileFormGroup.get('emailFormControl').errors.emailInUse">
         Email in use
@@ -41,15 +41,15 @@
   </div>
   <div class="input-row">
   <mat-form-field >
-    <input matInput placeholder="password*" formControlName="passwordFormControl" type="password" [(ngModel)]="user.password">
+    <input matInput placeholder="paswoord*" formControlName="passwordFormControl" type="password" [(ngModel)]="user.password">
     <mat-error>There is an error</mat-error>
   </mat-form-field>
   </div>
   <div class="input-row">
   <mat-form-field >
-    <input matInput placeholder="Confirm password*" formControlName="confirmPasswordFormControl" type="password">
+    <input matInput placeholder="bevestig paswoord*" formControlName="confirmPasswordFormControl" type="password">
     <mat-error *ngIf="profileFormGroup.get('confirmPasswordFormControl').errors &&
-                        profileFormGroup.get('confirmPasswordFormControl').errors.required">required</mat-error>
+                        profileFormGroup.get('confirmPasswordFormControl').errors.required">Verplicht</mat-error>
     <mat-error *ngIf="profileFormGroup.get('confirmPasswordFormControl').errors &&
                         profileFormGroup.get('confirmPasswordFormControl').errors.MatchPassword">
       Password do not match!
@@ -59,7 +59,7 @@
   <div class="input-row">
     <mat-form-field>
       <input matInput placeholder="Code" formControlName="codeFormControl" type="text">
-      <mat-error *ngIf="profileFormGroup.get('codeFormControl').errors">required</mat-error>
+      <mat-error *ngIf="profileFormGroup.get('codeFormControl').errors">Verplicht</mat-error>
     </mat-form-field>
   </div>
   <div class="button-row">

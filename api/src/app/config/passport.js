@@ -48,8 +48,18 @@ module.exports = function(passport) {
             },
             function(req, username, password, done) {
 
-                // find a user whose email is the same as the forms email
-                // we are checking to see if the user trying to login already exists
+                connection.query("SELECT * FROM pronostiek.keys WHERE code = ?", [req.body.code] ,function(err, rows){
+                    if (err)
+                        return done(err);
+                    if(rows.length){
+                        //code exitst, check if it is not used:
+                        const key = rows[0]
+                        if(key.used_by){
+                            return done(null, false, messages.signUpMessages.codeInUse);
+                        } else {
+                            //code is good, so let create:
+                            // find a user whose email is the same as the forms email
+                             // we are checking to see if the user trying to login already exists
                 connection.query("SELECT * FROM users WHERE username = ? or email = ?",[username, req.body.email], function(err, rows) {
                     if (err)
                         return done(err);
@@ -79,8 +89,23 @@ module.exports = function(passport) {
                         connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.creationDate, newUserMysql.updateDate],function(err, rows) {
                             if(err){return done(err);}
                             newUserMysql.id = rows.insertId;
-                            return done(null, newUserMysql);
+                            const updateCodeQuery = "UPDATE pronostiek.keys SET  used_by = ? where code = ? ";
+                            connection.query(updateCodeQuery,[req.body.email, req.body.code], function(err, rows){
+                                if(err){
+                                    return done(err)
+                                }
+                                //all done:
+                                return done(null, newUserMysql);
+                            })
+                           
                         });
+                    }
+                });
+                        }
+                        
+                    } else {
+                        //code is not valid:
+                        return done(null, false, messages.signUpMessages.codeNotValid);
                     }
                 });
             })
@@ -101,7 +126,7 @@ module.exports = function(passport) {
                 passReqToCallback : true // allows us to pass back the entire request to the callback
             },
             function(req, username, password, done) { // callback with email and password from our form
-                connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
+                connection.query("SELECT * FROM users WHERE username = ? or email = ?",[username, username], function(err, rows){
                     if (err)
                         return done(err);
                     if (!rows.length) {

@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() : void {
     if(this.profileFormGroup.valid){
-      this.userService.createUser(this.user);
+      this.userService.createUser(this.user,this.profileFormGroup.get('codeFormControl').value);
     }
   }
 

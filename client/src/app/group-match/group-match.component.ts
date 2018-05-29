@@ -1,5 +1,7 @@
+
 import {Component, Input, OnInit} from '@angular/core';
 import {Match} from "../../../../api/src/shared/models/pronostiek/Match";
+import {getCountryCode} from "../../../../api/src/shared/utils/country.codes"
 
 @Component({
   selector: 'app-group-match',
@@ -9,10 +11,14 @@ import {Match} from "../../../../api/src/shared/models/pronostiek/Match";
 export class GroupMatchComponent implements OnInit {
 
   @Input() groupMatch : Match;
+  homeTeamFlagFileName: string;
+  outTeamFlagFileName: string;
 
   constructor() { }
 
   ngOnInit() {
+     this.homeTeamFlagFileName = getCountryCode(this.groupMatch.homeTeamName)+'.png';
+     this.outTeamFlagFileName = getCountryCode(this.groupMatch.outTeamName)+'.png';
   }
 
   outTeamScoreChanged(event :any) {

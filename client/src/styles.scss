@@ -28,11 +28,14 @@ html, body{
 }
 
 .match-container{
-  padding: 5px;
   flex-direction: row;
   display: flex;
+  min-width: 350px;
 }
 
+.match-container *{
+  padding: 2px;
+}
 
 .score-field{
   width: 30px;
@@ -42,10 +45,16 @@ html, body{
   border-bottom: 1px solid lightgray;
   text-align: center;
   padding: 3px;
+  margin: 0px 2px 0px 2px;
 }
 
 .error{
   color: indianred;
+}
+
+.country-flag{
+  border: 1px solid lightgrey;
+  padding: 0px;
 }
 
 

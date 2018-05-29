@@ -22,7 +22,7 @@ export class UserService {
 
   private loginRequest$ : Subject<any> = new Subject<any>();
   private logoutRequest$ : Subject<any> = new Subject<any>();
-  private userCreateRequest$ :Subject<User> = new Subject<User>();
+  private userCreateRequest$ :Subject<any> = new Subject<any>();
   private userLoggedIn$ : Observable<boolean>;
   private userLoggedOut$ : Observable<boolean>;
   private userCreated$ : Observable<boolean>;
@@ -51,6 +51,7 @@ export class UserService {
     );
 
     this.userCreated$ = this.userCreateRequest$.pipe(
+      tap(user => console.log(user)),
       switchMap(user =>
         this._httpClient.post<User>(this._baseUrl+"signup",user,{withCredentials:true}).pipe(
           catchError(error => {
@@ -106,8 +107,9 @@ export class UserService {
     return this._httpClient.post<Pronostiek>(this._baseUrl+"pronostiek" , pronostiek , {withCredentials:true});
   }
 
-  createUser(user: User) {
-    this.userCreateRequest$.next(user);
+  createUser(user: User, code : string) {
+    const request = {...user, code}
+    this.userCreateRequest$.next(request);
   }
 
 
