@@ -3,10 +3,10 @@
 </div>
 <div class="group-standing-container">
 
-  <table>
+  <table class="standings-table">
     <thead>
       <tr>
-        <th>Ploeg</th>
+        <th class="name-container">Ploeg</th>
         <th>w</th>
         <th>v</th>
         <th>g</th>
@@ -17,8 +17,8 @@
     </thead>
   <tbody>
   <tr *ngFor="let team of group.teams">
-    <td>{{team.name}}:</td>
-    <td>{{team.matchesWon}}</td>
+      <td class="name-container">{{team.name}}:</td>
+      <td>{{team.matchesWon}}</td>
       <td>{{team.matchesLost}}</td>
       <td>{{team.matchesDrawed}}</td>
       <td>{{team.goalsScored}}</td>
