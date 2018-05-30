@@ -1,8 +1,6 @@
 
 export function getCountryCode(countryName: string): string{
-    console.log(countryName.toLowerCase());
     
-
     switch(countryName.toLowerCase()) { 
         case "russia": { 
            return "ru"

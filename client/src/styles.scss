@@ -30,7 +30,6 @@ html, body{
 .match-container{
   flex-direction: row;
   display: flex;
-  min-width: 350px;
 }
 
 .match-container *{
@@ -38,7 +37,7 @@ html, body{
 }
 
 .score-field{
-  width: 30px;
+  max-width: 15px;
   border-top: none;
   border-right: none;
   border-left: none;
@@ -46,6 +45,7 @@ html, body{
   text-align: center;
   padding: 3px;
   margin: 0px 2px 0px 2px;
+  flex-shrink: 1;
 }
 
 .error{
@@ -64,4 +64,10 @@ mat-expansion-panel{
 
 .mat-expansion-panel-body{
   padding: 0 0 0 0 ;
+}
+
+@media screen and (max-width: 400px) {
+  .team-name {
+      font-size: 10px;
+  }
 }

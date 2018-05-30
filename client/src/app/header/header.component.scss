@@ -1,6 +1,18 @@
 @import "../../variables";
 
+
+
+mat-toolbar > span{
+  flex-grow: 1;
+}
+
 mat-toolbar {
-  background: yellow;
+  display: flex;
+  flex-direction: row;
+  background: rgb(147, 196, 241);
   height: $tool-bar-height;
+}
+
+#logout-button{
+  justify-self: end
 }

@@ -1,6 +1,6 @@
 <div class="match-container">
   <span class="team-container  hometeam-container">
-    <span class="left-team-name">{{groupMatch.homeTeamName}}</span>
+    <span class="team-name">{{groupMatch.homeTeamName}}</span>
     <img class="country-flag" src='../../assets/flags-mini/{{homeTeamFlagFileName}}' alt="">
     <input type="number" [ngModel]="groupMatch.homeTeamScore" (change)="homeTeamScoreChanged($event)" class="score-field">
   </span>
@@ -8,6 +8,6 @@
   <span class="team-container outteam-container">
     <input type="number" [ngModel]="groupMatch.outTeamScore" (change)="outTeamScoreChanged($event)" class="score-field">
     <img class="country-flag" src='../../assets/flags-mini/{{outTeamFlagFileName}}' alt="">
-    <span class="right-team-name">{{groupMatch.outTeamName}}</span>
+    <span class="team-name">{{groupMatch.outTeamName}}</span>
     </span>
 </div>
