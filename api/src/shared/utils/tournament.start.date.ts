@@ -1,1 +1,1 @@
-export const TOURNAMENT_START_DATE = new Date("2018-05-14");
+export const TOURNAMENT_START_DATE = new Date("2018-06-14");
