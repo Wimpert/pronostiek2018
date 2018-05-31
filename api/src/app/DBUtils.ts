@@ -7,6 +7,7 @@ import {Tournament} from "../shared/models/pronostiek/Tournament";
 import {getTournament} from "../shared/utils/TournamentUtils";
 import { STATUS_CODES } from 'http';
 import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
+import { TOURNAMENT_START_DATE } from '../shared/utils/tournament.start.date';
 
 const mysql = require('mysql');
 const dbconfig = require('./config/database');
@@ -41,6 +42,10 @@ export class PronostiekUtils{
     };
 
     public static savePronostiek(req : Request, res : Response)  {
+
+        if(new Date() > TOURNAMENT_START_DATE){
+            res.status(405).send("Not allowed to save");
+        }
 
         const prono = req.body;
         const now = new Date();
