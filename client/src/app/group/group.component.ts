@@ -21,7 +21,6 @@ export class GroupComponent implements OnInit{
   matchChanged() : void{
     this.group.processMatches();
     orderTeams(this.group);
-    console.log(this.group.groupNeedsDraw);
      
     this.groupChanged.emit(this.group);
   }

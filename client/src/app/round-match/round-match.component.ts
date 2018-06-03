@@ -18,8 +18,6 @@ export class RoundMatchComponent implements DoCheck {
   constructor() {}
 
   ngDoCheck() {
-
-    console.log(this.match);
     
     if(this.match.homeTeamName){
       this.homeTeamFlagFileName = getCountryCode(this.match.homeTeamName)+'.png';

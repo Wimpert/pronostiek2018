@@ -51,7 +51,6 @@ export class UserService {
     );
 
     this.userCreated$ = this.userCreateRequest$.pipe(
-      tap(user => console.log(user)),
       switchMap(user =>
         this._httpClient.post<User>(this._baseUrl+"signup",user,{withCredentials:true}).pipe(
           catchError(error => {
@@ -62,7 +61,6 @@ export class UserService {
             }
             return  Observable.of(new User());
           }),
-          tap(user => console.log(user)),
           map(user => {
             return user.id !== undefined;
           })
