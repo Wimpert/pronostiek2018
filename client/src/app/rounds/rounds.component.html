@@ -1,7 +1,7 @@
 
 <h4>Knockout fase:</h4>
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let round of rounds; let roundIndex = index;">
+<mat-accordion [multi]="true">
+  <mat-expansion-panel *ngFor="let round of rounds; let roundIndex = index;" >
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{round.name}}

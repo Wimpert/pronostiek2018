@@ -5,7 +5,13 @@
      (change)="homeTeamWinsChanged($event)"
      [(ngModel)]="match.homeTeamWins"
      [disabled]="match.homeTeamName === undefined">
-     {{match.homeTeamName}}
+     <span>
+       <span>
+         {{match.homeTeamName}}
+       </span>
+     <img class="country-flag" src='../../assets/flags-mini/{{homeTeamFlagFileName}}' alt="">
+     </span>
+     
     </mat-checkbox>
   </span>
   <span>-</span>
@@ -14,7 +20,12 @@
       (change)="outTeamWinsChanged($event)" 
       [(ngModel)]="match.outTeamWins"
       [disabled]="match.outTeamName === undefined">
-      {{match.outTeamName}}
+      <span>
+        <img class="country-flag" src='../../assets/flags-mini/{{outTeamFlagFileName}}' alt="">
+        <span>
+          {{match.outTeamName}}
+        </span>
+      </span>
     </mat-checkbox>
     </span>
 </div>

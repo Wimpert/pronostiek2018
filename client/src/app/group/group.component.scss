@@ -15,6 +15,20 @@ td{
  text-align: center;
 }
 
+
+thead {
+  background: gray;
+  color: white
+}
+
+tbody tr:nth-child(1){
+  background: rgba(48, 223, 48, 0.4)
+}
+
+tbody tr:nth-child(2){
+  background: rgba(48, 223, 48, 0.20)
+}
+
 .name-container{
   text-align: start
 }

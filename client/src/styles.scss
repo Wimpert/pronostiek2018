@@ -71,3 +71,9 @@ mat-expansion-panel{
       font-size: 10px;
   }
 }
+
+@media screen and (min-width: 600px) {
+  .team-name , .group-standing-container{
+      font-size: 15px;
+  }
+}

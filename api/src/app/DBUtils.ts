@@ -103,5 +103,16 @@ export class PronostiekUtils{
 }
 
 function getKey() {
-    return crypto.randomBytes(5).toString('hex');;
+    return makeid(5);
+    // return crypto.randomBytes(5).toString('hex');;
 }
+
+function makeid(length : number) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (var i = 0; i < length; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+    return text;
+  }
