@@ -8,3 +8,14 @@
   right: 0;
   background: #e1e1e1;
 }
+
+.menu-item {
+  padding: 10px;
+  border-bottom: solid darkgray 1px;
+  cursor: pointer;
+}
+
+.menu-item:hover{
+  background: gray;
+  color: white
+}

@@ -1,3 +1,4 @@
+import { CodesService } from './services/codes.service';
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {
@@ -26,11 +27,13 @@ import { GroupMatchComponent } from './group-match/group-match.component';
 import { RoundsComponent } from './rounds/rounds.component';
 import { RoundComponent } from './round/round.component';
 import { RoundMatchComponent } from './round-match/round-match.component';
+import { CodesComponent } from './codes/codes.component';
 
 const appRoutes: Routes = [
 
   { path: 'pronostiek', component: PronostiekComponent },
   { path: 'signup', component: ProfileComponent },
+  { path: 'codes', component: CodesComponent },
   { path: '**', component: PronostiekComponent }
 ];
 
@@ -49,7 +52,8 @@ const appRoutes: Routes = [
     GroupMatchComponent,
     RoundsComponent,
     RoundComponent,
-    RoundMatchComponent
+    RoundMatchComponent,
+    CodesComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [
@@ -73,7 +77,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [UserService,
+  providers: [UserService, CodesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

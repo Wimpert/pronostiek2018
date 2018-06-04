@@ -94,10 +94,14 @@ export class PronostiekUtils{
             if(err){throw  err;}
             res.status(200).send("OK");
         });
+    }
 
-        
-
-
+    public static getKeys(req: Request, res: Response){
+        let query = " Select * from pronostiek.keys"
+        connection.query(query,[],function(err : Error, rows : any) {
+            if(err){throw  err;}
+            res.status(200).send(rows);
+        });
     }
 
 }

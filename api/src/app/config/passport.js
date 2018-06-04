@@ -85,8 +85,8 @@ module.exports = function(passport) {
                             creationDate: date,
                             updateDate: date
                         };
-                        var insertQuery = "INSERT INTO users ( username, password, email, firstname, lastname, creationdate, lastupdate ) values (?,?,?,?,?,?,?)";
-                        connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.creationDate, newUserMysql.updateDate],function(err, rows) {
+                        var insertQuery = "INSERT INTO users ( username, password, email, firstname, lastname, creationdate, lastupdate, admin) values (?,?,?,?,?,?,?,?)";
+                        connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.firstname, newUserMysql.lastname, newUserMysql.creationDate, newUserMysql.updateDate, 0],function(err, rows) {
                             if(err){return done(err);}
                             newUserMysql.id = rows.insertId;
                             const updateCodeQuery = "UPDATE pronostiek.keys SET  used_by = ? where code = ? ";

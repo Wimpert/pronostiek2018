@@ -97,13 +97,22 @@ module.exports = function(app, passport) {
         res.send(200, messages.logoutMessages.success.logoutSuccess);
     });
 
+    app.get('/api/isadmin', function(req,res){
+        let isAdmin = false;
+        if(req.user !== undefined && req.user.admin === 1){
+            isAdmin = true;
+        }
+        res.send(200, isAdmin);
+    });
 
     /**
      * this will return the pronotiek base on who is logged in:
      */
     app.get('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.getPronostiek);
     app.post('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.savePronostiek);
+    
     app.put('/api/keys/:number', isLoggedIn, DBUtils.PronostiekUtils.createKeys);
+    app.get('/api/keys', isAdmin, DBUtils.PronostiekUtils.getKeys);
 
 
 };
@@ -111,11 +120,22 @@ module.exports = function(app, passport) {
 
 // route middleware to make sure
 function isLoggedIn(req, res, next) {
-    console.log(req.isAuthenticated());
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 
     // if they aren't redirect them to the home page
     res.send(401, "ah ah ah, nice try !");
+}
+
+function isAdmin(req, res, next){
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()){
+        if(req.user.admin === 1){
+            return next();
+        }
+    }
+    // if they aren't redirect them to the home page
+    res.send(401, "ah ah ah, nice try !");
+
 }

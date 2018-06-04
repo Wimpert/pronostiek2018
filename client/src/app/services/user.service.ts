@@ -3,7 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../../../api/src/shared/models/User";
-import {catchError, map, merge, share, shareReplay, startWith, switchMap, tap} from "rxjs/operators";
+import {catchError, map, merge, share, shareReplay, startWith, switchMap, tap, filter} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import {COOKIE_NAME} from "../../../../api/src/shared/models/Constants";
 import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
@@ -19,7 +19,6 @@ export class UserService {
   userIsLoggedIn$ : Observable<boolean>;
   userLoginFailedMessage$: Subject<any> = new Subject<any>();
   userSignUpFailedMessage$: Subject<any> = new Subject<any>();
-
   private loginRequest$ : Subject<any> = new Subject<any>();
   private logoutRequest$ : Subject<any> = new Subject<any>();
   private userCreateRequest$ :Subject<any> = new Subject<any>();
@@ -27,10 +26,10 @@ export class UserService {
   private userLoggedOut$ : Observable<boolean>;
   private userCreated$ : Observable<boolean>;
   private unauthorizedResponse$ :  Subject<boolean> = new Subject<boolean>();
+  userIsAdmin$: Observable<boolean>;
 
   constructor(private  _httpClient : HttpClient) {
 
-    //TODO: this should not stop on error !:
     this.userLoggedIn$ = this.loginRequest$.pipe(
       switchMap(body =>
         this._httpClient.post<User>(this._baseUrl + "login", body ,{withCredentials:true}).pipe(
@@ -87,6 +86,14 @@ export class UserService {
       startWith(document.cookie.indexOf(COOKIE_NAME) >= 0),
       shareReplay(1)
     );
+
+   this.userIsAdmin$ = this.userIsLoggedIn$.pipe(
+     filter(isLoggedIn => isLoggedIn),
+     switchMap(_ => this._httpClient.get<boolean>(this._baseUrl + 'isadmin', {withCredentials: true})),
+     tap(_ => console.log(_)),
+     share()
+    )
+    
   }
 
   login(username:string, password:string, remeber: boolean) {
