@@ -46,11 +46,13 @@ export class PronostiekComponent implements OnInit {
     this.pronostiekToSave.tournament.groups = groups;
     addToNextRound(this.pronostiekToSave.tournament);
     this.userChangedPronostiek$.next();
+    // this.savePronostiekEvent$.next();
   }
 
   roundsChanged(event : {winner: string, matchIndex: number, roundIndex: number}) : void{
     addToNextKnockoutRound(this.pronostiekToSave.tournament, event.roundIndex, event.matchIndex , event.winner);
     this.userChangedPronostiek$.next();
+    // this.savePronostiekEvent$.next();
   }
 
 }

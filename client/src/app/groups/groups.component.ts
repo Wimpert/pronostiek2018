@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
 import {replaceBasedOnName} from "../../../../api/src/shared/utils/TournamentUtils";
 
@@ -48,6 +48,10 @@ export class GroupsComponent implements OnInit , OnChanges {
 
   openedPanel(index) {
     this.panelsOpen[index] = true;
+  }
+
+  trackGroup(index: number, item: Group){
+    return item.groupname;
   }
 
 

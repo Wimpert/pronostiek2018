@@ -19,3 +19,13 @@
   background: gray;
   color: white
 }
+
+:host *:focus{
+  outline: 0;
+}
+
+.active-link{
+  background: darkgray;
+  color: white;
+  outline: 0;
+}

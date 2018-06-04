@@ -1,8 +1,8 @@
 <app-header (toggleSideNav)="sideNavToggled()"></app-header>
 <mat-sidenav-container class="content-container">
   <mat-sidenav mode="over" [opened]="sideNavOpen">
-    <div routerLink="/" class="menu-item">Mijn Pronostiek</div>
-    <div routerLink="/codes" class="menu-item" *ngIf="userService.userIsAdmin$ | async">Codes</div>
+    <div routerLink="/pronostiek" class="menu-item" routerLinkActive="active-link">Mijn Pronostiek</div>
+    <div routerLink="/codes" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Codes</div>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

@@ -1,3 +1,4 @@
+import { Match } from './../../../../api/src/shared/models/pronostiek/Match';
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
 import {orderTeams} from "../../../../api/src/shared/utils/TournamentUtils";
@@ -7,14 +8,14 @@ import {orderTeams} from "../../../../api/src/shared/utils/TournamentUtils";
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit{
+export class GroupComponent implements OnChanges{
 
   @Input() group : Group;
   @Output() groupChanged: EventEmitter<Group> = new EventEmitter<Group>();
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.group = new Group().deserialize(this.group);
   }
 
@@ -23,6 +24,10 @@ export class GroupComponent implements OnInit{
     orderTeams(this.group);
      
     this.groupChanged.emit(this.group);
+  }
+
+  trackGroupMatch(index: number, item: Match){
+    return item.homeTeamName+item.outTeamName;
   }
 
 

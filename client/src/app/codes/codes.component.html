@@ -1,3 +1,6 @@
-<p>
- {{codes$ | async | json}}
-</p>
+<div>
+    <div *ngFor="let code of (codes$ | async)">
+        Code: {{code.code}} gebruikt door: {{code.used_by}}
+    </div>
+</div>
+
