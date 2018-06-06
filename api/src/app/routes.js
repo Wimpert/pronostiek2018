@@ -114,6 +114,8 @@ module.exports = function(app, passport) {
     app.put('/api/keys/:number', isLoggedIn, DBUtils.PronostiekUtils.createKeys);
     app.get('/api/keys', isAdmin, DBUtils.PronostiekUtils.getKeys);
 
+    app.get('/api/users', isAdmin, DBUtils.PronostiekUtils.getAllUsers);
+
 
 };
 

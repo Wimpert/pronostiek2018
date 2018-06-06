@@ -1,6 +1,5 @@
 <div>
     <div *ngFor="let code of (codes$ | async)">
-        Code: {{code.code}} gebruikt door: {{code.used_by}}
+        Code: <strong>{{code.code}}</strong>  -> {{code.used_by}}
     </div>
 </div>
-

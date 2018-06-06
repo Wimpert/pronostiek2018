@@ -28,12 +28,14 @@ import { RoundsComponent } from './rounds/rounds.component';
 import { RoundComponent } from './round/round.component';
 import { RoundMatchComponent } from './round-match/round-match.component';
 import { CodesComponent } from './codes/codes.component';
+import { UsersComponent } from './users/users.component';
 
 const appRoutes: Routes = [
 
   { path: 'pronostiek', component: PronostiekComponent },
   { path: 'signup', component: ProfileComponent },
   { path: 'codes', component: CodesComponent },
+  { path: 'users', component: UsersComponent },
   { path: '**', component: PronostiekComponent }
 ];
 
@@ -53,7 +55,8 @@ const appRoutes: Routes = [
     RoundsComponent,
     RoundComponent,
     RoundMatchComponent,
-    CodesComponent
+    CodesComponent,
+    UsersComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [

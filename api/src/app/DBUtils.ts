@@ -47,12 +47,21 @@ export class PronostiekUtils{
             res.status(405).send("Not allowed to save");
         }
 
-        const prono = req.body;
-        const now = new Date();
+        let exits = false;
+        const selectQuery = "Select id from pronostiek.pronostiek where userid=?";
 
-        let query : string;
+        connection.query(selectQuery, [req.user.id], function(err:Error, rows: any){
+            
+            const prono = req.body;
+            if(rows.length > 0){
+                exits = true;
+                prono.id = rows[0].id;
+            }
+            
+            const now = new Date();
+            let query : string;
 
-        if(prono.id){
+        if(exits){
             query = "UPDATE pronostiek SET  lastupdate = ? , tournament = ? where id = ? ";
             connection.query(query,[now, JSON.stringify(prono.tournament), prono.id],function(err : Error ) {
                 if(err){throw  err;}
@@ -69,6 +78,10 @@ export class PronostiekUtils{
             });
 
         }
+
+        });
+
+        
     };
 
     public static createKeys(req: Request, res: Response){
@@ -98,6 +111,14 @@ export class PronostiekUtils{
 
     public static getKeys(req: Request, res: Response){
         let query = " Select * from pronostiek.keys"
+        connection.query(query,[],function(err : Error, rows : any) {
+            if(err){throw  err;}
+            res.status(200).send(rows);
+        });
+    }
+
+    public static getAllUsers(req: Request, res: Response){
+        let query = " Select * from pronostiek.users"
         connection.query(query,[],function(err : Error, rows : any) {
             if(err){throw  err;}
             res.status(200).send(rows);

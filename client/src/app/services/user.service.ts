@@ -117,6 +117,10 @@ export class UserService {
     this.userCreateRequest$.next(request);
   }
 
+  getAllUsers(): Observable<User[]>{
+    return  this._httpClient.get<User[]>(this._baseUrl+"users",{withCredentials: true});
+  }
+
 
 
 }

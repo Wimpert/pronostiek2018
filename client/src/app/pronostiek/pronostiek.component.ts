@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
@@ -12,8 +12,9 @@ import { addToNextRound, addToNextKnockoutRound } from '../../../../api/src/shar
   templateUrl: './pronostiek.component.html',
   styleUrls: ['./pronostiek.component.scss']
 })
-export class PronostiekComponent implements OnInit {
+export class PronostiekComponent implements OnInit{
 
+  
   pronostiek$ : Observable<Pronostiek>;
   pronostiekToSave: Pronostiek;
   pronostiekSaved$: Observable<Pronostiek>;
@@ -24,16 +25,16 @@ export class PronostiekComponent implements OnInit {
   constructor(private _userService : UserService) {
     this.userChangedPronostiek$ = new Subject<void>();
   }
+  
 
   ngOnInit() {
-
     this.pronostiekSaved$ = this.savePronostiekEvent$.pipe(
       switchMap(_ => this._userService.savePronostiek(this.pronostiekToSave))
     )
 
     this.pronostiek$ = this._userService.getPronostiek().pipe(
-      tap(value => this.pronostiekToSave = value),
       merge(this.pronostiekSaved$),
+      tap(value => this.pronostiekToSave = value),
       share()
     )
   }

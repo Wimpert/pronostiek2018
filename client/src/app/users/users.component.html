@@ -1,0 +1,6 @@
+<div>
+  <div *ngFor='let user of users$ | async; let index = index'>
+    {{index+1}}. {{user.firstname}} {{user.lastname}}: {{user.email}}
+  </div>  
+</div>
+
