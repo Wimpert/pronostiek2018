@@ -1,3 +1,4 @@
+import { Match } from './../shared/models/pronostiek/Match';
 var crypto = require("crypto");
 
 import { Key } from './../shared/models/key';
@@ -41,6 +42,45 @@ export class PronostiekUtils{
          });
     };
 
+
+    public static getAllPronostiek(req: Request, res: Response){
+        const query = 'SELECT j_user.id, j_user.firstname, j_user.lastname, prono.tournament FROM pronostiek.users as j_user JOIN pronostiek.pronostiek  as prono where j_user.id = prono.userid;';
+        connection.query(query, [], function(err: Error, rows: any){
+            if(err){
+                res.status(500).send(err);
+            }
+            const returnVal: any[] = [];
+            console.log(rows.length);
+            if(rows !== undefined && rows.length > 0){
+                console.log(rows[0]);
+                
+                rows.forEach((element: any) => {
+                    const obj: {firstname:string, lastname: string, matches: Match[]} = {firstname: undefined, lastname: undefined, matches: []};
+                    obj.firstname = element.firstname;
+                    obj.lastname = element.lastname;
+                    let stringValue = element.tournament.toString('utf8');
+                    const tournament: Tournament = JSON.parse(stringValue);
+                    tournament.groups.forEach(group => {
+                        group.matches.forEach(match => {
+                            obj.matches.push(match);
+                        });
+                    });
+
+                    tournament.rounds.forEach(round => {
+                        round.matches.forEach(match => {
+                            obj.matches.push(match);
+                        });
+                    });
+
+                    returnVal.push(obj);
+                    
+                });
+
+            }
+            res.send(returnVal);
+        })
+    }
+
     public static savePronostiek(req : Request, res : Response)  {
 
         if(new Date() > TOURNAMENT_START_DATE){
@@ -83,6 +123,8 @@ export class PronostiekUtils{
 
         
     };
+
+
 
     public static createKeys(req: Request, res: Response){
 

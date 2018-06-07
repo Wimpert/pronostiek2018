@@ -109,6 +109,7 @@ module.exports = function(app, passport) {
      * this will return the pronotiek base on who is logged in:
      */
     app.get('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.getPronostiek);
+    app.get('/api/pronostiek/all', isAdmin, DBUtils.PronostiekUtils.getAllPronostiek);
     app.post('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.savePronostiek);
     
     app.put('/api/keys/:number', isLoggedIn, DBUtils.PronostiekUtils.createKeys);
