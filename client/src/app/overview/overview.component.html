@@ -1,3 +1,1 @@
-<p>
-  overview works!
-</p>
+<app-overview-row *ngFor="let pronostiek of data$ | async" [pronostiek]="pronostiek"></app-overview-row>

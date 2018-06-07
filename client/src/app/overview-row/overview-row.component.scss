@@ -1,0 +1,24 @@
+:host>div{
+    display: flex;
+    flex-direction: row;
+}
+
+:host > div > div:first-child{
+    width: 100px;
+}
+
+:host > div > div{
+    font-size: 10px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    border: solid gray 1px;
+    padding: 2px;
+}
+
+.group-match{
+    flex-basis: 30px;
+}
+
+.round-match{
+    flex-basis: 80px;
+}

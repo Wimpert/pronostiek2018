@@ -30,6 +30,7 @@ import { RoundMatchComponent } from './round-match/round-match.component';
 import { CodesComponent } from './codes/codes.component';
 import { UsersComponent } from './users/users.component';
 import { OverviewComponent } from './overview/overview.component';
+import { OverviewRowComponent } from './overview-row/overview-row.component';
 
 const appRoutes: Routes = [
 
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: ProfileComponent },
   { path: 'codes', component: CodesComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'overview', component: OverviewComponent },
   { path: '**', component: PronostiekComponent }
 ];
 
@@ -58,7 +60,8 @@ const appRoutes: Routes = [
     RoundMatchComponent,
     CodesComponent,
     UsersComponent,
-    OverviewComponent
+    OverviewComponent,
+    OverviewRowComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [

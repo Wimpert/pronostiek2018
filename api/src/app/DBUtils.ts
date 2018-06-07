@@ -1,3 +1,4 @@
+import { PronostiekViewModel } from './../shared/models/pronostiek.view.model';
 import { Match } from './../shared/models/pronostiek/Match';
 var crypto = require("crypto");
 
@@ -49,13 +50,13 @@ export class PronostiekUtils{
             if(err){
                 res.status(500).send(err);
             }
-            const returnVal: any[] = [];
+            const returnVal: PronostiekViewModel[] = [];
             console.log(rows.length);
             if(rows !== undefined && rows.length > 0){
                 console.log(rows[0]);
                 
                 rows.forEach((element: any) => {
-                    const obj: {firstname:string, lastname: string, matches: Match[]} = {firstname: undefined, lastname: undefined, matches: []};
+                    const obj: PronostiekViewModel = {firstname: undefined, lastname: undefined, matches: [], knockoutMatches: []};
                     obj.firstname = element.firstname;
                     obj.lastname = element.lastname;
                     let stringValue = element.tournament.toString('utf8');
@@ -68,7 +69,7 @@ export class PronostiekUtils{
 
                     tournament.rounds.forEach(round => {
                         round.matches.forEach(match => {
-                            obj.matches.push(match);
+                            obj.knockoutMatches.push(match);
                         });
                     });
 

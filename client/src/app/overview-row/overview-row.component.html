@@ -1,0 +1,10 @@
+
+<div>
+  <div>{{pronostiek.firstname}} {{pronostieklastname}}:</div>
+  <div class="group-match" *ngFor="let match of pronostiek.matches; let index = index">
+    {{match.homeTeamScore}} - {{match.outTeamScore}}
+  </div>
+  <div  class="round-match" *ngFor="let match of pronostiek.knockoutMatches; let index = index">
+    {{getWinningTeam(match)}}
+  </div>
+</div>

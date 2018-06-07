@@ -1,4 +1,8 @@
+import { PronostiekViewModel } from './../../../../api/src/shared/models/pronostiek.view.model';
+import { UserService } from './../services/user.service';
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-overview',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverviewComponent implements OnInit {
 
-  constructor() { }
+  data$: Observable<PronostiekViewModel[]>;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.data$ = this.userService.geAllPronostiek();
   }
 
 }

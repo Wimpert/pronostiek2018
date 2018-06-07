@@ -1,5 +1,6 @@
 {
     "scripts": {
-        "build-prod-all": "cd api && npm run build-prod && cd .. && cd client && ng build --prod --env=prod" 
+        "build-prod-all": "cd api && npm run build-prod && cd .. && cd client && ng build --prod --env=prod" ,
+        "start": "nodemon app.js"
     }
 }

@@ -1,3 +1,5 @@
+import { PronostiekViewModel } from './../../../../api/src/shared/models/pronostiek.view.model';
+
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -106,6 +108,10 @@ export class UserService {
 
   getPronostiek() : Observable<Pronostiek> {
     return this._httpClient.get<Pronostiek>(this._baseUrl + "pronostiek", {withCredentials:true});
+  }
+
+  geAllPronostiek(): Observable<PronostiekViewModel[]>{
+    return  this._httpClient.get<PronostiekViewModel[]>(this._baseUrl+"pronostiek/all",{withCredentials: true});
   }
 
   savePronostiek(pronostiek : Pronostiek) : Observable<Pronostiek> {
