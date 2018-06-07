@@ -12,9 +12,23 @@ export class OverviewRowComponent implements OnInit {
 
   @Input() pronostiek: PronostiekViewModel
 
+  isComplete = true;
+
   constructor() { }
 
   ngOnInit() {
+    this.pronostiek.matches.forEach((match) => {
+      if(match.homeTeamScore == undefined || match.outTeamScore == undefined) {
+        this.isComplete = false;
+      }
+    });
+    if(this.isComplete){
+      this.pronostiek.knockoutMatches.forEach((match) => {
+        if(!match.homeTeamWins && !match.outTeamWins) {
+          this.isComplete = false;
+        }
+      });
+    }
   }
 
   isKnockoutMatch(match: any): boolean{

@@ -1,6 +1,6 @@
 
 <div>
-  <div>{{pronostiek.firstname}} {{pronostieklastname}}:</div>
+  <div [ngClass]="{ 'not-complete': !isComplete }">{{pronostiek.firstname}} {{pronostiek.lastname}}:</div>
   <div class="group-match" *ngFor="let match of pronostiek.matches; let index = index">
     {{match.homeTeamScore}} - {{match.outTeamScore}}
   </div>
