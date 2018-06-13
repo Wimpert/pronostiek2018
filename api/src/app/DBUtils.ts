@@ -86,6 +86,7 @@ export class PronostiekUtils{
 
         if(new Date() > TOURNAMENT_START_DATE){
             res.status(405).send("Not allowed to save");
+            return;
         }
 
         let exits = false;

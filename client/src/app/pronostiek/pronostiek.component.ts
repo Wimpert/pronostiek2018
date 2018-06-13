@@ -1,3 +1,4 @@
+import { TOURNAMENT_START_DATE } from './../../../../api/src/shared/utils/tournament.start.date';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Observable} from "rxjs/Observable";
@@ -20,6 +21,7 @@ export class PronostiekComponent implements OnInit{
   pronostiekSaved$: Observable<Pronostiek>;
   savePronostiekEvent$: Subject<string> = new Subject();
   userChangedPronostiek$: Subject<void>;
+  showSave: boolean = false;
 
 
   constructor(private _userService : UserService) {
@@ -28,6 +30,15 @@ export class PronostiekComponent implements OnInit{
   
 
   ngOnInit() {
+
+    this.showSave = new Date() < TOURNAMENT_START_DATE;
+    console.log(this.showSave);
+    console.log(new Date());
+    console.log(TOURNAMENT_START_DATE);
+    
+    
+    
+
     this.pronostiekSaved$ = this.savePronostiekEvent$.pipe(
       switchMap(_ => this._userService.savePronostiek(this.pronostiekToSave))
     )
