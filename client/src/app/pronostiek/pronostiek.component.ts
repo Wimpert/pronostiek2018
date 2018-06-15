@@ -4,7 +4,7 @@ import {UserService} from "../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostiek";
 import {Group} from "../../../../api/src/shared/models/pronostiek/Group";
-import {merge, switchMap, tap, share} from "rxjs/operators";
+import {merge, switchMap, tap, share, map} from "rxjs/operators";
 import {Subject} from "rxjs/Subject";
 import { addToNextRound, addToNextKnockoutRound } from '../../../../api/src/shared/utils/TournamentUtils';
 
@@ -39,9 +39,16 @@ export class PronostiekComponent implements OnInit{
 
     if(this.refPronostiek){
       console.log("ref pronostiek");
+      this.pronostiek$ = this._userService.getRefProno().pipe(
+        map(refProno => {
+          let prono  = new Pronostiek(undefined);
+          prono.tournament = refProno;
+          return prono;
+        })
+      );
       
     } else {
-      
+
       this.pronostiekSaved$ = this.savePronostiekEvent$.pipe(
         switchMap(_ => this._userService.savePronostiek(this.pronostiekToSave))
       )

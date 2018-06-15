@@ -50,6 +50,10 @@ export class PronostiekUtils{
                         let ref_pronostiek = rows[0];
                         ref_pronostiek = ref_pronostiek.data.toString('utf8');
                         ref_pronostiek = JSON.parse(ref_pronostiek);
+                        
+                        if(ref_pronostiek.groups === undefined){
+                            ref_pronostiek = getTournament();
+                        }
                         res.send(ref_pronostiek);
                         
          });

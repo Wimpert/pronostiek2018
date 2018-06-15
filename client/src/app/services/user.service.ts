@@ -12,6 +12,7 @@ import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostie
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {EmptyObservable} from "rxjs/observable/EmptyObservable";
 import "rxjs/add/observable/of";
+import { Tournament } from '../../../../api/src/shared/models/pronostiek/Tournament';
 
 @Injectable()
 export class UserService {
@@ -125,6 +126,10 @@ export class UserService {
 
   getAllUsers(): Observable<User[]>{
     return  this._httpClient.get<User[]>(this._baseUrl+"users",{withCredentials: true});
+  }
+
+  getRefProno(): Observable<Tournament>{
+    return  this._httpClient.get<Tournament>(this._baseUrl+"refpronostiek",{withCredentials: true});
   }
 
 
