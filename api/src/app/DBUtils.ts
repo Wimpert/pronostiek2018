@@ -43,6 +43,18 @@ export class PronostiekUtils{
          });
     };
 
+    public static getRefPronostiek(req : Request, res : Response)  {
+        connection.query("SELECT * FROM pronostiek.ref_pronostiek limit 1",[], function(err : Error, rows : any){
+                        if (err)
+                            throw err;
+                        let ref_pronostiek = rows[0];
+                        ref_pronostiek = ref_pronostiek.data.toString('utf8');
+                        ref_pronostiek = JSON.parse(ref_pronostiek);
+                        res.send(ref_pronostiek);
+                        
+         });
+    };
+
 
     public static getAllPronostiek(req: Request, res: Response){
         const query = 'SELECT j_user.id, j_user.firstname, j_user.lastname, j_user.email, prono.tournament FROM pronostiek.users as j_user JOIN pronostiek.pronostiek  as prono where j_user.id = prono.userid;';
