@@ -56,7 +56,7 @@ export class PronostiekUtils{
                 console.log(rows[0]);
                 
                 rows.forEach((element: any) => {
-                    const obj: PronostiekViewModel = {firstname: undefined, email: undefined, lastname: undefined, matches: [], knockoutMatches: []};
+                    const obj: PronostiekViewModel = {firstname: undefined, email: undefined, lastname: undefined, matches: [], knockoutRounds: []};
                     obj.firstname = element.firstname;
                     obj.lastname = element.lastname;
                     obj.email = element.email;
@@ -69,9 +69,7 @@ export class PronostiekUtils{
                     });
 
                     tournament.rounds.forEach(round => {
-                        round.matches.forEach(match => {
-                            obj.knockoutMatches.push(match);
-                        });
+                        obj.knockoutRounds.push(round);
                     });
 
                     returnVal.push(obj);

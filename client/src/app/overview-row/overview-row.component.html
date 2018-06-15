@@ -5,7 +5,7 @@
   <div class="group-match" *ngFor="let match of pronostiek.matches; let index = index">
     {{match.homeTeamScore}} - {{match.outTeamScore}}
   </div>
-  <div  class="round-match" *ngFor="let match of pronostiek.knockoutMatches; let index = index">
-    {{getWinningTeam(match)}}
+  <div  class="round-match" *ngFor="let round of pronostiek.knockoutRounds; let index = index">
+    <app-overview-round [round]=round></app-overview-round>
   </div>
 </div>

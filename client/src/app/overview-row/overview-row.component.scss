@@ -4,7 +4,7 @@
 }
 
 :host > div > div:first-child{
-    width: 100px;
+    width: 140px;
 }
 
 :host > div > div{
@@ -29,4 +29,20 @@
 
 .email{
     width: 200px;
+}
+
+app-overview-round:first-child{
+    width: 800px
+}
+
+app-overview-round:nth-child(2){
+    width: 300px
+}
+
+app-overview-round:nth-child(3){
+    width: 125px
+}
+
+app-overview-round:nth-child(4){
+    width: 50px
 }

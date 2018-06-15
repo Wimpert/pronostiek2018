@@ -23,11 +23,14 @@ export class OverviewRowComponent implements OnInit {
       }
     });
     if(this.isComplete){
-      this.pronostiek.knockoutMatches.forEach((match) => {
+      this.pronostiek.knockoutRounds.forEach((round) => {
+        round.matches.forEach((match) => {
         if(!match.homeTeamWins && !match.outTeamWins) {
           this.isComplete = false;
         }
+      })
       });
+      
     }
   }
 
@@ -36,13 +39,6 @@ export class OverviewRowComponent implements OnInit {
     return false;
   }
 
-  getWinningTeam(match: KnockoutMatch): string{
-    if(match.homeTeamWins){
-      return match.homeTeamName;
-    } else if(match.outTeamWins){
-      return match.outTeamName;
-    }
-    return "x";
-  }
+ 
 
 }

@@ -1,3 +1,4 @@
+import { KnockOutRound } from './pronostiek/KnockOutRound';
 import { KnockoutMatch } from './pronostiek/Match';
 import { Match } from './../../../../api/src/shared/models/pronostiek/Match';
 
@@ -6,5 +7,5 @@ export interface PronostiekViewModel{
     lastname:string,
     email: string,
     matches: Match[],
-    knockoutMatches: KnockoutMatch[]
+    knockoutRounds: KnockOutRound[]
 }
