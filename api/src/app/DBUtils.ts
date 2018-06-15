@@ -45,7 +45,7 @@ export class PronostiekUtils{
 
 
     public static getAllPronostiek(req: Request, res: Response){
-        const query = 'SELECT j_user.id, j_user.firstname, j_user.lastname, prono.tournament FROM pronostiek.users as j_user JOIN pronostiek.pronostiek  as prono where j_user.id = prono.userid;';
+        const query = 'SELECT j_user.id, j_user.firstname, j_user.lastname, j_user.email, prono.tournament FROM pronostiek.users as j_user JOIN pronostiek.pronostiek  as prono where j_user.id = prono.userid;';
         connection.query(query, [], function(err: Error, rows: any){
             if(err){
                 res.status(500).send(err);
@@ -56,9 +56,10 @@ export class PronostiekUtils{
                 console.log(rows[0]);
                 
                 rows.forEach((element: any) => {
-                    const obj: PronostiekViewModel = {firstname: undefined, lastname: undefined, matches: [], knockoutMatches: []};
+                    const obj: PronostiekViewModel = {firstname: undefined, email: undefined, lastname: undefined, matches: [], knockoutMatches: []};
                     obj.firstname = element.firstname;
                     obj.lastname = element.lastname;
+                    obj.email = element.email;
                     let stringValue = element.tournament.toString('utf8');
                     const tournament: Tournament = JSON.parse(stringValue);
                     tournament.groups.forEach(group => {

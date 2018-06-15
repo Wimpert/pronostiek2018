@@ -31,6 +31,7 @@ import { CodesComponent } from './codes/codes.component';
 import { UsersComponent } from './users/users.component';
 import { OverviewComponent } from './overview/overview.component';
 import { OverviewRowComponent } from './overview-row/overview-row.component';
+import { OverviewHeaderComponent } from './overview-header/overview-header.component';
 
 const appRoutes: Routes = [
 
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     CodesComponent,
     UsersComponent,
     OverviewComponent,
-    OverviewRowComponent
+    OverviewRowComponent,
+    OverviewHeaderComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [
