@@ -111,6 +111,7 @@ module.exports = function(app, passport) {
     app.get('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.getPronostiek);
     app.get('/api/pronostiek/all', isAdmin, DBUtils.PronostiekUtils.getAllPronostiek);
     app.post('/api/pronostiek', isLoggedIn, DBUtils.PronostiekUtils.savePronostiek);
+    app.post('/api/refpronostiek', isAdmin, DBUtils.PronostiekUtils.saveRefPronostiek);
     
     app.put('/api/keys/:number', isLoggedIn, DBUtils.PronostiekUtils.createKeys);
     app.get('/api/keys', isAdmin, DBUtils.PronostiekUtils.getKeys);

@@ -117,12 +117,45 @@ export class PronostiekUtils{
                 prono.id = rows.insertId;
                 res.send(prono);
             });
-
-        }
-
+             }
         });
+     };
 
-        
+    public static saveRefPronostiek(req : Request, res : Response)  {
+
+        let query = "select id from ref_pronostiek limit 1;"
+        let id : number = undefined;
+        let now = new Date();
+        connection.query(query,[], function(err: Error, rows: any){
+
+            if(err){throw  res.status(500).send(err);}
+            if(rows.length > 0){
+                id = rows[0].id;
+            } 
+            if(id !== undefined){
+                // update flow:
+                console.log("update");
+                query = "UPDATE ref_pronostiek SET  data = ? , lastupdate = ?, update_by= ? where id = ? ";
+                connection.query(query,[JSON.stringify(req.body), now, req.user.id, id],function(err : Error ) {
+                    if(err){ 
+                         res.status(500).send(err);
+                        return;
+                    }
+                    res.status(200).send("ok");
+                });
+            } else {
+                // create flow:
+                query = "INSERT into pronostiek.ref_pronostiek ( data, creationtime, lastupdate, update_by) values (?,?,?,?)"
+                connection.query(query, [JSON.stringify(req.body), now, now, req.user.id ], function(err: Error, rows: any){
+                    if(err){ 
+                        res.status(500).send(err);
+                       return;
+                   }
+                    res.status(200).send("ok");
+                });
+            }
+            
+        })
     };
 
 
