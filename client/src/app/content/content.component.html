@@ -5,6 +5,7 @@
     <div routerLink="/codes" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Codes</div>
     <div routerLink="/users" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Users</div>
     <div routerLink="/overview" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Overzicht</div>
+    <div routerLink="/ref-pronostiek" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Referentie Pronostiek</div>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
