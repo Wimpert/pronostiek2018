@@ -1,0 +1,19 @@
+:host div{
+    padding: 1px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+div > div:first-child{
+    width: 10px;
+}
+
+div > div:nth-child(2){
+    width: 180px;
+    display: block;
+}
+
+div > div:last-child{
+   font-weight: bold;
+}

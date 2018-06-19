@@ -1,3 +1,4 @@
+import { ScoreViewModel } from './../../../../api/src/shared/models/score.model';
 import { Tournament } from './../../../../api/src/shared/models/pronostiek/Tournament';
 import { PronostiekViewModel } from './../../../../api/src/shared/models/pronostiek.view.model';
 import { Injectable } from '@angular/core';
@@ -110,6 +111,10 @@ export class UserService {
     return this._httpClient.get<Pronostiek>(this._baseUrl + "pronostiek", {withCredentials:true});
   }
 
+  getScores() : Observable<ScoreViewModel[]> {
+    return this._httpClient.get<ScoreViewModel[]>(this._baseUrl + "scores", {withCredentials:true});
+  }
+  
   geAllPronostiek(): Observable<PronostiekViewModel[]>{
     return  this._httpClient.get<PronostiekViewModel[]>(this._baseUrl+"pronostiek/all",{withCredentials: true});
   }

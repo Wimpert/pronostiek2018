@@ -34,6 +34,7 @@ import { OverviewRowComponent } from './overview-row/overview-row.component';
 import { OverviewHeaderComponent } from './overview-header/overview-header.component';
 import { OverviewRoundComponent } from './overview-round/overview-round.component';
 import { RefPronostiekComponent } from './ref-pronostiek/ref-pronostiek.component';
+import { ScoresComponent } from './scores/scores.component';
 
 const appRoutes: Routes = [
 
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'overview', component: OverviewComponent },
   { path: 'ref-pronostiek', component: RefPronostiekComponent },
+  { path: 'scores', component: ScoresComponent },
   { path: '**', component: PronostiekComponent }
 ];
 
@@ -68,7 +70,8 @@ const appRoutes: Routes = [
     OverviewRowComponent,
     OverviewHeaderComponent,
     OverviewRoundComponent,
-    RefPronostiekComponent
+    RefPronostiekComponent,
+    ScoresComponent
   ],
   entryComponents: [SignUpDialogComponent, LoginComponent],
   imports: [

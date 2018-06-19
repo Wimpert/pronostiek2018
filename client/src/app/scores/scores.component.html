@@ -1,0 +1,7 @@
+<div *ngFor="let scoreModel of scores$ | async; let index = index">
+  <div>{{index + 1 }}.</div>
+  <div>{{scoreModel.firstName}} {{scoreModel.lastName}}: </div>
+  <div>
+      {{scoreModel.score}}
+  </div> 
+</div>

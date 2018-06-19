@@ -6,6 +6,7 @@ export interface PronostiekViewModel{
     firstname:string,
     lastname:string,
     email: string,
+    userId: number,
     matches: Match[],
     knockoutRounds: KnockOutRound[]
 }

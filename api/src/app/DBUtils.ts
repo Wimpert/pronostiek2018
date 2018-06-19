@@ -1,15 +1,16 @@
-import { PronostiekViewModel } from './../shared/models/pronostiek.view.model';
+import { ScoreViewModel } from './../shared/models/score.model';
+import { Tournament } from './../shared/models/pronostiek/Tournament';
 import { Match } from './../shared/models/pronostiek/Match';
+import { PronostiekViewModel } from './../shared/models/pronostiek.view.model';
 var crypto = require("crypto");
 
 import { Key } from './../shared/models/key';
 import {Request, Response} from "express";
 import {Pronostiek} from "../shared/models/pronostiek/Pronostiek";
-import {Tournament} from "../shared/models/pronostiek/Tournament";
 import {getTournament} from "../shared/utils/TournamentUtils";
-import { STATUS_CODES } from 'http';
-import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 import { TOURNAMENT_START_DATE } from '../shared/utils/tournament.start.date';
+import { User } from '../shared/models/User';
+import { Group } from '../shared/models/pronostiek/Group';
 
 const mysql = require('mysql');
 const dbconfig = require('./config/database');
@@ -46,57 +47,20 @@ export class PronostiekUtils{
     };
 
     public static getRefPronostiek(req : Request, res : Response)  {
-        connection.query("SELECT * FROM pronostiek.ref_pronostiek limit 1",[], function(err : Error, rows : any){
-                        if (err)
-                            throw err;
-                        let ref_pronostiek = rows[0];
-                        ref_pronostiek = ref_pronostiek.data.toString('utf8');
-                        ref_pronostiek = JSON.parse(ref_pronostiek);
-                        
-                        if(ref_pronostiek.groups === undefined){
-                            ref_pronostiek = getTournament();
-                        }
-                        res.send(ref_pronostiek);
-                        
-         });
+        getRefPronostiekData()
+            .then((rows) => {
+                res.send(rows);
+            })
+            .catch((err) => {
+                throw err;
+            });
     };
 
 
     public static getAllPronostiek(req: Request, res: Response){
-        const query = 'SELECT j_user.id, j_user.firstname, j_user.lastname, j_user.email, prono.tournament FROM pronostiek.users as j_user JOIN pronostiek.pronostiek  as prono where j_user.id = prono.userid;';
-        connection.query(query, [], function(err: Error, rows: any){
-            if(err){
-                res.status(500).send(err);
-            }
-            const returnVal: PronostiekViewModel[] = [];
-            console.log(rows.length);
-            if(rows !== undefined && rows.length > 0){
-                console.log(rows[0]);
-                
-                rows.forEach((element: any) => {
-                    const obj: PronostiekViewModel = {firstname: undefined, email: undefined, lastname: undefined, matches: [], knockoutRounds: []};
-                    obj.firstname = element.firstname;
-                    obj.lastname = element.lastname;
-                    obj.email = element.email;
-                    let stringValue = element.tournament.toString('utf8');
-                    const tournament: Tournament = JSON.parse(stringValue);
-                    tournament.groups.forEach(group => {
-                        group.matches.forEach(match => {
-                            obj.matches.push(match);
-                        });
-                    });
-
-                    tournament.rounds.forEach(round => {
-                        obj.knockoutRounds.push(round);
-                    });
-
-                    returnVal.push(obj);
-                    
-                });
-
-            }
-            res.send(returnVal);
-        })
+        getAllPronostiekData()
+            .then( data => res.send(data))
+            .catch(err => { throw err; })
     }
 
     public static savePronostiek(req : Request, res : Response)  {
@@ -219,31 +183,38 @@ export class PronostiekUtils{
     }
 
     public static updateScores(req: Request, res: Response){
+        let refProno: Tournament;
+        let allPronos: PronostiekViewModel[];
+        let allUsers: User[];
+        let scoresToSave: ScoreViewModel[] = [];
+        getRefPronostiekData()
+        .then((rows: Tournament) => {
+            refProno = rows;
+            return getAllPronostiekData();
+        })
+        .then((data: PronostiekViewModel[]) => {
+            allPronos = data;
+            for(let prono of allPronos){
+                let scoreToSave = {userId: prono.userId, firstName: prono.firstname, lastName: prono.lastname, score : 0};
+                for(let matchToProcess of prono.matches){
+                    scoreToSave.score =  scoreToSave.score + getScoreForMatch(matchToProcess, refProno);
+                }
+                scoresToSave.push(scoreToSave);
+            }
+
+            scoresToSave.sort(function(a,b){
+                return b.score - a.score;
+            })
+
+           res.send(scoresToSave);
+        });
         
     }
 
 }
 
 
-function setScore(userId: number, score: number) {
-    let exists = false;
-    connection.query("select user from pronostiek.scores where user = ? ",[userId], function(err : Error, rows : any){
-        if(err){
-            throw err;
-        }
-        if(rows.length != 0){
-            exists = true;
-        }
-        let query = "Update pronostiek.scores set score = ?  where user = ?"
-        if(!exists){
-            query = "insert into pronostiek.scores (score, user) values (?,?)";
-        }
-        connection.query(query, [score, userId], function(err : Error, rows : any){
-            if(err) throw err;
-            return;
-        });
-    });
-}
+
 
 function getKey() {
     return makeid(5);
@@ -260,4 +231,106 @@ function makeid(length : number) {
     return text;
   }
 
-  
+  function getRefPronostiekData() {
+      return new Promise( function(resolve, reject){
+        connection.query("SELECT * FROM pronostiek.ref_pronostiek limit 1",[], function(err : Error, rows : any){
+            if (err)
+                return reject(err);
+            let ref_pronostiek = rows[0];
+            ref_pronostiek = ref_pronostiek.data.toString('utf8');
+            ref_pronostiek = JSON.parse(ref_pronostiek);
+            
+            if(ref_pronostiek.groups === undefined){
+                ref_pronostiek = getTournament();
+            } 
+
+            ref_pronostiek.groups.forEach((group: Group) => {
+                let newMatches : Match[] = [];
+                group.matches.forEach(match => {
+                    newMatches.push(Match.deserialize(match));
+                })
+                group.matches = newMatches;
+            });
+
+            resolve(ref_pronostiek);
+            
+    });
+      });
+  }
+
+  function getAllPronostiekData() {
+
+    return new Promise( function(resolve, reject) {
+        const query = 'SELECT j_user.id, j_user.firstname, j_user.lastname, j_user.email, j_user.id, prono.tournament FROM pronostiek.users as j_user JOIN pronostiek.pronostiek  as prono where j_user.id = prono.userid;';
+        connection.query(query, [], function(err: Error, rows: any){
+            if(err){
+                return reject(err);
+            }
+            const returnVal: PronostiekViewModel[] = [];
+            console.log(rows.length);
+            if(rows !== undefined && rows.length > 0){
+                console.log(rows[0]);
+                
+                rows.forEach((element: any) => {
+                    const obj: PronostiekViewModel = {firstname: undefined, email: undefined, lastname: undefined, userId: undefined, matches: [], knockoutRounds: []};
+                    obj.userId = element.id;
+                    obj.firstname = element.firstname;
+                    obj.lastname = element.lastname;
+                    obj.email = element.email;
+                    let stringValue = element.tournament.toString('utf8');
+                    const tournament: Tournament = JSON.parse(stringValue);
+                    tournament.groups.forEach(group => {
+                        group.matches.forEach(match => {
+                            obj.matches.push(Match.deserialize(match));
+                        });
+                    });
+
+                    tournament.rounds.forEach(round => {
+                        obj.knockoutRounds.push(round);
+                    });
+
+                    returnVal.push(obj);
+                    
+                });
+
+            }
+            resolve(returnVal);
+        })
+    });
+
+  }
+
+
+function getAllUsersData() {
+    return new Promise( function(resolve, reject){
+      connection.query("SELECT * FROM pronostiek.users",[], function(err : Error, rows : any){
+          if (err)
+              return reject(err);
+              resolve(rows);
+        });
+    });
+}
+
+
+function getScoreForMatch(matchToProcess: Match, refProno: Tournament): number{
+    let refMatch = getMatchFromProno(refProno, matchToProcess);
+    if(refMatch.homeTeamScore == undefined || refMatch.outTeamScore == undefined){
+        return 0;
+    }
+    if(refMatch.homeTeamScore == matchToProcess.homeTeamScore && refMatch.outTeamScore == matchToProcess.outTeamScore){
+        return 3;
+    } else if(refMatch.getOutCome() == matchToProcess.getOutCome()){
+        return 1;
+    }
+    return 0;
+}
+
+function getMatchFromProno(tournament :Tournament, matchToFind : Match){
+    for(let group of tournament.groups){
+        for (let match of group.matches){
+            if(match.homeTeamName == matchToFind.homeTeamName && match.outTeamName == matchToFind.outTeamName){
+                return match;
+            }
+        }
+    }
+}
