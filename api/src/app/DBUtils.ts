@@ -32,6 +32,8 @@ export class PronostiekUtils{
                         if(rows.length == 1){
                             let pronostiek = rows[0];
                             let stringValue = pronostiek.tournament.toString('utf8');
+                            console.log(stringValue);
+                            
                             pronostiek.tournament = JSON.parse(stringValue);
                             res.send(pronostiek);
                         } else {
@@ -150,14 +152,13 @@ export class PronostiekUtils{
             } 
             if(id !== undefined){
                 // update flow:
-                console.log("update");
                 query = "UPDATE ref_pronostiek SET  data = ? , lastupdate = ?, update_by= ? where id = ? ";
                 connection.query(query,[JSON.stringify(req.body), now, req.user.id, id],function(err : Error ) {
                     if(err){ 
                          res.status(500).send(err);
                         return;
                     }
-                    res.status(200).send("ok");
+                    res.status(204).send();
                 });
             } else {
                 // create flow:
@@ -217,6 +218,31 @@ export class PronostiekUtils{
         });
     }
 
+    public static updateScores(req: Request, res: Response){
+        
+    }
+
+}
+
+
+function setScore(userId: number, score: number) {
+    let exists = false;
+    connection.query("select user from pronostiek.scores where user = ? ",[userId], function(err : Error, rows : any){
+        if(err){
+            throw err;
+        }
+        if(rows.length != 0){
+            exists = true;
+        }
+        let query = "Update pronostiek.scores set score = ?  where user = ?"
+        if(!exists){
+            query = "insert into pronostiek.scores (score, user) values (?,?)";
+        }
+        connection.query(query, [score, userId], function(err : Error, rows : any){
+            if(err) throw err;
+            return;
+        });
+    });
 }
 
 function getKey() {
@@ -233,3 +259,5 @@ function makeid(length : number) {
   
     return text;
   }
+
+  

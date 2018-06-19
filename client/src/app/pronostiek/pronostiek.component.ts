@@ -33,19 +33,31 @@ export class PronostiekComponent implements OnInit{
   ngOnInit() {
 
     this.showSave = new Date() < TOURNAMENT_START_DATE;
-    console.log(this.showSave);
-    console.log(new Date());
-    console.log(TOURNAMENT_START_DATE);
-
+   
     if(this.refPronostiek){
-      console.log("ref pronostiek");
-      this.pronostiek$ = this._userService.getRefProno().pipe(
+      
+      this.pronostiekSaved$ = this.savePronostiekEvent$.pipe(
+        switchMap(_ => this._userService.saveRefPronostiek(this.pronostiekToSave.tournament)),
+        switchMap(_ => this._userService.getRefProno()),
         map(refProno => {
           let prono  = new Pronostiek(undefined);
           prono.tournament = refProno;
           return prono;
         })
       );
+
+      this.pronostiek$ = this._userService.getRefProno().pipe(
+        map(refProno => {
+          let prono  = new Pronostiek(undefined);
+          prono.tournament = refProno;
+          return prono;
+        }),
+        merge(this.pronostiekSaved$),
+        tap(value => this.pronostiekToSave = value),
+        share()
+      );
+
+      
       
     } else {
 

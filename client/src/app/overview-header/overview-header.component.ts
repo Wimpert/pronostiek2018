@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-overview-header',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverviewHeaderComponent implements OnInit {
 
+  @Input() data : string[];
+
   constructor() { }
 
   ngOnInit() {
+    // this.data.forEach(_ => console.log(_));
   }
 
 }

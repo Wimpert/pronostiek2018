@@ -119,6 +119,9 @@ module.exports = function(app, passport) {
 
     app.get('/api/users', isAdmin, DBUtils.PronostiekUtils.getAllUsers);
 
+    app.post('/api/scores', isAdmin, DBUtils.PronostiekUtils.updateScores);
+
+
 
 };
 

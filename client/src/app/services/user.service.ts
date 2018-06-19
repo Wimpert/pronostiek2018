@@ -1,5 +1,5 @@
+import { Tournament } from './../../../../api/src/shared/models/pronostiek/Tournament';
 import { PronostiekViewModel } from './../../../../api/src/shared/models/pronostiek.view.model';
-
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -12,7 +12,6 @@ import {Pronostiek} from "../../../../api/src/shared/models/pronostiek/Pronostie
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {EmptyObservable} from "rxjs/observable/EmptyObservable";
 import "rxjs/add/observable/of";
-import { Tournament } from '../../../../api/src/shared/models/pronostiek/Tournament';
 
 @Injectable()
 export class UserService {
@@ -132,6 +131,15 @@ export class UserService {
     return  this._httpClient.get<Tournament>(this._baseUrl+"refpronostiek",{withCredentials: true});
   }
 
-
+  saveRefPronostiek(tournament: Tournament): Observable<string>{
+    console.log(tournament);
+    
+    return  this._httpClient.post<string>(this._baseUrl+"refpronostiek",tournament,{withCredentials: true}).pipe(
+      catchError( (err) => {
+        console.log(err);
+        return new ErrorObservable(err);
+      })
+    );
+  }
 
 }
