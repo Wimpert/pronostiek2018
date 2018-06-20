@@ -2,7 +2,7 @@
 <mat-sidenav-container class="content-container">
   <mat-sidenav mode="over" [opened]="sideNavOpen">
     <div (click)="sideNavToggled()" routerLink="/pronostiek" class="menu-item" routerLinkActive="active-link">Mijn Pronostiek</div>
-    <div (click)="sideNavToggled()" routerLink="/scores" class="menu-item" routerLinkActive="active-link">Scores</div>
+    <div (click)="sideNavToggled()" routerLink="/klassement" class="menu-item" routerLinkActive="active-link">Klassement</div>
     <div (click)="sideNavToggled()" routerLink="/codes" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Codes</div>
     <div (click)="sideNavToggled()" routerLink="/users" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Users</div>
     <div (click)="sideNavToggled()" routerLink="/overview" class="menu-item" routerLinkActive="active-link" *ngIf="userService.userIsAdmin$ | async">Overzicht</div>

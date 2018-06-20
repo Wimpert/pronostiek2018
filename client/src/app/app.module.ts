@@ -44,7 +44,7 @@ const appRoutes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'overview', component: OverviewComponent },
   { path: 'ref-pronostiek', component: RefPronostiekComponent },
-  { path: 'scores', component: ScoresComponent },
+  { path: 'klassement', component: ScoresComponent },
   { path: '**', component: PronostiekComponent }
 ];
 
