@@ -1,3 +1,3 @@
 <div *ngFor="let match of round.matches">
-  {{match.homeTeamName}} - {{match.outTeamName}}
+  <span [ngClass]="{'winner': match.homeTeamWins}">{{match.homeTeamName}}</span> - <span [ngClass]="{'winner': match.outTeamWins}">{{match.outTeamName}}</span>
 </div>
