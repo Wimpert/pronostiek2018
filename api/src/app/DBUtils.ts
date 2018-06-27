@@ -183,6 +183,9 @@ export class PronostiekUtils{
     }
 
     public static updateScores(req: Request, res: Response){
+
+        const pointsPerRound = [2, 3, 5, 7, 10];
+
         let refProno: Tournament;
         let allPronos: PronostiekViewModel[];
         let allUsers: User[];
@@ -194,13 +197,71 @@ export class PronostiekUtils{
         })
         .then((data: PronostiekViewModel[]) => {
             allPronos = data;
+
+            var teamsInRefProno: string[][] = [];
+
+            refProno.rounds.forEach((round, index) => {
+                var teams: string[] = [];
+                round.matches.forEach((match)=> {
+                    teams.push(match.homeTeamName, match.outTeamName);
+                });
+                teamsInRefProno.push(teams);
+                
+                if(index === 3){
+                    var winner: string[]=[];
+                    if(round.matches[0].homeTeamWins){
+                        winner.push(round.matches[0].homeTeamName);
+                    } else if(round.matches[0].outTeamWins){
+                        winner.push(round.matches[0].outTeamName);
+                    }
+                    teamsInRefProno.push(winner);
+                }
+                
+                
+            });
+
             for(let prono of allPronos){
                 let scoreToSave = {userId: prono.userId, firstName: prono.firstname, lastName: prono.lastname, score : 0};
+                
                 for(let matchToProcess of prono.matches){
                     scoreToSave.score =  scoreToSave.score + getScoreForMatch(matchToProcess, refProno);
                 }
+
+                prono.knockoutRounds.forEach((round, index) => {
+                    let points = pointsPerRound[index];
+                    let teamsInRoundInRefProno = teamsInRefProno[index];
+                    round.matches.forEach((match) => {
+                        let pointsForMatch = 0;
+                       
+                        
+                        
+                        if(match.homeTeamName !== undefined && teamsInRoundInRefProno.indexOf(match.homeTeamName) !== -1){
+                            pointsForMatch = pointsForMatch + points;
+                        }
+                        if(match.homeTeamName !== undefined && teamsInRoundInRefProno.indexOf(match.outTeamName) !== -1){
+                             pointsForMatch = pointsForMatch + points;
+                        }
+                        scoreToSave.score = scoreToSave.score + pointsForMatch;
+
+                        if(index === 3){
+                            //this is the final:
+                            if((match.homeTeamName !== undefined && match.homeTeamWins && teamsInRefProno[4].indexOf(match.homeTeamName)) 
+                            || (match.outTeamName !== undefined && match.outTeamWins && teamsInRefProno[4].indexOf(match.outTeamName))){
+                                //has the winner of the tournament correct:
+                                scoreToSave.score = scoreToSave.score + pointsPerRound[4];
+                            }
+                        }
+
+                    });
+                });
+
+
+
                 scoresToSave.push(scoreToSave);
+               
             }
+
+
 
             scoresToSave.sort(function(a,b){
                 return b.score - a.score;
