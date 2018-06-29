@@ -245,8 +245,8 @@ export class PronostiekUtils{
 
                         if(index === 3){
                             //this is the final:
-                            if((match.homeTeamName !== undefined && match.homeTeamWins && teamsInRefProno[4].indexOf(match.homeTeamName)) 
-                            || (match.outTeamName !== undefined && match.outTeamWins && teamsInRefProno[4].indexOf(match.outTeamName))){
+                            if((match.homeTeamName !== undefined && match.homeTeamWins && teamsInRefProno[4].indexOf(match.homeTeamName) !== -1) 
+                            || (match.outTeamName !== undefined && match.outTeamWins && teamsInRefProno[4].indexOf(match.outTeamName) !== -1)){
                                 //has the winner of the tournament correct:
                                 scoreToSave.score = scoreToSave.score + pointsPerRound[4];
                             }
